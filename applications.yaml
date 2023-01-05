@@ -8,9 +8,9 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/mjpitz/renovate-gitops.git
+    repoURL: https://github.com/dels78/homeops.git
     targetRevision: HEAD
-    path: applications/
+    path: argocd/applications
     directory:
       recurse: true
 

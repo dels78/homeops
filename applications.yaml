@@ -4,6 +4,8 @@ kind: Application
 metadata:
   namespace: argocd
   name: applications
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: github
 spec:
   project: default
 

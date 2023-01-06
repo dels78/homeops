@@ -1,18 +1,30 @@
 argo-cd:
   enabled: true
-#  configs:
-#    secret:
-#      # $ARGO_PWD=password
-#      # htpasswd -nbBC 10 "" $ARGO_PWD | tr -d ':\n' | sed 's/$2y/$2a/'
-#      argocdServerAdminPassword: "$2a$10$qsjuZNhoJR7UHv/v/CryaOe0wewDzzH.wP.j1YAVLqgBXWZImdQ/u"
-
-  controller:
-    clusterAdminAccess:
-      enabled: true
-
-  server:
-    extraArgs:
-      - --insecure
-    config:
-      repositories: |
-        - url: https://github.com/dels78/homeops.git
+  
+  ## Argo Configs
+  configs:
+    # Argo CD configuration parameters
+    ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/argocd-cmd-params-cm.yaml
+    params:
+      ## Server properties
+      # -- Run server without TLS
+      server.insecure: true
+  
+  ## Dex
+  dex:
+    # -- Enable dex
+    enabled: false
+  
+  
+  ## Notifications controller
+  notifications:
+    # -- Enable notifications controller
+    enabled: true
+  
+    # -- Configures notification services such as slack, email or custom webhook
+    # @default -- See [values.yaml]
+    ## For more information: https://argocd-notifications.readthedocs.io/en/stable/services/overview/
+    notifiers:
+      service.slack: |
+        token: $slack-token
+  

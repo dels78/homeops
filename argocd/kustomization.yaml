@@ -3,8 +3,8 @@ kind: Kustomization
 
 namespace: argocd
 
-resources:
-  - manifests/namespace.yaml
-  - manifests/argocd-cmd-params-cm.yaml
-  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.5.5/manifests/install.yaml
-  - manifests/ingress.yaml
+#resources:
+#  - manifests/namespace.yaml
+#  - manifests/argocd-cmd-params-cm.yaml
+#  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.5.5/manifests/install.yaml
+#  - manifests/ingress.yaml

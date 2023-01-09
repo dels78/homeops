@@ -23,13 +23,7 @@ spec:
     helm:
       releaseName: nfs-subdir-external-provisioner1
       valueFiles:
-        - values.yaml
-      values: |-
-        nfs:
-          server: 192.168.1.252
-          path: /volume1/k3s
-        storageClass:
-          name: nfs-argo
+        - values-nfs1.yaml
 
   destination:
     server: https://kubernetes.default.svc

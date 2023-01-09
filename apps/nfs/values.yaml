@@ -3,3 +3,5 @@ nfs-subdir-external-provisioner1:
   set: 
     nfs.server=192.168.1.252
     nfs.path=/volume1/k3s
+    storageClass.name=nfs-client1
+    storageClass.provisionerName=k8s-sigs.io/nfs-subdir-external-provisioner1

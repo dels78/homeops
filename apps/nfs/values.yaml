@@ -1,9 +1,2 @@
 nfs-subdir-external-provisioner1:
   enabled: true
-  set:  
-    nfs: 
-      server: 192.168.1.252
-      path: /volume1/k3s
-    storageClass:
-      name: nfs-client1
-      provisionerName: k8s-sigs.io/nfs-subdir-external-provisioner1

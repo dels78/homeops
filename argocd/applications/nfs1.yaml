@@ -24,12 +24,12 @@ spec:
       releaseName: nfs-subdir-external-provisioner1
       valueFiles:
         - values.yaml
-#      values: |-
-#        nfs:
-#          server: 192.168.1.252
-#          path: /volume1/k3s
-#        storageClass:
-#          name: nfs-argo
+      values: |-
+        nfs:
+          server: 192.168.1.252
+          path: /volume1/k3s
+        storageClass:
+          name: nfs-argo
 
   destination:
     server: https://kubernetes.default.svc

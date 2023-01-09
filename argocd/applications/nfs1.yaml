@@ -22,15 +22,6 @@ spec:
     path: apps/nfs/
     helm:
       releaseName: nfs-subdir-external-provisioner1
-      parameters:
-        - name: nfs.server
-          value: 192.168.1.253
-        - name: nfs.path
-          value: /volume1/plex
-        - name: storageClass.name
-          value: nfs-client1
-        - name: storageClass.provisionerName
-          value: k8s-sigs.io/nfs-subdir-external-provisioner1
 
   destination:
     server: https://kubernetes.default.svc

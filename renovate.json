@@ -3,6 +3,9 @@
   "extends": [
     "config:base"
   ],
+    "argocd": {
+      "fileMatch": ["argocd/applications/.+\\.yaml$"]
+    },
   "regexManagers": [
     {
       "description": "Process various other dependencies",

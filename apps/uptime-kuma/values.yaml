@@ -12,6 +12,3 @@ ingress:
                 name:  uptime-kuma
                 port:
                   number: 3001
-
-volume:
-  existingClaim: uptime-kuma-data

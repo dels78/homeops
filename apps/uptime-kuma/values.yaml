@@ -72,23 +72,16 @@ ingress:
         proxy_set_header   Upgrade $http_upgrade;
         proxy_cache_bypass $http_upgrade;
       }
-  hosts:
-  - host: uptime-kuma.delisle.me
-    http:
-      paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name:  uptime-kuma
-              port:
-                number: 3001
-
-  tls:
-    []
-    # - secretName: chart-example-tls
-    #   hosts:
-    #     - chart-example.local
+  host: uptime-kuma.delisle.me
+  http:
+    paths:
+    - path: /
+      pathType: Prefix
+      backend:
+        service:
+          name:  uptime-kuma
+          port:
+            number: 3001
 
   tls:
     []

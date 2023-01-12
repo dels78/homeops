@@ -1,0 +1,141 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homarr
+  labels:
+    app.kubernetes.io/instance: homarr
+    app.kubernetes.io/name: homarr
+spec:
+  revisionHistoryLimit: 3
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: homarr
+      app.kubernetes.io/instance: homarr
+  template:
+    metadata:
+      annotations: {}
+        
+      labels:
+        app.kubernetes.io/name: homarr
+        app.kubernetes.io/instance: homarr
+    spec:
+      
+      serviceAccountName: default
+      securityContext:
+          
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        runAsGroup: 568
+        runAsUser: 568
+        supplementalGroups:
+        - 568
+      dnsPolicy: ClusterFirst
+      dnsConfig:
+        options:
+          
+          - name: ndots
+            value: "1"
+      enableServiceLinks: false
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: homarr
+          image: ghcr.io/ajnart/homarr:latest
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              add: []
+              drop: []
+            privileged: false
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+        
+          env:
+            - name: PUID
+              value: "568"
+            - name: USER_ID
+              value: "568"
+            - name: UID
+              value: "568"
+            - name: UMASK
+              value: "2"
+            - name: UMASK_SET
+              value: "2"
+            - name: PGID
+              value: "568"
+            - name: GROUP_ID
+              value: "568"
+            - name: GID
+              value: "568"
+            - name: S6_READ_ONLY_ROOT
+              value: "1"
+            - name: NVIDIA_VISIBLE_DEVICES
+              value: "void"
+            - name: TZ
+              value: "UTC"
+            - name: "TZ"
+              value: "America/New_York"
+          ports:
+            - name: main
+              containerPort: 7575
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /app/data/configs
+              name: config
+            - mountPath: /app/public/icons
+              name: icons
+            - mountPath: /shared
+              name: shared
+            - mountPath: /tmp
+              name: temp
+            - mountPath: /var/logs
+              name: varlogs
+          livenessProbe:
+            tcpSocket:
+              port: 7575
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: 7575
+            initialDelaySeconds: 10
+            failureThreshold: 5
+            timeoutSeconds: 5
+            periodSeconds: 10
+          startupProbe:
+            tcpSocket:
+              port: 7575
+            initialDelaySeconds: 10
+            failureThreshold: 60
+            timeoutSeconds: 2
+            periodSeconds: 5
+          
+          resources:
+            limits:
+              cpu: 4000m
+              memory: 8Gi
+            requests:
+              cpu: 10m
+              memory: 50Mi
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: homarr-config
+        - name: icons
+          persistentVolumeClaim:
+            claimName: homarr-icons
+        - name: shared
+          emptyDir:
+            {}
+        - name: temp
+          emptyDir:
+            {}
+        - name: varlogs
+          emptyDir:
+            {}

@@ -13,23 +13,30 @@ metadata:
   # cascade deletes
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+
 spec:
   project: default
-
   source:
-    repoURL: https://github.com/dels78/homeops.git
-    targetRevision: HEAD
-    path: apps/nfs/
+    repoURL: 'https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/'
+    chart: nfs-subdir-external-provisioner
+    targetRevision: 4.0.17
     helm:
-      releaseName: nfs-subdir-external-provisioner1
       valueFiles:
-        - values-nfs1.yaml
+        - values.yaml
+      values: |-
+        nfs:
+          server: 192.168.1.252
+          path: /volume1/k3s
+        storageClass:
+          name: nfs-client1
 
   destination:
-    server: https://kubernetes.default.svc
+    server: 'https://kubernetes.default.svc'
     namespace: default
+
 
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+

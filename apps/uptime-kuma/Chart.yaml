@@ -1,9 +1,12 @@
 apiVersion: v2
-type: application
+appVersion: 1.19.4
+description: A self-hosted Monitoring tool like "Uptime-Robot".
+icon: https://raw.githubusercontent.com/louislam/uptime-kuma/master/public/icon.png
+maintainers:
+- email: dels@dels.info
+  name: dels78
 name: uptime-kuma
-version: 0.0.0 # unused
-appVersion: 0.0.0 # unused
-dependencies:
-  - name: uptime-kuma
-    repository: https://dirsigler.github.io/uptime-kuma-helm
-    version: 2.4.2
+sources:
+- https://github.com/louislam/uptime-kuma
+type: application
+version: 1.0.0

@@ -50,20 +50,20 @@ service:
   port: 3001
   nodePort:
   annotations: {}
+
 ingress:
   enabled: true
-
   hosts:
-    - host: uptime-kuma.delisle.me
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name:  uptime-kuma
-                port:
-                  number: 3001
+  - host: uptime-kuma.delisle.me
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name:  uptime-kuma
+              port:
+                number: 3001
   tls:
     []
     # - secretName: chart-example-tls

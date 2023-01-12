@@ -1,0 +1,37 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  namespace: argocd
+  name: uptime-kuma
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: github
+    notifications.argoproj.io/subscribe.on-sync-failed.slack: github
+    notifications.argoproj.io/subscribe.on-sync-status-unknown.slack: github
+    notifications.argoproj.io/subscribe.on-health-degraded.slack: github
+    notifications.argoproj.io/subscribe.on-deployed.slack: github
+  # cascade deletes
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
+spec:
+  project: default
+  source:
+    repoURL: 'https://dirsigler.github.io/uptime-kuma-helm'
+    chart: uptime-kuma
+    targetRevision: 2.4.2
+    helm:
+      releaseName: uptime-kuma
+      valueFiles: 
+        - app/uptime-kuma/values.yaml
+
+
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: uptime-kuma
+
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

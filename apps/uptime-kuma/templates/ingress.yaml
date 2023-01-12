@@ -40,7 +40,6 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    hosts:
     {{- range .Values.ingress.hosts }}
     - host: {{ .host | quote }}
       http:

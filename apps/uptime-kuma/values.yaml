@@ -1,0 +1,17 @@
+ingress:
+  enabled: true
+
+  hosts:
+    - host: uptime-kuma.delisle.me
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name:  uptime-kuma
+                port:
+                  number: 3001
+
+volume:
+  existingClaim: uptime-kuma-data

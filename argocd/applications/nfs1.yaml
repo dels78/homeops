@@ -22,6 +22,8 @@ spec:
     path: apps/nfs/
     helm:
       releaseName: nfs-subdir-external-provisioner1
+      valueFiles:
+        - values-nfs1.yaml
 
   destination:
     server: https://kubernetes.default.svc

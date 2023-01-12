@@ -1,22 +1,7 @@
-nfs-subdir-external-provisioner1:
-  enabled: false
+nfs: 
+  server: 192.168.1.252
+  path: /volume1/k3s
 
-  nfs: 
-    server: 192.168.1.252
-    path: /volume1/k3s
-
-  storageClass:
-    name: nfs-client1
-    provisionerName: k8s-sigs.io/nfs-subdir-external-provisioner1
-spec:
-  source:
-    helm:
-      parameters:
-        - name: nfs.server
-          value: 192.168.1.253
-        - name: nfs.path
-          value: /volume1/plex
-        - name: storageClass.name
-          value: nfs-client1
-        - name: storageClass.provisionerName
-          value: k8s-sigs.io/nfs-subdir-external-provisioner1
+storageClass:
+  name: nfs-client1
+  provisionerName: k8s-sigs.io/nfs-subdir-external-provisioner1

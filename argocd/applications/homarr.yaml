@@ -13,23 +13,21 @@ metadata:
   # cascade deletes
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+
 spec:
   project: default
-
   source:
     repoURL: https://github.com/dels78/homeops.git
     targetRevision: HEAD
     path: apps/homarr/
-    helm:
-      releaseName: homarr
-      valueFiles:
-        - values.yaml
 
   destination:
-    server: https://kubernetes.default.svc
+    server: 'https://kubernetes.default.svc'
     namespace: default
+
 
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+

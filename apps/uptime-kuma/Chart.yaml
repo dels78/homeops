@@ -1,0 +1,9 @@
+apiVersion: v2
+type: application
+name: uptime-kuma
+version: 0.0.0 # unused
+appVersion: 0.0.0 # unused
+dependencies:
+  - name: uptime-kuma
+    repository: https://dirsigler.github.io/uptime-kuma-helm
+    version: 2.4.2

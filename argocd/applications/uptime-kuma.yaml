@@ -17,13 +17,13 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://dirsigler.github.io/uptime-kuma-helm'
-    chart: uptime-kuma
-    targetRevision: 2.4.2
+    repoURL: https://github.com/dels78/homeops.git
+    targetRevision: HEAD
+    path: apps/uptime-kuma/
     helm:
       releaseName: uptime-kuma
       valueFiles: 
-        - app/uptime-kuma/values.yaml
+        - values.yaml
 
 
   destination:

@@ -111,7 +111,7 @@ volume:
   # storageClassName:
   # Reuse your own pre-existing PVC.
 
-  existingClaim: uptime-kuma-pvc
+  existingClaim: {}
 
 strategy:
   type: Recreate

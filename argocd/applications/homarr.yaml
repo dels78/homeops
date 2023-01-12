@@ -1,0 +1,35 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  namespace: default
+  name: homarr
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: github
+    notifications.argoproj.io/subscribe.on-sync-failed.slack: github
+    notifications.argoproj.io/subscribe.on-sync-status-unknown.slack: github
+    notifications.argoproj.io/subscribe.on-health-degraded.slack: github
+    notifications.argoproj.io/subscribe.on-deployed.slack: github
+  # cascade deletes
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/dels78/homeops.git
+    targetRevision: HEAD
+    path: apps/homarr/
+    helm:
+      releaseName: homarr
+      valueFiles:
+        - values.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

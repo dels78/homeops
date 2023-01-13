@@ -3,7 +3,9 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   namespace: argocd
+
   name: system-upgrade
+
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: github
     notifications.argoproj.io/subscribe.on-sync-failed.slack: github
@@ -13,6 +15,7 @@ metadata:
   # cascade deletes
   finalizers:
     - resources-finalizer.argocd.argoproj.io
+    
 spec:
   project: default
 

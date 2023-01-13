@@ -3,7 +3,9 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   namespace: argocd
+
   name: nfs-subdir-external-provisioner
+  
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: github
     notifications.argoproj.io/subscribe.on-sync-failed.slack: github
@@ -16,6 +18,7 @@ metadata:
 
 spec:
   project: default
+
   source:
     repoURL: 'https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/'
     chart: nfs-subdir-external-provisioner
@@ -33,7 +36,6 @@ spec:
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default
-
 
   syncPolicy:
     automated:

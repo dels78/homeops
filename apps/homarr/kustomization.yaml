@@ -12,7 +12,6 @@ resources:
 commonLabels:
   app.kubernetes.io/instance: homarr
   app.kubernetes.io/name: homarr
-  app.kubernetes.io/version: "0.10.5"
 
 images:
   - name: ajnart/homarr

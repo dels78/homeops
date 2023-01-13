@@ -43,7 +43,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
         - name: homarr
-          image: ghcr.io/ajnart/homarr:latest
+          image: ghcr.io/ajnart/homarr:0.10.7
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false

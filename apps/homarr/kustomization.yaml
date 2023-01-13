@@ -8,3 +8,8 @@ resources:
   - manifests/service.yaml
   - manifests/pvc.yaml
   - manifests/ingress.yaml
+
+images:
+  - name: ajnart/homarr
+    newName: ghcr.io/ajnart/homarr
+    newTag: v0.10.7

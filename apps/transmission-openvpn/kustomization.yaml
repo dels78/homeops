@@ -9,3 +9,8 @@ resources:
   - manifests/service.yaml
   - manifests/configmap.yaml
   - manifests/ingress.yaml
+
+images:
+  - name: transmissionimage
+    newName: haugene/transmission-openvpn
+    newTag: "4.3"

@@ -20,7 +20,7 @@
     },
     {
       "description": "update k8s labels",
-      "fileMatch": ["\\.yaml$"],
+      "fileMatch": ["apps/.+\\.ya?ml$"],
       "matchStrings": [
         "app\\.kubernetes\\.io\\/version: [\"]?(?<currentValue>.*?)[\"]?\n(?s).*image: [\"]?(?<depName>.*?):.*?[\"]?\n"
       ],

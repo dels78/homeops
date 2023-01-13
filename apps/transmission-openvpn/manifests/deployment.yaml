@@ -3,18 +3,13 @@ kind: Deployment
 metadata:
   annotations:
     deployment.kubernetes.io/revision: "3"
-    meta.helm.sh/release-name: transmission-openvpn
-    meta.helm.sh/release-namespace: default
-  creationTimestamp: "2022-08-21T16:18:46Z"
-  generation: 3
   labels:
     app.kubernetes.io/instance: transmission-openvpn
     app.kubernetes.io/name: transmission-openvpn
     app.kubernetes.io/version: "4.0"
   name: transmission-openvpn
   namespace: default
-  resourceVersion: "18870628"
-  uid: eac2dc77-5f0f-4ea9-9c26-d176e5a0f295
+
 spec:
   progressDeadlineSeconds: 600
   replicas: 1

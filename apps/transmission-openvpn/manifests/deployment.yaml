@@ -33,7 +33,7 @@ spec:
             name: transmission-openvpn
         - secretRef:
             name: transmission-openvpn
-        image: haugene/transmission-openvpn:4.0
+        image: haugene/transmission-openvpn:4.3
         imagePullPolicy: IfNotPresent
         name: transmission-openvpn
         ports:

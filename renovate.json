@@ -12,6 +12,9 @@
       "fileMatch": [
         "apps/.+\\.ya?ml$"
       ],
+        "kubernetes": {
+          "fileMatch": ["\\manifests/.+\\.yaml$"]
+        },
       "matchStrings": [
         "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n"
       ],

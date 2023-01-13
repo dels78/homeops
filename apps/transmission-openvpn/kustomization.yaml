@@ -14,3 +14,8 @@ images:
   - name: transmissionimage
     newName: haugene/transmission-openvpn
     newTag: "4.3"
+
+commonLabels:
+  app.kubernetes.io/instance: transmission-openvpn
+  app.kubernetes.io/name: transmission-openvpn
+  app.kubernetes.io/version: "4.2"

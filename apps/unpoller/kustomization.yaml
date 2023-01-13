@@ -6,3 +6,13 @@ namespace: default
 resources:
   - manifests/deployment.yaml
   - manifests/service.yaml
+
+images:
+  - name: unpollerimage
+    newName: ghcr.io/unpoller/unpoller
+    newTag: "v2.7.10"
+
+commonLabels:
+  app.kubernetes.io/instance: unpoller
+  app.kubernetes.io/name: unpoller
+  app.kubernetes.io/version: 2.1.3

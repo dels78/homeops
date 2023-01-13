@@ -6,9 +6,6 @@
     "argocd": {
       "fileMatch": ["argocd/applications/.+\\.yaml$"]
     },
-    "kubernetes": {
-      "fileMatch": ["apps/.+\\.yaml$"]
-    },
   "regexManagers": [
     {
       "description": "Process various other dependencies",
@@ -20,6 +17,13 @@
       ],
       "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
-    }
+    },
+    {
+      "description": "update k8s labels",
+      "fileMatch": ["\\.yaml$"],
+      "matchStrings": [
+        "app\\.kubernetes\\.io\\/version: [\"]?(?<currentValue>.*?)[\"]?\n(?s).*image: [\"]?(?<depName>.*?):.*?[\"]?\n"
+      ],
+      "datasourceTemplate": "docker"}
   ]
 }

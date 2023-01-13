@@ -3,9 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: homarr
-  labels:
-    app.kubernetes.io/instance: homarr
-    app.kubernetes.io/name: homarr
 spec:
   revisionHistoryLimit: 3
   replicas: 1

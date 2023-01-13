@@ -1,7 +1,6 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  generation: 1
   labels:
     app.kubernetes.io/instance: transmission-openvpn
     app.kubernetes.io/name: transmission-openvpn

@@ -18,4 +18,4 @@ images:
 commonLabels:
   app.kubernetes.io/instance: transmission-openvpn
   app.kubernetes.io/name: transmission-openvpn
-  app.kubernetes.io/version: "4.2"
+  app.kubernetes.io/version: "4.3"

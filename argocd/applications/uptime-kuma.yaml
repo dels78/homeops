@@ -3,7 +3,9 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   namespace: argocd
+
   name: uptime-kuma
+
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: github
     notifications.argoproj.io/subscribe.on-sync-failed.slack: github
@@ -16,6 +18,7 @@ metadata:
 
 spec:
   project: default
+  
   source:
     repoURL: https://github.com/dels78/homeops.git
     targetRevision: HEAD
@@ -25,11 +28,9 @@ spec:
       valueFiles: 
         - values.yaml
 
-
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: uptime-kuma
-
 
   syncPolicy:
     automated:

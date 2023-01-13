@@ -7,7 +7,7 @@
       "fileMatch": ["argocd/applications/.+\\.yaml$"]
     },
     "kubernetes": {
-      "fileMatch": ["\\manifests/.+\\.yaml$"]
+      "fileMatch": ["apps/.+\\.yaml$"]
     },
   "regexManagers": [
     {

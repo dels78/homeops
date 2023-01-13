@@ -54,10 +54,6 @@ spec:
           tcpSocket:
             port: http
           timeoutSeconds: 1
-        resources:
-          limits:
-            memory: 2000Mi
-            cpu: 4000m
         securityContext:
           capabilities:
             add:

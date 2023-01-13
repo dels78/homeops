@@ -1,0 +1,16 @@
+apiVersion: v1
+data:
+  CREATE_TUN_DEVICE: "true"
+  LOCAL_NETWORK: 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+  OPENVPN_CONFIG: dca-017
+  OPENVPN_OPTS: --inactive 3600 --ping 10 --ping-exit 60
+  OPENVPN_PROVIDER: PRIVADO
+  TRANSMISSION_SPEED_LIMIT_UP: "4096"
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: transmission-openvpn
+    app.kubernetes.io/name: transmission-openvpn
+    app.kubernetes.io/version: "4.0"
+  name: transmission-openvpn
+  namespace: default

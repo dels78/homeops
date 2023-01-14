@@ -15,4 +15,3 @@ images:
 commonLabels:
   app.kubernetes.io/instance: unpoller
   app.kubernetes.io/name: unpoller
-  app.kubernetes.io/version: 2.1.3

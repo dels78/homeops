@@ -7,11 +7,7 @@ metadata:
   name: uptime-kuma
 
   annotations:
-    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: github
-    notifications.argoproj.io/subscribe.on-sync-failed.slack: github
-    notifications.argoproj.io/subscribe.on-sync-status-unknown.slack: github
-    notifications.argoproj.io/subscribe.on-health-degraded.slack: github
-    notifications.argoproj.io/subscribe.on-deployed.slack: github
+    notifications.argoproj.io/subscribe.slack: github
   # cascade deletes
   finalizers:
     - resources-finalizer.argocd.argoproj.io

@@ -16,4 +16,5 @@ commonLabels:
 images:
   - name: ajnart/homarr
     newName: ghcr.io/ajnart/homarr
+    # renovate: datasource=docker image=hcr.io/ajnart/homarr
     newTag: 0.10.7

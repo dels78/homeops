@@ -6,5 +6,5 @@ appVersion: 0.0.0 # unused
 dependencies:
   - name: renovate
     repository: https://docs.renovatebot.com/helm-charts
-    version: 34.104.0
+    version: 34.105.3
     condition: renovate.enabled

@@ -13,6 +13,7 @@ resources:
 images:
   - name: transmissionimage
     newName: haugene/transmission-openvpn
+  # renovate: datasource=docker image=haugene/transmission-openvpn
     newTag: "4.3"
 
 commonLabels:

@@ -25,5 +25,12 @@
         "app\\.kubernetes\\.io\\/version: [\"]?(?<currentValue>.*?)[\"]?\n(?s).*image: [\"]?(?<depName>.*?):.*?[\"]?\n"
       ],
       "datasourceTemplate": "docker"}
+  ],
+  "packageRules": [
+    {
+      "description": "Automerge renovate",
+      "matchPaths": ["apps/renovate/.+\\.ya?ml$"],
+      "automerge": true
+    }
   ]
 }

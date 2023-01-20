@@ -1,9 +1,9 @@
+---
 renovate:
   enabled: true
   cronjob:
     # At 01:00 every day
     schedule: '0 1 * * *'
-    #schedule: '@hourly'
 
   renovate:
     # See https://docs.renovatebot.com/self-hosted-configuration

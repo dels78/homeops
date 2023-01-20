@@ -1,6 +1,9 @@
+---
+# yamllint disable rule:line-length
+
 argo-cd:
   enabled: true
-  
+
   ## Argo Configs
   configs:
     # Argo CD configuration parameters
@@ -9,27 +12,26 @@ argo-cd:
       ## Server properties
       # -- Run server without TLS
       server.insecure: true
-  
+
   ## Dex
   dex:
     # -- Enable dex
     enabled: false
-  
-  
+
   ## Notifications controller
   notifications:
     # -- Enable notifications controller
     enabled: true
-  
+
     # -- Configures notification services such as slack, email or custom webhook
     # @default -- See [values.yaml]
     ## For more information: https://argocd-notifications.readthedocs.io/en/stable/services/overview/
     notifiers:
       service.slack: |
         token: $slack-token
-    
-    templates: 
-     template.app-deployed: |
+
+    templates:
+      template.app-deployed: |
        email:
          subject: New version of an application {{.app.metadata.name}} is up and running.
        message: |
@@ -67,7 +69,7 @@ argo-cd:
              {{end}}
              ]
            }]
-     template.app-health-degraded: |
+      template.app-health-degraded: |
        email:
          subject: Application {{.app.metadata.name}} has degraded.
        message: |
@@ -101,7 +103,7 @@ argo-cd:
              {{end}}
              ]
            }]
-     template.app-sync-failed: |
+      template.app-sync-failed: |
        email:
          subject: Failed to sync application {{.app.metadata.name}}.
        message: |
@@ -135,7 +137,7 @@ argo-cd:
              {{end}}
              ]
            }]
-     template.app-sync-running: |
+      template.app-sync-running: |
        email:
          subject: Start syncing application {{.app.metadata.name}}.
        message: |
@@ -169,7 +171,7 @@ argo-cd:
              {{end}}
              ]
            }]
-     template.app-sync-status-unknown: |
+      template.app-sync-status-unknown: |
        email:
          subject: Application {{.app.metadata.name}} sync status is 'Unknown'
        message: |
@@ -208,7 +210,7 @@ argo-cd:
              {{end}}
              ]
            }]
-     template.app-sync-succeeded: |
+      template.app-sync-succeeded: |
        email:
          subject: Application {{.app.metadata.name}} has been successfully synced.
        message: |
@@ -246,44 +248,43 @@ argo-cd:
   # -- The trigger defines the condition when the notification should be sent
   ## For more information: https://argocd-notifications.readthedocs.io/en/stable/triggers/
     triggers:
-       trigger.on-deployed: |
+      trigger.on-deployed: |
          - description: Application is synced and healthy. Triggered once per commit.
            oncePer: app.status.sync.revision
            send:
            - app-deployed
            when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'
-       trigger.on-health-degraded: |
+      trigger.on-health-degraded: |
          - description: Application has degraded
            send:
            - app-health-degraded
            when: app.status.health.status == 'Degraded'
-       trigger.on-sync-failed: |
+      trigger.on-sync-failed: |
          - description: Application syncing has failed
            send:
            - app-sync-failed
            when: app.status.operationState.phase in ['Error', 'Failed']
-       trigger.on-sync-running: |
+      trigger.on-sync-running: |
          - description: Application is being synced
            send:
            - app-sync-running
            when: app.status.operationState.phase in ['Running']
-       trigger.on-sync-status-unknown: |
+      trigger.on-sync-status-unknown: |
          - description: Application status is 'Unknown'
            send:
            - app-sync-status-unknown
            when: app.status.sync.status == 'Unknown'
-       trigger.on-sync-succeeded: |
+      trigger.on-sync-succeeded: |
          - description: Application syncing has succeeded
            send:
            - app-sync-succeeded
            when: app.status.operationState.phase in ['Succeeded']
-      
-       #For more information: https://argocd-notifications.readthedocs.io/en/stable/triggers/#default-triggers
-       defaultTriggers: |
+
+       # For more information: https://argocd-notifications.readthedocs.io/en/stable/triggers/#default-triggers
+      defaultTriggers: |
          - on-sync-status-unknown
-         - on-sync-succeeded
+         # - on-sync-succeeded
          - on-sync-running
          - on-sync-failed
          - on-health-degraded
          - on-deployed
-  

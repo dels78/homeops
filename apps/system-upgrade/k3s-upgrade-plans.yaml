@@ -1,3 +1,4 @@
+---
 # Server plan
 apiVersion: upgrade.cattle.io/v1
 kind: Plan
@@ -11,20 +12,20 @@ spec:
   cordon: true
   nodeSelector:
     matchExpressions:
-    - key: node-role.kubernetes.io/master
-      operator: In
-      values:
-      - "true"
-    - {key: k3os.io/mode, operator: DoesNotExist}
-    - {key: k3s-upgrade, operator: NotIn, values: ["disabled", "false"]}
-    - key: kubernetes.io/arch
-      operator: In
-      values:
-      - "amd64"
+      - key: node-role.kubernetes.io/master
+        operator: In
+        values:
+          - "true"
+      - {key: k3os.io/mode, operator: DoesNotExist}
+      - {key: k3s-upgrade, operator: NotIn, values: ["disabled", "false"]}
+      - key: kubernetes.io/arch
+        operator: In
+        values:
+          - "amd64"
   serviceAccountName: system-upgrade
   tolerations:
-  - key: "node-role.kubernetes.io/master"
-    operator: "Exists"
+    - key: "node-role.kubernetes.io/master"
+      operator: "Exists"
   drain:
     force: true
   upgrade:

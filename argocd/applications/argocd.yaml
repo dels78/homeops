@@ -5,9 +5,9 @@ metadata:
   namespace: argocd
 
   name: argocd
-  
+
   annotations:
-    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: github
+    # notifications.argoproj.io/subscribe.on-sync-succeeded.slack: github
     notifications.argoproj.io/subscribe.on-sync-failed.slack: github
     notifications.argoproj.io/subscribe.on-sync-status-unknown.slack: github
     notifications.argoproj.io/subscribe.on-health-degraded.slack: github
@@ -37,4 +37,4 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true

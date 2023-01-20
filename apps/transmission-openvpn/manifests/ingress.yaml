@@ -1,3 +1,4 @@
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -5,13 +6,13 @@ metadata:
   namespace: default
 spec:
   rules:
-  - host: transmission.delisle.me
-    http:
-      paths:
-      - backend:
-          service:
-            name: transmission-openvpn
-            port:
-              number: 80
-        path: /
-        pathType: Prefix
+    - host: transmission.delisle.me
+      http:
+        paths:
+          - backend:
+              service:
+                name: transmission-openvpn
+              port:
+                number: 80
+            path: /
+            pathType: Prefix

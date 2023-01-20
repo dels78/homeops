@@ -25,7 +25,7 @@ spec:
         runAsGroup: 568
         runAsUser: 568
         supplementalGroups:
-        - 568
+          - 568
       dnsPolicy: ClusterFirst
       dnsConfig:
         options:

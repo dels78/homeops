@@ -9,10 +9,10 @@ spec:
   ipFamilyPolicy: SingleStack
 
   ports:
-  - port: 9130
-    targetPort: metrics
-    protocol: TCP
-    name: metrics
+    - port: 9130
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
   selector:
     app.kubernetes.io/name: unpoller
     app.kubernetes.io/instance: unpoller

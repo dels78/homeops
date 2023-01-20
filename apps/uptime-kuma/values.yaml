@@ -1,3 +1,5 @@
+---
+# yamllint disable rule:line-length
 # Default values for uptime-kuma.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
@@ -23,27 +25,27 @@ serviceAccount:
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
-  # If not set and create is true, a name is generated using the fullname template
+  # If not set and create is true, a name is generated using the template
   name: ""
 
 podAnnotations: {}
 podLabels: {}
-  # app: uptime-kuma
+# app: uptime-kuma
 podEnv:
   # a default port must be set. required by container
   - name: "UPTIME_KUMA_PORT"
     value: "3001"
 
 podSecurityContext: {}
-  # fsGroup: 2000
+# fsGroup: 2000
 
 securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+# capabilities:
+#   drop:
+#   - ALL
+# readOnlyRootFilesystem: true
+# runAsNonRoot: true
+# runAsUser: 1000
 
 service:
   type: ClusterIP
@@ -54,7 +56,7 @@ service:
 ingress:
   enabled: true
   extraLabels: {}
-    # vhost: uptime-kuma.company.corp
+  # vhost: uptime-kuma.company.corp
   annotations:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
@@ -75,11 +77,11 @@ ingress:
   host: uptime-kuma.delisle.me
   http:
     paths:
-    - path: /
-      pathType: Prefix
-      backend:
+      - path: /
+        pathType: Prefix
+        backend:
         service:
-          name:  uptime-kuma
+          name: uptime-kuma
           port:
             number: 3001
 
@@ -90,6 +92,7 @@ ingress:
     #     - chart-example.local
 
 resources: {}
+# yamllint disable-line rule:comments-indentation
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -130,7 +133,7 @@ volume:
   # storageClassName:
   # Reuse your own pre-existing PVC.
 
-  #existingClaim: {}
+  # existingClaim: {}
 
 strategy:
   type: Recreate

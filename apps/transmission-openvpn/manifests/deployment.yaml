@@ -29,9 +29,9 @@ spec:
       containers:
         - envFrom:
             - configMapRef:
-              name: transmission-openvpn
+                name: transmission-openvpn
             - secretRef:
-              name: transmission-openvpn
+                name: transmission-openvpn
           image: transmissionimage
           imagePullPolicy: IfNotPresent
           name: transmission-openvpn

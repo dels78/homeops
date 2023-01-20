@@ -1,5 +1,6 @@
 ---
 name: 'Yamllint GitHub Actions'
+# yamllint disable-line rule:truthy
 on:
   - pull_request
 jobs:

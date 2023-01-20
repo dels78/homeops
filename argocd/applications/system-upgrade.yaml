@@ -7,7 +7,7 @@ metadata:
   name: system-upgrade
 
   annotations:
-    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: github
+    # notifications.argoproj.io/subscribe.on-sync-succeeded.slack: github
     notifications.argoproj.io/subscribe.on-sync-failed.slack: github
     notifications.argoproj.io/subscribe.on-sync-status-unknown.slack: github
     notifications.argoproj.io/subscribe.on-health-degraded.slack: github
@@ -15,7 +15,7 @@ metadata:
   # cascade deletes
   finalizers:
     - resources-finalizer.argocd.argoproj.io
-    
+
 spec:
   project: default
 
@@ -33,4 +33,4 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true

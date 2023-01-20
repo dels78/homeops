@@ -1,5 +1,5 @@
 ---
-name: 'Yamllint GitHub Actions'
+name: Frenck's yamllint
 # yamllint disable-line rule:truthy
 on:
   - pull_request
@@ -11,4 +11,4 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@master
       - name: 'Yamllint'
-        uses: karancode/yamllint-github-action@master
+        uses: frenck/action-yamllint@v1.4.0

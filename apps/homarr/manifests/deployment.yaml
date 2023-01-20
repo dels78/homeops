@@ -15,25 +15,25 @@ spec:
   template:
     metadata:
       annotations: {}
-        
+
       labels:
         app.kubernetes.io/name: homarr
         app.kubernetes.io/instance: homarr
     spec:
-      
+
       serviceAccountName: default
       securityContext:
-          
+
         fsGroup: 568
         fsGroupChangePolicy: OnRootMismatch
         runAsGroup: 568
         runAsUser: 568
         supplementalGroups:
-        - 568
+          - 568
       dnsPolicy: ClusterFirst
       dnsConfig:
         options:
-          
+
           - name: ndots
             value: "1"
       enableServiceLinks: false
@@ -50,7 +50,7 @@ spec:
             privileged: false
             readOnlyRootFilesystem: true
             runAsNonRoot: true
-        
+
           env:
             - name: PUID
               value: "568"
@@ -112,7 +112,7 @@ spec:
             failureThreshold: 60
             timeoutSeconds: 2
             periodSeconds: 5
-          
+
           resources:
             limits:
               cpu: 4000m

@@ -9,3 +9,4 @@ ignore: |
 
   # folders
   */templates/
+  */*/templates/

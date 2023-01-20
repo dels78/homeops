@@ -40,12 +40,12 @@ spec:
               name: http
               protocol: TCP
           readinessProbe:
-          failureThreshold: 3
-          periodSeconds: 10
-          successThreshold: 1
-          tcpSocket:
-            port: http
-          timeoutSeconds: 1
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: http
+            timeoutSeconds: 1
           securityContext:
             capabilities:
               add:

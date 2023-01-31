@@ -29,7 +29,7 @@
   "packageRules": [
     {
       "description": "Automerge renovate",
-      "matchPaths": ["apps/renovate/.+\\.ya?ml$"],
+      "matchPackageNames": ["renovate"],
       "automerge": true
     }
   ]

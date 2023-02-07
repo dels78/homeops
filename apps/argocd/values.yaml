@@ -250,7 +250,7 @@ argo-cd:
     triggers:
       trigger.on-deployed: |
          - description: Application is synced and healthy. Triggered once per commit.
-           oncePer: app.status.sync.revision
+           oncePer: app.status.operationState.syncResult.revision
            send:
            - app-deployed
            when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'
@@ -283,7 +283,7 @@ argo-cd:
        # For more information: https://argocd-notifications.readthedocs.io/en/stable/triggers/#default-triggers
       defaultTriggers: |
          - on-sync-status-unknown
-         # - on-sync-succeeded
+         - on-sync-succeeded
          - on-sync-running
          - on-sync-failed
          - on-health-degraded

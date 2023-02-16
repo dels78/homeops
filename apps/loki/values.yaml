@@ -5,3 +5,7 @@ loki:
     enabled: true
     size: 200Gi
     storageClassName: nfs-client
+  commonConfig:
+    replication_factor: 1
+  storage:
+    type: 'filesystem'

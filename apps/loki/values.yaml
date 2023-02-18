@@ -1,3 +1,6 @@
 ---
-global:
-  storageClass: nfs-client
+loki:
+  commonConfig:
+    replication_factor: 1
+  storage:
+    type: 'filesystem'

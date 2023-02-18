@@ -1,6 +1,3 @@
 ---
-loki:
-  commonConfig:
-    replication_factor: 1
-  storage:
-    type: 'filesystem'
+global:
+  storageClass: nfs-client

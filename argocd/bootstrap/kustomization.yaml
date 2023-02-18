@@ -8,5 +8,5 @@ namespace: argocd
 #  - manifests/namespace.yaml
 #  - manifests/argocd-cmd-params-cm.yaml
 # yamllint disable-line rule:line-length
-#  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.5.5/manifests/install.yaml
+#  - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 #  - manifests/ingress.yaml

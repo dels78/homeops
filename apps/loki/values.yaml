@@ -1,10 +1,5 @@
 ---
 loki:
-  isDefault: false
-  persistence:
-    enabled: true
-    size: 200Gi
-    storageClassName: nfs-client
   commonConfig:
     replication_factor: 1
   storage:

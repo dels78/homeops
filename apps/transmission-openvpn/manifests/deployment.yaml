@@ -19,9 +19,6 @@ spec:
     type: Recreate
   template:
     metadata:
-      annotations:
-        checksum/configmap: 11d34825492dae30125d389554422cb351019f7013990a5c50b742bda0561810
-        checksum/secret: d798f11a095a21019d5fa4a108bf073c3a10724ad0e28dab431bc41cc3789546
       labels:
         app.kubernetes.io/instance: transmission-openvpn
         app.kubernetes.io/name: transmission-openvpn

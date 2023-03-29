@@ -30,8 +30,8 @@
     {
       "description": "Automerge renovate",
       "matchPackageNames": ["renovate"],
-      "automerge": true
-      "automergeType": "pr"
+      "automerge": true,
+      "automergeType": "branch",
       "platformAutomerge": true
     }
   ]

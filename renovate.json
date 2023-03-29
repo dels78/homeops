@@ -31,6 +31,8 @@
       "description": "Automerge renovate",
       "matchPackageNames": ["renovate"],
       "automerge": true
+      "automergeType": "pr"
+      "platformAutomerge": true
     }
   ]
 }

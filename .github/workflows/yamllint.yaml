@@ -2,7 +2,10 @@
 name: Frenck's yamllint
 # yamllint disable-line rule:truthy
 on:
-  - pull_request
+  pull_request:
+  push:
+      branches:
+        'renovate/**'
 jobs:
   yamllint:
     name: 'Yamllint'

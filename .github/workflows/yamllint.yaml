@@ -5,7 +5,7 @@ on:
   pull_request:
   push:
       branches:
-        'renovate/**'
+      - 'renovate/**'
 jobs:
   yamllint:
     name: 'Yamllint'

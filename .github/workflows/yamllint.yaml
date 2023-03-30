@@ -4,8 +4,8 @@ name: Frenck's yamllint
 on:
   pull_request:
   push:
-      branches:
-      - 'renovate/**'
+    branches:
+    - 'renovate/**'
 jobs:
   yamllint:
     name: 'Yamllint'

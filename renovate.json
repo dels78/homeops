@@ -28,8 +28,8 @@
   ],
   "packageRules": [
     {
-      "description": "Automerge renovate",
-      "matchPackageNames": ["renovate"],
+      "description": "Automerge",
+      "matchPackageNames": ["renovate", "argo-cd"],
       "automerge": true,
       "automergeType": "pr",
       "platformAutomerge": true

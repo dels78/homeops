@@ -2,3 +2,4 @@ ingress:
   enabled: true
   hosts:
     - k8sdash.delisle.me
+    

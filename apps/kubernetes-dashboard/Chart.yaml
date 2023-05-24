@@ -7,5 +7,5 @@ appVersion: 0.0.0  # unused
 dependencies:
   - name: kubernetes-dashboard
     repository: https://kubernetes.github.io/dashboard/
-    version: 6.0.7
+    version: 6.0.8
     condition: kubernetes-dashboard.enabled

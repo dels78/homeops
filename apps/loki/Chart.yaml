@@ -7,5 +7,5 @@ appVersion: 0.0.0  # unused
 dependencies:
   - name: loki
     repository: https://grafana.github.io/helm-charts
-    version: 5.5.2
+    version: 5.5.4
     condition: loki.enabled

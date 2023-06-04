@@ -5,15 +5,15 @@ kind: Kustomization
 namespace: argocd
 
 resources:
-- github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v2.7.1
-- namespace.yaml
+  - github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v2.7.1
+  - namespace.yaml
 
 patches:
-- path: argo-cm.yaml
-  target:
-    kind: ConfigMap
-    name: argocd-cm
-- path: argocd-lovely-plugin.yaml
-  target:
-    kind: Deployment
-    name: argocd-repo-server
+  - path: argo-cm.yaml
+    target:
+      kind: ConfigMap
+      name: argocd-cm
+  - path: argocd-lovely-plugin.yaml
+    target:
+      kind: Deployment
+      name: argocd-repo-server

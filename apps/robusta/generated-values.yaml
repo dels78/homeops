@@ -3,11 +3,11 @@ globalConfig:
   signing_key: 591f0830-6a57-44b6-b756-1286c45d3b6d
   account_id: a594e0fc-f7a6-47da-8f7e-07d4ee525fa7
 sinksConfig:
-- slack_sink:
+  - slack_sink:
     name: main_slack_sink
     slack_channel: monitoring
     api_key: xoxb-19396431730-5392536140224-Vum8oFzcMsR0fNrHDCr5nbfs
-- robusta_sink:
+  - robusta_sink:
     name: robusta_ui_sink
     token: eyJhY2NvdW50X2lkIjogImE1OTRlMGZjLWY3YTYtNDdkYS04ZjdlLTA3ZDRlZTUyNWZhNyIsICJhcGlfa2V5IjogImV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUp5YjJ4bElqb2lZVzV2YmlJc0ltbGhkQ0k2TVRZeU5ERTNNalF5TkN3aVpYaHdJam94T1RNNU56UTROREkwZlEuaFJMdjZQQW54MWNhdkR3bC1pWXlnQXJINHFBMERWSFluckQ3MUFzcXFQdyIsICJzdG9yZV91cmwiOiAiaHR0cHM6Ly94dnlocG94Zm10cHVxcWV5cWtzby5zdXBhYmFzZS5jbyIsICJlbWFpbCI6ICJhcGl1c2VyLXBlcnNvLTcyNDAxMEByb2J1c3RhLmRldiIsICJwYXNzd29yZCI6ICJmNmRjM2QwMi0xYjBhLTRkYjctODNlNS02MzQ0YTc2NmY3YmUifQ==
 enablePrometheusStack: true

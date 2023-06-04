@@ -8,6 +8,10 @@ resources:
   - github.com/argoproj/argo-cd/manifests/ha/cluster-install?ref=v2.7.3
   - namespace.yaml
 
+images:
+  - name: ghcr.io/crumbhole/argocd-lovely-plugin-cmp
+    newTag: 0.19.0
+
 patches:
   - path: argo-cm.yaml
     target:

@@ -1,4 +1,6 @@
 ---
+clusterName: homeops
+isSmallCluster: true
 globalConfig:
   signing_key: 591f0830-6a57-44b6-b756-1286c45d3b6d
   account_id: a594e0fc-f7a6-47da-8f7e-07d4ee525fa7

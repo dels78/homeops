@@ -23,6 +23,10 @@ spec:
     repoURL: https://github.com/dels78/homeops.git
     targetRevision: HEAD
     path: apps/robusta/
+    helm:
+      releaseName: robusta
+      valueFiles:
+        - values.yaml
 
   destination:
     server: https://kubernetes.default.svc

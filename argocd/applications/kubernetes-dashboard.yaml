@@ -25,11 +25,9 @@ spec:
     path: apps/kubernetes-dashboard/
     plugin:
       name: argocd-lovely-plugin
-    helm:
-      releaseName: kubernetes-dashboard
-      valueFiles:
-        - values.yaml
-
+      env:
+        - name: LOVELY_HELM_VALUES
+          value: "values.yaml"
   destination:
     server: https://kubernetes.default.svc
     namespace: default

@@ -1,4 +1,9 @@
 ---
+ingress:
+  enabled: true
+  hosts:
+    - k8sdash.delisle.me
+
 ## Additional container arguments
 ##
 extraArgs:

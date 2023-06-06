@@ -23,8 +23,10 @@ spec:
     repoURL: https://github.com/dels78/homeops.git
     targetRevision: HEAD
     path: apps/kubernetes-dashboard/
-    plugin:
-      name: argocd-lovely-plugin
+    helm:
+      releaseName: kubernetes-dashboard
+      valueFiles:
+        - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: default

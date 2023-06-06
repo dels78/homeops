@@ -33,6 +33,7 @@ spec:
           path: /volume1/k3s
         storageClass:
           name: nfs-client
+          defaultClass: true
 
   destination:
     server: 'https://kubernetes.default.svc'

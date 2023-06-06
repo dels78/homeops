@@ -1,7 +1,7 @@
 ---
 robusta:
   enabled: true
-  clusterName: homeops
+  clusterName: perso
   isSmallCluster: true
   globalConfig:
     signing_key: 591f0830-6a57-44b6-b756-1286c45d3b6d

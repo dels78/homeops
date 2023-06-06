@@ -1,11 +1,11 @@
 ---
-loki:
-  enabled: true
+#loki:
+#  enabled: true
   #  actual values for loki
-  loki:
-    commonConfig:
-      replication_factor: 1
-    storage:
-      type: 'filesystem'
-  singleBinary:
-    replicas: 1
+loki:
+  commonConfig:
+    replication_factor: 1
+  storage:
+    type: 'filesystem'
+singleBinary:
+  replicas: 1

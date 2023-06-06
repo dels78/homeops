@@ -12,6 +12,8 @@ argo-cd:
       ## Server properties
       # -- Run server without TLS
       server.insecure: true
+      # -- repo server timeout
+      controller.repo.server.timeout.seconds: 120
 
   ## Dex
   dex:

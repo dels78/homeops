@@ -1,7 +1,8 @@
+---
 robusta:
   kube-prometheus-stack:
-  grafana:
-    ingress:
-      enabled: true
-      hosts:
-        - grafana.delisle.me
+    grafana:
+      ingress:
+        enabled: true
+        hosts:
+          - grafana.delisle.me

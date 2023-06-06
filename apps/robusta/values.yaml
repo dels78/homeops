@@ -31,3 +31,13 @@ robusta:
         enabled: true
         hosts:
           - alertmanager.delisle.me
+
+    # k3s specific
+    kubeApiServer:
+      enabled: true
+    kubeControllerManager:
+      enabled: false
+    kubeScheduler:
+      enabled: false
+    kubeEtcd:
+      enabled: false

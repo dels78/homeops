@@ -27,6 +27,7 @@ spec:
       releaseName: robusta
       valueFiles:
         - generated-values.yaml
+        - values.yaml
 
   destination:
     server: https://kubernetes.default.svc

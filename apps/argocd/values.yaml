@@ -51,6 +51,10 @@ argo-cd:
     # -- Enable notifications controller
     enabled: true
 
+    # -- Do not create the secret
+    secret:
+      create: false
+
     # -- Configures notification services such as slack, email or custom webhook
     # @default -- See [values.yaml]
     ## For more information: https://argocd-notifications.readthedocs.io/en/stable/services/overview/

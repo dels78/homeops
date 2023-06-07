@@ -15,16 +15,10 @@ robusta:
         hosts:
           - prometheus.delisle.me
       prometheusSpec:
-        additionalScrapeConfigs:
-          - job_name: "homeassistant"
-            scrape_interval: 60s
-            metrics_path: /api/prometheus
-            # Long-Lived Access Token
-            authorization:
-              credentials: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI3NDRjZDQ2ZmNiMWM0NmU4ODlmODg2MjRjNGNmNWI4OCIsImlhdCI6MTY2MTQ3NTk3OCwiZXhwIjoxOTc2ODM1OTc4fQ.v9oy-1Uiu-7kuX9vxvr4qmYhE2OshyH4TCJojoSeKw0"
-            scheme: https
-            static_configs:
-              - targets: ['home.dels.info']
+        additionalScrapeConfigsSecret:
+          enabled: true
+          name: prometheus-additional-scrape-configs
+          key: additional-scrape-configs.yaml
     #  alertmanager
     alertmanager:
       ingress:

@@ -1,0 +1,12 @@
+connect:
+  enabled: true
+  #  values for connect
+  connect:
+    credentialsName: op-credentials
+    credentialsKey: 1password-credentials.json
+    # install the operator
+  operator:
+    create: true
+    token:
+      name: op-token
+      key: token

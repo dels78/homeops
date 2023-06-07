@@ -4,7 +4,6 @@ robusta:
   kube-prometheus-stack:
     #  grafana ingress
     grafana:
-      adminPassword: dummy
       ingress:
         enabled: true
         hosts:

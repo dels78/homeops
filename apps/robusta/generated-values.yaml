@@ -18,6 +18,3 @@ robusta:
   enablePlatformPlaybooks: true
   runner:
     sendAdditionalTelemetry: false
-  rsa:
-    private: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/46gjjkrum5jogfxzpejrrd6bam#rsa_private | base64encode>
-    public: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/46gjjkrum5jogfxzpejrrd6bam#rsa_public | base64encode>

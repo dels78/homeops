@@ -26,7 +26,7 @@ data:
         command:
           - sh
           - "-c"
-          - "kustomize build . | argocd-vault-plugin generate -s argocd-vault-plugin-credentials -"
+          - "kustomize build . | argocd-vault-plugin generate -"
       lockRepo: false
   avp-helm.yaml: |
     ---
@@ -54,7 +54,7 @@ data:
           - "-c"
           - |
             helm template $ARGOCD_APP_NAME -n $ARGOCD_APP_NAMESPACE ${ARGOCD_ENV_HELM_ARGS} . |
-            argocd-vault-plugin generate -s argocd-vault-plugin-credentials -
+            argocd-vault-plugin generate --verbose-sensitive-output -
       lockRepo: false
   avp.yaml: |
     apiVersion: argoproj.io/v1alpha1
@@ -72,7 +72,7 @@ data:
       generate:
         command:
           - argocd-vault-plugin
-          - "generate -s argocd-vault-plugin-credentials"
+          - "generate"
           - "."
       lockRepo: false
 ---

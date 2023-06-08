@@ -33,6 +33,10 @@ argo-cd:
         resources:
           - secrets
           - configmaps
+    # -- load env from secret
+    envFrom:
+    - secretRef:
+        name: argocd-vault-plugin-credentials
     # -- init container to download vault plugin
     initContainers:
       - name: download-tools

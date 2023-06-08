@@ -162,10 +162,13 @@ argo-cd:
       # A temporary directory for the lovely plugin to work in.
       - emptyDir: {}
         name: lovely-tmp
+      # Volumes for cmp-plugins
       - configMap:
           name: cmp-plugin
         name: cmp-plugin
       - name: custom-tools
+        emptyDir: {}
+      - name: tmp
         emptyDir: {}
 
   ## Notifications controller

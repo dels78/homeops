@@ -23,6 +23,8 @@ spec:
     repoURL: https://github.com/dels78/homeops.git
     targetRevision: HEAD
     path: apps/system-upgrade/
+    plugin:
+      name: argocd-vault-plugin-kustomize
 
   destination:
     server: https://kubernetes.default.svc

@@ -74,13 +74,13 @@ spec:
             - name: "UP_PROMETHEUS_DISABLE"
               value: "false"
             - name: "UP_UNIFI_DEFAULT_PASS"
-              value: "Un1f1p0ll3r"
+              value: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/wmfmqfligftdpikpwzgcsm4uwa#up-unifi-default-pass>
             - name: "UP_UNIFI_DEFAULT_SAVE_SITES"
               value: "true"
             - name: "UP_UNIFI_DEFAULT_SITE_0"
               value: "default"
             - name: "UP_UNIFI_DEFAULT_URL"
-              value: "https://192.168.1.1:443"
+              value: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/wmfmqfligftdpikpwzgcsm4uwa#url>
           ports:
             - name: metrics
               containerPort: 9130

@@ -35,8 +35,8 @@ argo-cd:
           - configmaps
     # -- load env from secret
     envFrom:
-    - secretRef:
-        name: argocd-vault-plugin-credentials
+      - secretRef:
+          name: argocd-vault-plugin-credentials
     # -- init container to download vault plugin
     initContainers:
       - name: download-tools
@@ -63,6 +63,9 @@ argo-cd:
         securityContext:
           runAsNonRoot: true
           runAsUser: 999
+        envFrom:
+          - secretRef:
+              name: argocd-vault-plugin-credentials
         volumeMounts:
           - mountPath: /var/run/argocd
             name: var-files
@@ -70,7 +73,6 @@ argo-cd:
             name: plugins
           - mountPath: /tmp
             name: tmp
-
           # Register plugins into sidecar
           - mountPath: /home/argocd/cmp-server/config/plugin.yaml
             subPath: avp-helm.yaml
@@ -88,6 +90,9 @@ argo-cd:
         securityContext:
           runAsNonRoot: true
           runAsUser: 999
+        envFrom:
+          - secretRef:
+              name: argocd-vault-plugin-credentials
         volumeMounts:
           - mountPath: /var/run/argocd
             name: var-files
@@ -113,6 +118,9 @@ argo-cd:
         securityContext:
           runAsNonRoot: true
           runAsUser: 999
+        envFrom:
+          - secretRef:
+              name: argocd-vault-plugin-credentials
         volumeMounts:
           - mountPath: /var/run/argocd
             name: var-files

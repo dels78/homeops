@@ -23,6 +23,7 @@ spec:
     repoURL: https://github.com/dels78/homeops.git
     targetRevision: HEAD
     path: apps/unpoller/
+    plugin: {}
 
   destination:
     server: https://kubernetes.default.svc

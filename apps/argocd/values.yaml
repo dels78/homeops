@@ -149,7 +149,7 @@ argo-cd:
         image: ghcr.io/crumbhole/argocd-lovely-plugin-cmp:0.19.1
         env:
           - name: LOVELY_PLUGINS
-            value: avp-helm, avp-kustomize, avp
+            value: argocd-vault-plugin-kustomize, argocd-vault-plugin-helm, argocd-vault-plugin
         securityContext:
           runAsNonRoot: true
           runAsUser: 999

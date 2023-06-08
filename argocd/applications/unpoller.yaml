@@ -24,7 +24,7 @@ spec:
     targetRevision: HEAD
     path: apps/unpoller/
     plugin:
-      name: argocd-vault-plugin-kustomize
+      name: lovely-plugin
 
   destination:
     server: https://kubernetes.default.svc

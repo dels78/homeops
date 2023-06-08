@@ -59,7 +59,7 @@ argo-cd:
       # -- argocd-vault-plugin with Helm
       - name: avp-helm
         command: [/var/run/argocd/argocd-cmp-server]
-        image: quay.io/argoproj/argocd:v2.4.0
+        image: quay.io/argoproj/argocd:v2.7.4
         securityContext:
           runAsNonRoot: true
           runAsUser: 999
@@ -86,7 +86,7 @@ argo-cd:
       # argocd-vault-plugin with Kustomize
       - name: avp-kustomize
         command: [/var/run/argocd/argocd-cmp-server]
-        image: quay.io/argoproj/argocd:v2.4.0
+        image: quay.io/argoproj/argocd:v2.7.4
         securityContext:
           runAsNonRoot: true
           runAsUser: 999
@@ -114,7 +114,7 @@ argo-cd:
       # argocd-vault-plugin with plain YAML
       - name: avp
         command: [/var/run/argocd/argocd-cmp-server]
-        image: quay.io/argoproj/argocd:v2.4.0
+        image: quay.io/argoproj/argocd:v2.7.4
         securityContext:
           runAsNonRoot: true
           runAsUser: 999

@@ -18,9 +18,9 @@ commonLabels:
   app.kubernetes.io/instance: system-upgrade-controller
 patches:
   # Delete namespace resource
-  - |
-    $patch: delete
-    apiVersion: v1
-    kind: Namespace
-    metadata:
-      name: {{install.upgrade_controller.namespace}}
+  - patch: |
+      $patch: delete
+      apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: {{install.upgrade_controller.namespace}}

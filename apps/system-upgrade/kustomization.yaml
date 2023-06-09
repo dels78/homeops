@@ -16,11 +16,11 @@ images:
 commonLabels:
   app.kubernetes.io/name: system-upgrade-controller
   app.kubernetes.io/instance: system-upgrade-controller
-# patchesStrategicMerge:
-#   # Delete namespace resource
-#   - |
-#     $patch: delete
-#     apiVersion: v1
-#     kind: Namespace
-#     metadata:
-#       name: {{install.upgrade_controller.namespace}}
+patches:
+  # Delete namespace resource
+  - |
+    $patch: delete
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: {{install.upgrade_controller.namespace}}

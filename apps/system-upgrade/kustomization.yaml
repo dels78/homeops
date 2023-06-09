@@ -23,6 +23,7 @@ patches:
       apiVersion: v1
       kind: Namespace
       metadata:
-        name: {{install.upgrade_controller.namespace}}
-    target:
-      kind: Namespace
+        name: system-upgrade
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+

@@ -25,6 +25,8 @@ spec:
     path: apps/robusta/
     plugin:
       name: argocd-lovely-plugin
+      env:
+        - LOVELY_HELM_VAUES: generated-values.yaml values.yaml
 
   destination:
     server: https://kubernetes.default.svc

@@ -149,7 +149,7 @@ argo-cd:
         image: ghcr.io/crumbhole/argocd-lovely-plugin-cmp:0.19.1
         env:
           - name: LOVELY_PLUGINS
-            value: argocd-vault-plugin-kustomize, argocd-vault-plugin-helm, argocd-vault-plugin
+            value: argocd-vault-plugin generate -
         securityContext:
           runAsNonRoot: true
           runAsUser: 999
@@ -163,6 +163,11 @@ argo-cd:
             # mitigate path traversal attacks.
           - mountPath: /tmp
             name: lovely-tmp
+          # Important: Mount tools into $PATH
+          - name: custom-tools
+            subPath: argocd-vault-plugin
+            mountPath: /usr/local/bin/argocd-vault-plugin
+
     volumes:
       # A temporary directory for the lovely plugin to work in.
       - emptyDir: {}

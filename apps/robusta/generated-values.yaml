@@ -18,3 +18,4 @@ robusta:
   enablePlatformPlaybooks: true
   runner:
     sendAdditionalTelemetry: false
+---

@@ -150,6 +150,9 @@ argo-cd:
         env:
           - name: LOVELY_PLUGINS
             value: argocd-vault-plugin generate -
+        envFrom:
+          - secretRef:
+              name: argocd-vault-plugin-credentials
         securityContext:
           runAsNonRoot: true
           runAsUser: 999

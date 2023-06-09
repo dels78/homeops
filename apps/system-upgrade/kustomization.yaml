@@ -24,3 +24,5 @@ patches:
       kind: Namespace
       metadata:
         name: {{install.upgrade_controller.namespace}}
+    target:
+      kind: Namespace

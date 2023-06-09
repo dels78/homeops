@@ -24,5 +24,3 @@ patches:
       kind: Namespace
       metadata:
         name: system-upgrade
-        labels:
-          pod-security.kubernetes.io/enforce: privileged

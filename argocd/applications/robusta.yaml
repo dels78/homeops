@@ -23,11 +23,8 @@ spec:
     repoURL: https://github.com/dels78/homeops.git
     targetRevision: HEAD
     path: apps/robusta/
-    helm:
-      releaseName: robusta
-      valueFiles:
-        - generated-values.yaml
-        - values.yaml
+    plugin:
+      name: argocd-lovely-plugin
 
   destination:
     server: https://kubernetes.default.svc

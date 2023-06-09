@@ -18,7 +18,7 @@ commonLabels:
   app.kubernetes.io/instance: system-upgrade-controller
 patches:
   # Delete namespace resource
-  - patch: |
+  - patch: |-
       $patch: delete
       apiVersion: v1
       kind: Namespace
@@ -26,4 +26,3 @@ patches:
         name: system-upgrade
         labels:
           pod-security.kubernetes.io/enforce: privileged
-

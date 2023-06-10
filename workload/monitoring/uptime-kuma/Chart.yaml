@@ -1,0 +1,14 @@
+---
+apiVersion: v2
+appVersion: 1.19.4
+description: A self-hosted Monitoring tool like "Uptime-Robot".
+# yamllint disable-line rule:line-length
+icon: https://raw.githubusercontent.com/louislam/uptime-kuma/master/public/icon.png
+maintainers:
+  - email: dels@dels.info
+    name: dels78
+name: uptime-kuma
+sources:
+  - https://github.com/louislam/uptime-kuma
+type: application
+version: 1.0.0

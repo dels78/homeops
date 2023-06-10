@@ -1,0 +1,17 @@
+---
+name: Frenck's yamllint
+# yamllint disable-line rule:truthy
+on:
+  pull_request:
+  push:
+    branches:
+      - 'renovate/**'
+jobs:
+  yamllint:
+    name: 'Yamllint'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+      - name: 'Yamllint'
+        uses: frenck/action-yamllint@v1.4.1

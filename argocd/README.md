@@ -1,0 +1,1 @@
+#this is the argocd install itself as well as its own application definitions

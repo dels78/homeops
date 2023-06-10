@@ -1,0 +1,23 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: default
+
+resources:
+  - manifests/deployment.yaml
+  - manifests/service.yaml
+  - manifests/pvc.yaml
+  - manifests/ingress.yaml
+
+commonLabels:
+  app.kubernetes.io/instance: homarr
+  app.kubernetes.io/name: homarr
+
+images:
+  - name: ajnart/homarr
+    newName: ghcr.io/ajnart/homarr
+    # renovate: datasource=github-releases depName=ajnart/homarr
+    newTag: 0.12.2

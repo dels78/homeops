@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: generic-device-plugin
+  namespace: kube-system
+spec:
+  template:
+    spec:
+      containers:
+        - name: generic-device-plugin
+          args:
+            - --device
+            - |
+              name: serial
+              groups:
+                - paths:
+                    # Nabu Casa SkyConnect
+                    - path: /dev/serial/by-id/usb-Nabu_Casa_SkyConnect_v1.0_a6ddb807bf18ec11adeeee9a47486eb0-if00-port0
+                - paths:
+                    # Z-Wave USB Stick
+                    - path: /dev/serial/by-id/usb-0658_0200-if00

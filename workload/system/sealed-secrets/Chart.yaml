@@ -1,0 +1,11 @@
+---
+apiVersion: v2
+type: application
+name: sealed-secrets
+version: 0.0.0  # unused
+appVersion: 0.0.0  # unused
+dependencies:
+  - name: sealed-secrets
+    repository: https://bitnami-labs.github.io/sealed-secrets
+    version: 2.9.0
+    condition: sealed-secrets.enabled

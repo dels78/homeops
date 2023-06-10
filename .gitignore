@@ -1,0 +1,3 @@
+secret.yaml
+apps/**/charts/*
+Chart.lock

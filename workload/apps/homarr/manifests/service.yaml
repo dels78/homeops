@@ -1,0 +1,22 @@
+---
+# Source: homarr/templates/common.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: homarr
+  labels:
+    app.kubernetes.io/instance: homarr
+    app.kubernetes.io/name: homarr
+  annotations: {}
+spec:
+  type: ClusterIP
+  ipFamilyPolicy: SingleStack
+
+  ports:
+    - port: 10245
+      targetPort: 7575
+      protocol: TCP
+      name: main
+  selector:
+    app.kubernetes.io/name: homarr
+    app.kubernetes.io/instance: homarr

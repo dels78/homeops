@@ -1,0 +1,55 @@
+---
+robusta:
+  clusterName: homeops
+  isSmallCluster: true
+  globalConfig:
+    signing_key: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/46gjjkrum5jogfxzpejrrd6bam#signing_key>
+    account_id: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/46gjjkrum5jogfxzpejrrd6bam#account_id>
+  sinksConfig:
+    - slack_sink:
+        name: main_slack_sink
+        slack_channel: monitoring
+        api_key: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/46gjjkrum5jogfxzpejrrd6bam#slack_sink_api_key>
+    - robusta_sink:
+        name: robusta_ui_sink
+        token: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/46gjjkrum5jogfxzpejrrd6bam#robusta_sink_token>
+  enablePrometheusStack: true
+  enablePlatformPlaybooks: true
+  runner:
+    sendAdditionalTelemetry: false
+
+  #  values for kube-prometheus-stack
+  kube-prometheus-stack:
+    #  grafana ingress
+    grafana:
+      ingress:
+        enabled: true
+        hosts:
+          - grafana.delisle.me
+    #  prometheus
+    prometheus:
+      ingress:
+        enabled: true
+        hosts:
+          - prometheus.delisle.me
+      prometheusSpec:
+        additionalScrapeConfigsSecret:
+          enabled: true
+          name: prometheus-additional-scrape-configs
+          key: additional-scrape-configs.yaml
+    #  alertmanager
+    alertmanager:
+      ingress:
+        enabled: true
+        hosts:
+          - alertmanager.delisle.me
+
+    # k3s specific
+    kubeApiServer:
+      enabled: true
+    kubeControllerManager:
+      enabled: false
+    kubeScheduler:
+      enabled: false
+    kubeEtcd:
+      enabled: false

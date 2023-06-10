@@ -1,0 +1,31 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  namespace: argocd
+  name: applications
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: github
+    notifications.argoproj.io/subscribe.on-sync-failed.slack: github
+    notifications.argoproj.io/subscribe.on-sync-status-unknown.slack: github
+    notifications.argoproj.io/subscribe.on-health-degraded.slack: github
+    notifications.argoproj.io/subscribe.on-deployed.slack: github
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/dels78/homeops.git
+    targetRevision: HEAD
+    path: argocd/applications
+    directory:
+      recurse: true
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

@@ -7,6 +7,7 @@ namespace: default
 resources:
   - manifests/deployment.yaml
   - manifests/service.yaml
+  - manifests/servicemonitor.yaml
 
 images:
   - name: unpollerimage

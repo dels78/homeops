@@ -1,0 +1,21 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: unpoller-servicemonitor
+  # Change this to the namespace the Prometheus instance is running in
+  namespace: robusta
+  labels:
+    app: unpoller
+    release: robusta
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: unpoller  # target app service
+  namespaceSelector:
+    matchNames:
+      - default
+  endpoints:
+    - port: 9130
+      path: /metrics
+      interval: 15s

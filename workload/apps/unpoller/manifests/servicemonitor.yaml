@@ -16,6 +16,6 @@ spec:
     matchNames:
       - default
   endpoints:
-    - port: "9130"
+    - targetPort: 9130
       path: /metrics
       interval: 15s

@@ -33,10 +33,20 @@ robusta:
         hosts:
           - prometheus.delisle.me
       prometheusSpec:
-        additionalScrapeConfigsSecret:
-          enabled: true
-          name: prometheus-additional-scrape-configs
-          key: additional-scrape-configs.yaml
+        additionalScrapeConfigs:
+          - job_name: homeassistant
+            metrics_path: /api/prometheus
+            scheme: https
+            scrape_interval: 60s
+            static_configs:
+              - targets: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/3jlesbodtkawtkazo3gd2lfa2a#homeassistant_target>
+            authorization:
+              credentials: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/3jlesbodtkawtkazo3gd2lfa2a#homeassistant_credentials>
+          - job_name: 'unifipoller'
+            scrape_interval: 30s
+            scheme: http
+            static_configs:
+              - targets: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/3jlesbodtkawtkazo3gd2lfa2a#unifipoller_target>
     #  alertmanager
     alertmanager:
       ingress:

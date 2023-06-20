@@ -1,0 +1,23 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: default
+
+resources:
+  - manifests/serviceaccount.yaml
+  - manifests/deployment.yaml
+  - manifests/service.yaml
+  - manifests/configmap.yaml
+  - manifests/ingress.yaml
+  - manifests/sealed-secret.yaml
+
+images:
+  - name: transmissionimage
+    newName: haugene/transmission-openvpn
+    # renovate: datasource=docker image=haugene/transmission-openvpn
+    newTag: "5.0"
+
+commonLabels:
+  app.kubernetes.io/instance: transmission-openvpn
+  app.kubernetes.io/name: transmission-openvpn

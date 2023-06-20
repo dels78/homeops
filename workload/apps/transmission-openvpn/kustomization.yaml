@@ -5,7 +5,6 @@ kind: Kustomization
 namespace: default
 
 resources:
-  - manifests/serviceaccount.yaml
   - manifests/deployment.yaml
   - manifests/service.yaml
   - manifests/configmap.yaml

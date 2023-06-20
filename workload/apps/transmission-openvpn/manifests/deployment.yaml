@@ -42,7 +42,6 @@ spec:
           resources:
             limits:
               memory: 2000Mi
-              cpu: 4000m
           securityContext:
             capabilities:
               add:

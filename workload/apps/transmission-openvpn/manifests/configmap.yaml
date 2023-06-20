@@ -9,9 +9,5 @@ data:
   TRANSMISSION_SPEED_LIMIT_UP: "4096"
 kind: ConfigMap
 metadata:
-  labels:
-    app.kubernetes.io/instance: transmission-openvpn
-    app.kubernetes.io/name: transmission-openvpn
-    app.kubernetes.io/version: "4.0"
   name: transmission-openvpn
   namespace: default

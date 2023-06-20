@@ -2,9 +2,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app.kubernetes.io/instance: transmission-openvpn
-    app.kubernetes.io/name: transmission-openvpn
   name: transmission-openvpn
 spec:
   progressDeadlineSeconds: 600

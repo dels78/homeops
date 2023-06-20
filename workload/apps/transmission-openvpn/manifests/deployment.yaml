@@ -24,9 +24,9 @@ spec:
     spec:
       containers:
         - envFrom:
-            - configMapRef:
+            configMapRef:
               name: transmission-openvpn
-            - secretRef:
+            secretRef:
               name: transmission-openvpn
           image: haugene/transmission-openvpn:4.0
           imagePullPolicy: IfNotPresent

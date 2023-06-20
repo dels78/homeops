@@ -5,12 +5,12 @@ kind: Kustomization
 namespace: default
 
 resources:
-  - manifests/sealed-secret.yaml
+  - manifests/sealedsecret.yaml
+  - manifests/serviceaccount.yaml
   - manifests/deployment.yaml
   - manifests/service.yaml
   - manifests/configmap.yaml
   - manifests/ingress.yaml
-
 
 images:
   - name: transmissionimage

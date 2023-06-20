@@ -42,11 +42,6 @@ robusta:
               - targets: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/3jlesbodtkawtkazo3gd2lfa2a#homeassistant_target>
             authorization:
               credentials: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/3jlesbodtkawtkazo3gd2lfa2a#homeassistant_credentials>
-          - job_name: 'unifipoller'
-            scrape_interval: 30s
-            scheme: http
-            static_configs:
-              - targets: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/3jlesbodtkawtkazo3gd2lfa2a#unifipoller_target>
     #  alertmanager
     alertmanager:
       ingress:

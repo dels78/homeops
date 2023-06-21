@@ -9,7 +9,6 @@ spec:
     spec:
       volumes:
         - name: storage
-          emptyDir: {}
           $patch: replace
           nfs:
             path: /volume1/loki

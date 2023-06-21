@@ -7,6 +7,9 @@ metadata:
 spec:
   template:
     spec:
+      securityContext:
+        runAsUser: 1000
+        fsGroup: 1000
       volumes:
         - name: storage
           emptyDir: null

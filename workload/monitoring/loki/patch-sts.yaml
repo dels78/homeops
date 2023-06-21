@@ -10,7 +10,7 @@ spec:
       volumes:
         - name: storage
           emptyDir: {}
-          $patch: delete
+          $patch: replace
           nfs:
             path: /volume1/loki
             server: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/jajjjswjty5goro6qk5427bdmm#ip>

@@ -23,10 +23,8 @@ spec:
     repoURL: https://github.com/dels78/homeops.git
     targetRevision: HEAD
     path: workload/monitoring/loki/
-    helm:
-      releaseName: loki
-      valueFiles:
-        - values.yaml
+    plugin:
+      name: argocd-lovely-plugin
 
   destination:
     server: https://kubernetes.default.svc

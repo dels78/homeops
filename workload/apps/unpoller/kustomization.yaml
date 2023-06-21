@@ -12,7 +12,7 @@ resources:
 images:
   - name: unpollerimage
     newName: ghcr.io/unpoller/unpoller
-    newTag: "v2.7.13"
+    newTag: "v2.7.14"
 
 commonLabels:
   app.kubernetes.io/instance: unpoller

@@ -106,6 +106,8 @@ argo-cd:
       # Volumes for cmp-plugins
       - name: custom-tools
         emptyDir: {}
+      - name: tmp
+        emptyDir: {}
 
   ## Notifications controller
   notifications:

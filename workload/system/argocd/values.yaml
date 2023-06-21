@@ -15,6 +15,17 @@ argo-cd:
       # -- repo server timeout
       controller.repo.server.timeout.seconds: 120
 
+  ## Server
+  server:
+    # metrics:
+    #  enabled: true
+    #  serviceMonitor:
+    #    enabled: true
+    ingress:
+      enabled: true
+      hosts:
+        - argocd.delisle.me
+
   ## Dex
   dex:
     # -- Enable dex
@@ -94,8 +105,6 @@ argo-cd:
         name: lovely-tmp
       # Volumes for cmp-plugins
       - name: custom-tools
-        emptyDir: {}
-      - name: tmp
         emptyDir: {}
 
   ## Notifications controller

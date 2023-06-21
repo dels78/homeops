@@ -4,9 +4,11 @@ kind: Kustomization
 
 namespace: argocd
 
-# resources:
-#  - manifests/namespace.yaml
-#  - manifests/argocd-cmd-params-cm.yaml
-# yamllint disable-line rule:line-length
-#  - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-#  - manifests/ingress.yaml
+resources:
+  # - manifests/namespace.yaml
+  # - manifests/argocd-cmd-params-cm.yaml
+  # yamllint disable-line rule:line-length
+  - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+  - manifests/ingress.yaml
+  #- manifests/argocd-cmd-params-cm.yaml
+  - applications.yaml

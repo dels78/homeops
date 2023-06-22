@@ -8,7 +8,8 @@ namespace: adguard
 
 resources:
   - manifests/namespace.yaml
-  - manifests/pv-pvc.yaml
+  - manifests/pvc.yaml
+  - manifests/pvc.yaml
   - manifests/deployment.yaml
   - manifests/service.yaml
 

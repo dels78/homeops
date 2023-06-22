@@ -8,9 +8,9 @@ namespace: default
 
 resources:
   - manifests/namespace.yaml
+  - manifests/pv-pvc.yaml
   - manifests/deployment.yaml
   - manifests/service.yaml
-  - manifests/pv-pvc.yaml
 
 commonLabels:
   app.kubernetes.io/instance: adguard

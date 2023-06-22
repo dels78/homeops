@@ -7,6 +7,7 @@ data:
   OPENVPN_OPTS: --inactive 3600 --ping 10 --ping-exit 60
   OPENVPN_PROVIDER: PRIVADO
   TRANSMISSION_SPEED_LIMIT_UP: "4096"
+  TRANSMISSION_HOME: /config/transmission-home
 kind: ConfigMap
 metadata:
   name: transmission-openvpn

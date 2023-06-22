@@ -12,6 +12,7 @@ resources:
   - manifests/configmap.yaml
   - manifests/deployment.yaml
   - manifests/service.yaml
+  - manifests/ingress.yaml
 
 commonLabels:
   app.kubernetes.io/instance: adguard

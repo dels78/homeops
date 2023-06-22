@@ -1,0 +1,23 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: default
+
+resources:
+  - manifests/namespace.yaml
+  - manifests/deployment.yaml
+  - manifests/service.yaml
+  - manifests/pv-pvc.yaml
+
+commonLabels:
+  app.kubernetes.io/instance: adguard
+  app.kubernetes.io/name: adguard
+
+images:
+  - name: adguard/adguardhome
+    newName: adguard/adguardhome
+    # renovate: datasource=github-releases depName=adguard/adguardhome
+    newTag: v0.107.31

@@ -5,6 +5,8 @@ metadata:
   name: adguard-pvc
   namespace: adguard
 spec:
+  accessModes:
+    - ReadWriteOnce
   resources:
     requests:
       storage: 3Gi

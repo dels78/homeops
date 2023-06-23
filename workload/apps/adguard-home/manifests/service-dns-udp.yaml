@@ -14,3 +14,4 @@ spec:
       name: dns-udp
   type: LoadBalancer
   externalTrafficPolicy: Local
+  loadBalancerIP: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/whpihnlm7fc3tcuyi2or2xxyjq#adguard-dns-ip>

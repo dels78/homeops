@@ -21,7 +21,7 @@ spec:
           image: ebrianne/adguard-exporter
           ports:
             - name: metrics
-              containerPort: 80
+              containerPort: 9617
               protocol: TCP
           env:
             - name: adguard_protocol
@@ -34,3 +34,5 @@ spec:
               value: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/fovonhsxgtfo7wgktjcktdmdne#password>
             - name: interval
               value: 10s
+            - name: server_port
+              value: 9617

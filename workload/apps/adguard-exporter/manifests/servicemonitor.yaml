@@ -16,6 +16,6 @@ spec:
     matchNames:
       - adguard
   endpoints:
-    - targetPort: 80
+    - targetPort: 9617
       path: /
       interval: 15s

@@ -2,15 +2,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: adguard-dns
+  name: adguard-dns-tcp
   namespace: adguard
 spec:
   selector:
-    app: adguard
+    app.kubernetes.io/name: adguard
   ports:
-    - protocol: UDP
+    - protocol: TCP
       port: 53
-      targetPort: 53
-      name: dns
+      targetPort: dns-tcp
+      name: dns-tcp
   type: LoadBalancer
   externalTrafficPolicy: Local

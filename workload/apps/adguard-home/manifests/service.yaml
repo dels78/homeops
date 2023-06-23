@@ -6,7 +6,7 @@ metadata:
   namespace: adguard
 spec:
   selector:
-    app: adguard
+    app.kubernetes.io/name: adguard
   ports:
     - protocol: TCP
       port: 3000

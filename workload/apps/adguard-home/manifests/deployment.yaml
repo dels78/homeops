@@ -9,14 +9,26 @@ spec:
   selector:
     matchLabels:
       app: adguard
+      app.kubernetes.io/name: adguard
   template:
     metadata:
       labels:
         app: adguard
+        app.kubernetes.io/name: adguard
     spec:
       containers:
         - name: adguard-home
           image: adguard/adguardhome
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+            - name: dns-tcp
+              containerPort: 53
+              protocol: TCP
+            - name: dns-udp
+              containerPort: 53
+              protocol: UDP
           env:
             - name: AGH_CONFIG
               valueFrom:

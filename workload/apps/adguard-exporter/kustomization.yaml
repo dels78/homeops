@@ -9,6 +9,7 @@ namespace: adguard  # running in same namespace as adguard-home
 resources:
   - manifests/deployment.yaml
   - manifests/service.yaml
+  - manifests/servicemonitor.yaml
 
 commonLabels:
   app.kubernetes.io/instance: adguard-exporter

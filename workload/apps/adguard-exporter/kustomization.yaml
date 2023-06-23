@@ -17,4 +17,4 @@ commonLabels:
 images:
   - name: ebrianne/adguard-exporter
     # renovate: datasource=github-releases depName=ebrianne/adguard-exporter
-    newTag: sha256:a60deb7d2409939713749a7170d7ec28c7f242a8c7ee798bfdf6fc23e9e5ece6
+    digest: sha256:a60deb7d2409939713749a7170d7ec28c7f242a8c7ee798bfdf6fc23e9e5ece6

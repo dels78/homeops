@@ -32,15 +32,13 @@ spec:
             - name: http-initial
               containerPort: 3000
               protocol: TCP
-          env:
-            - name: AGH_CONFIG
-              valueFrom:
-                configMapKeyRef:
-                  name: adguard-config
-                  key: AdGuardHome.yaml
           volumeMounts:
             - name: adguard-data
               mountPath: /opt/adguardhome/work
+              subPath: work
+            - name: adguard-data
+              mountPath: /opt/adguardhome/conf/
+              subPath: conf
       volumes:
         - name: adguard-data
           persistentVolumeClaim:

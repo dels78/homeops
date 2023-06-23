@@ -26,6 +26,16 @@ robusta:
         enabled: true
         hosts:
           - grafana.delisle.me
+      persistence:
+        enabled: true
+        type: pvc
+        storageClassName: default
+        accessModes:
+          - ReadWriteOnce
+        size: 10Gi
+        finalizers:
+          - kubernetes.io/pvc-protection
+
     #  prometheus
     prometheus:
       ingress:

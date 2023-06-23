@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: adguard-deployment
+  name: adguard
   namespace: adguard
 spec:
   replicas: 1
@@ -29,6 +29,9 @@ spec:
             - name: dns-udp
               containerPort: 53
               protocol: UDP
+            - name: http-initial
+              containerPort: 3000
+              protocol: TCP
           env:
             - name: AGH_CONFIG
               valueFrom:

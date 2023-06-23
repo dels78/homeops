@@ -23,15 +23,6 @@ spec:
                 configMapKeyRef:
                   name: adguard-config
                   key: AdGuardHome.yaml
-          ports:
-            - containerPort: 53  # dns
-              name: dns
-              protocol: UDP
-            - containerPort: 3000  # initial setup
-              name: http-initial
-            - containerPort: 80  # web gui
-              name: http
-              protocol: TCP
           volumeMounts:
             - name: adguard-data
               mountPath: /opt/adguardhome/work

@@ -13,3 +13,4 @@ spec:
       targetPort: 53
       name: dns
   type: LoadBalancer
+  externalTrafficPolicy: Local

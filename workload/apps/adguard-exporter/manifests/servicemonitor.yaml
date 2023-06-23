@@ -1,0 +1,21 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: adguard-exporter-servicemonitor
+  # Change this to the namespace the Prometheus instance is running in
+  namespace: robusta
+  labels:
+    app: adguard-exporter
+    release: robusta
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: adguard-exporter  # target app service
+  namespaceSelector:
+    matchNames:
+      - adguard
+  endpoints:
+    - targetPort: 80
+      path: /metrics
+      interval: 15s

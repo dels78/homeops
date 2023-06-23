@@ -17,5 +17,5 @@ spec:
       - adguard
   endpoints:
     - targetPort: 9617
-      path: /
+      path: /metrics
       interval: 15s

@@ -35,4 +35,4 @@ spec:
             - name: interval
               value: 10s
             - name: server_port
-              value: 9617
+              value: "9617"

@@ -9,7 +9,6 @@ namespace: adguard
 resources:
   - manifests/namespace.yaml
   - manifests/pvc.yaml
-  - manifests/configmap.yaml
   - manifests/deployment.yaml
   - manifests/service.yaml
   - manifests/service-dns-tcp.yaml

@@ -31,6 +31,6 @@ spec:
             - name: adguard_username
               value: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/fovonhsxgtfo7wgktjcktdmdne#username>
             - name: adguard_password
-              value: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/fovonhsxgtfo7wgktjcktdmdne#password2>
+              value: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/fovonhsxgtfo7wgktjcktdmdne#password>
             - name: interval
               value: 10s

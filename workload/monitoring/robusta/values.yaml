@@ -29,7 +29,6 @@ robusta:
       persistence:
         enabled: true
         type: pvc
-        storageClassName: default
         accessModes:
           - ReadWriteOnce
         size: 10Gi

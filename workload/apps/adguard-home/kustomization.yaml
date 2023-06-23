@@ -12,6 +12,8 @@ resources:
   - manifests/configmap.yaml
   - manifests/deployment.yaml
   - manifests/service.yaml
+  - manifests/service-dns-tcp.yaml
+  - manifests/service-dns-udp.yaml
   - manifests/ingress.yaml
 
 commonLabels:

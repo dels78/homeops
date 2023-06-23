@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adguard-exporter
+  namespace: adguard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: adguard-exporter
+      app.kubernetes.io/name: adguard-exporter
+  template:
+    metadata:
+      labels:
+        app: adguard-exporter
+        app.kubernetes.io/name: adguard-exporter
+    spec:
+      containers:
+        - name: adguard-exporter
+          image: ebrianne/adguard-exporter
+          ports:
+            - name: metrics
+              containerPort: 80
+              protocol: TCP
+          env:
+            - name: adguard_protocol
+              value: "http"
+            - name: adguard_hostname
+              value: "adguard-service"
+            - name: adguard_username
+              value: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/fovonhsxgtfo7wgktjcktdmdne#username>
+            - name: adguard_password
+              value: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/fovonhsxgtfo7wgktjcktdmdne#password>
+            - name: interval
+              value: 10s

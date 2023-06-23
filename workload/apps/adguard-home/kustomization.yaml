@@ -21,6 +21,5 @@ commonLabels:
 
 images:
   - name: adguard/adguardhome
-    newName: adguard/adguardhome
     # renovate: datasource=github-releases depName=adguard/adguardhome
     newTag: v0.107.32

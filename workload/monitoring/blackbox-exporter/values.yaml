@@ -1,0 +1,36 @@
+---
+blackbox-exporter:
+  enabled: true
+
+  namespaceOverride: "robusta"
+  serviceMonitor:
+  ## If true, a ServiceMonitor CRD is created for a prometheus operator
+  ## https://github.com/coreos/prometheus-operator for blackbox-exporter itself
+  ##
+    selfMonitor:
+      enabled: true
+
+    enabled: true
+  config:
+    modules:
+      www.google.com:
+        prober: dns
+        timeout: 5s
+        dns:
+          transport_protocol: "udp"
+          preferred_ip_protocol: "ip4"
+          query_name: "www.google.com"
+          query_type: "A"
+          valid_rcodes:
+            - NOERROR
+
+      www.microsoft.com:
+        prober: dns
+        timeout: 5s
+        dns:
+          transport_protocol: "udp"
+          preferred_ip_protocol: "ip4"
+          query_name: "www.microsoft.com"
+          query_type: "A"
+          valid_rcodes:
+            - NOERROR

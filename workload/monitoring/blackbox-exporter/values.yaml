@@ -4,13 +4,11 @@ blackbox-exporter:
 
   namespaceOverride: "robusta"
   serviceMonitor:
-  ## If true, a ServiceMonitor CRD is created for a prometheus operator
-  ## https://github.com/coreos/prometheus-operator for blackbox-exporter itself
-  ##
     selfMonitor:
       enabled: true
 
     enabled: true
+
   config:
     modules:
       www.google.com:

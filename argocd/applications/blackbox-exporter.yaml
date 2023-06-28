@@ -24,8 +24,10 @@ spec:
     repoURL: https://github.com/dels78/homeops.git
     targetRevision: HEAD
     path: workload/monitoring/blackbox-exporter/
-    plugin:
-      name: argocd-lovely-plugin
+    helm:
+      releaseName: blackbox-exporter
+      valueFiles:
+        - values.yaml
 
   destination:
     server: https://kubernetes.default.svc

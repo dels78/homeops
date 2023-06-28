@@ -1,5 +1,5 @@
 ---
-blackbox-exporter:
+prometheus-blackbox-exporter:
   enabled: true
 
   namespaceOverride: "robusta"

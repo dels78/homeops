@@ -23,3 +23,7 @@ images:
   - name: adguard/adguardhome
     # renovate: datasource=github-releases depName=adguard/adguardhome
     newTag: v0.107.32
+
+replicas:
+  - name: adguard
+    count: 0

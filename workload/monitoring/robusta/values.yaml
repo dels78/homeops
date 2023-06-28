@@ -26,7 +26,7 @@ robusta:
         groups:
           - name: general
             rules:
-              - alert:
+              - alert: DNSProbeFailure
                 expr: probe_success{instance='<path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/whpihnlm7fc3tcuyi2or2xxyjq#adguard-dns-ip>'}==0
                 for: 1m
 

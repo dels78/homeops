@@ -26,4 +26,4 @@ images:
 
 replicas:
   - name: adguard
-    count: 0
+    count: 1

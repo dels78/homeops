@@ -9,4 +9,4 @@ spec:
   externalName: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/iuz4hyi26smueirmdvyndrzw2i#ip>
   ports:
     - name: http-homeassistant
-      port: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/iuz4hyi26smueirmdvyndrzw2i#port>
+      port: "<path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/iuz4hyi26smueirmdvyndrzw2i#port>"

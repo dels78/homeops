@@ -8,10 +8,10 @@ spec:
   entryPoints:
     - websecure
   routes:
-  - kind: Rule
-    match: Host(`home.dels.info`)
-    services:
-    - name: home-dels-info
-      port: 80
+    - kind: Rule
+      match: Host(`home.dels.info`)
+      services:
+      - name: home-dels-info
+        port: 80
   tls:
     secretName: origin-cert

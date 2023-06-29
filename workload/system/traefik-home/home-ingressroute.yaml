@@ -12,6 +12,6 @@ spec:
       match: Host(`home.dels.info`)
       services:
         - name: home-dels-info
-          port: 80
+          port: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/iuz4hyi26smueirmdvyndrzw2i#port>
   tls:
     secretName: origin-cert

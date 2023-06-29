@@ -13,5 +13,9 @@ spec:
       services:
         - name: home-dels-info
           port: 80
+      middlewares:
+        - name: security
   tls:
     secretName: origin-cert
+    options:
+      name: tlsoptions

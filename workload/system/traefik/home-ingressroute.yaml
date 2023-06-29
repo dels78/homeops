@@ -1,0 +1,17 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: home.dels.info
+  namespace: dev
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - kind: Rule
+    match: Host(`home.dels.info`)
+    services:
+    - name: home-dels-info
+      port: 80
+  tls:
+    secretName: origin-cert

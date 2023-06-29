@@ -1,0 +1,13 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: home-dels-info
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: 192.168.1.6
+  ports:
+    - name: http-homeassistant
+      port: 80
+      targetPort: 8123

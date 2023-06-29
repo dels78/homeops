@@ -10,3 +10,5 @@ resources:
   - cert-secret.yaml
   - home-ingressroute.yaml
   - home-service.yaml
+  - middleware.yaml
+  - tlsoptions.yaml

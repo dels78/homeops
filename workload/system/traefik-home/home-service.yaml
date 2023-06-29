@@ -10,4 +10,4 @@ spec:
   ports:
     - name: http-homeassistant
       port: 80
-      targetPort: 8123
+      targetPort: 80

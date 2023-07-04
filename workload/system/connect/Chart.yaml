@@ -7,5 +7,6 @@ appVersion: 0.0.0  # unused
 dependencies:
   - name: connect
     repository: https://1password.github.io/connect-helm-charts/
+    # renovate: datasource=github-releases depName=1password/connect-helm-charts
     version: 1.11.0
     condition: connect.enabled

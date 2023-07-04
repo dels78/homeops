@@ -6,6 +6,7 @@ version: 0.0.0  # unused
 appVersion: 0.0.0  # unused
 dependencies:
   - name: connect
-    repository: https://1password.github.io/connect-helm-charts/
+    # repository: https://1password.github.io/connect-helm-charts/ # their helm repo is down atm
+    repository: https://raw.githubusercontent.com/1Password/connect-helm-charts/gh-pages/ # use raw github for now
     version: 1.11.0
     condition: connect.enabled

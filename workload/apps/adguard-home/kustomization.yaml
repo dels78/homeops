@@ -22,7 +22,7 @@ commonLabels:
 images:
   - name: adguard/adguardhome
     # renovate: datasource=github-releases depName=adguard/adguardhome
-    newTag: v0.107.33
+    newTag: v0.107.34
 
 replicas:
   - name: adguard

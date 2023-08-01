@@ -34,5 +34,6 @@
       "automergeType": "pr",
       "platformAutomerge": true
     }
-  ]
+  ],
+  "prHourlyLimit": 10
 }

@@ -3,20 +3,17 @@ adguard-home:
   enabled: true
 
   ingress:
-    main:
-      enabled: false
-    adguard-home:
-      enabled: true
-      hosts:
-        host: adguard.delisle.me
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: adguard-home
-                port:
-                  number: 10232
+    enabled: true
+    hosts:
+      host: adguard.delisle.me
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: adguard-home
+              port:
+                number: 10232
 
   service:
     dns-udp:

@@ -3,6 +3,8 @@ adguard-home:
   enabled: true
 
   ingress:
+    main:
+      enabled: false
     adguard-home:
       enabled: true
       hosts:

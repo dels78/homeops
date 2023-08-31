@@ -1,0 +1,11 @@
+---
+apiVersion: v2
+type: application
+name: robusta
+version: 0.0.0  # unused
+appVersion: 0.0.0  # unused
+dependencies:
+  - name: robusta
+    repository: https://robusta-charts.storage.googleapis.com
+    version: 0.10.22
+    condition: robusta.enabled

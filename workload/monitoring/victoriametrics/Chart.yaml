@@ -1,11 +1,11 @@
 ---
 apiVersion: v2
 type: application
-name: robusta
+name: victoriametrics
 version: 0.0.0  # unused
 appVersion: 0.0.0  # unused
 dependencies:
-  - name: robusta
-    repository: https://robusta-charts.storage.googleapis.com
-    version: 0.10.22
-    condition: robusta.enabled
+  - name: victoria-metrics-single
+    repository: https://victoriametrics.github.io/helm-charts/
+    version: 0.9.3
+    condition: victoriametrics.enabled

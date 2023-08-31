@@ -28,6 +28,8 @@ spec:
               value: "http"
             - name: adguard_hostname
               value: adguard-home.adguard.svc.cluster.local
+            - name: adguard_port
+              value: "10232"
             - name: adguard_username
               value: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/fovonhsxgtfo7wgktjcktdmdne#username>
             - name: adguard_password

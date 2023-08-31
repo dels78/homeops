@@ -3,9 +3,17 @@ adguard-home:
   enabled: true
 
   ingress:
-    enabled: true
-    hosts:
-      - adguard.delisle.me
+    adguard:
+      enabled: true
+      hosts:
+        host: adguard.delisle.me
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: adguard-home
+
 
   service:
     dns-udp:

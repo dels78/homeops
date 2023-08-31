@@ -7,23 +7,4 @@ kind: Kustomization
 namespace: adguard
 
 resources:
-  - manifests/namespace.yaml
-  - manifests/pvc.yaml
-  - manifests/deployment.yaml
-  - manifests/service.yaml
-  - manifests/service-dns-tcp.yaml
-  - manifests/service-dns-udp.yaml
   - manifests/ingress.yaml
-
-commonLabels:
-  app.kubernetes.io/instance: adguard
-  app.kubernetes.io/name: adguard
-
-images:
-  - name: adguard/adguardhome
-    # renovate: datasource=github-releases depName=adguard/adguardhome
-    newTag: v0.107.36
-
-replicas:
-  - name: adguard
-    count: 1

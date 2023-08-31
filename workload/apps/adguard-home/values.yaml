@@ -1,3 +1,21 @@
 ---
 adguard-home:
   enabled: true
+
+  ingress:
+    enabled: true
+    hosts:
+      - adguard.delisle.me
+
+  service:
+    dns-udp:
+    enabled: true
+    ports:
+      dns-udp:
+        enabled: true
+        protocol: udp
+        port: 53
+        targetPort: 53
+        type: LoadBalancer
+    externalTrafficPolicy: Local
+    loadBalancerIP: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/whpihnlm7fc3tcuyi2or2xxyjq#adguard-dns-ip>

@@ -1,6 +1,5 @@
 ---
 adguard-home:
-  enabled: true
 
   ingress:
     adguard:

@@ -4,7 +4,7 @@ kind: Application
 metadata:
   namespace: argocd
 
-  name: victoriametrics
+  name: vm
 
   annotations:
     # notifications.argoproj.io/subscribe.on-sync-succeeded.slack: github
@@ -25,7 +25,7 @@ spec:
     targetRevision: HEAD
     path: workload/monitoring/victoriametrics/
     helm:
-      releaseName: victoriametrics
+      releaseName: vm
       valueFiles:
         - values.yaml
   destination:

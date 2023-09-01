@@ -2,7 +2,7 @@
 
 nameOverride: vm
 fullnameOverride: vm
-argocdReleaseOverride: victoriametrics
+argocdReleaseOverride: vm
 defaultRules:
   create: true
   rules:

@@ -34,7 +34,7 @@ victoria-metrics-k8s-stack:
       hosts:
         - victoriametrics.delisle.me
   grafana:
-    enabled: true
+    enabled: false
     persistence:
       type: pvc
       enabled: true

@@ -1,5 +1,7 @@
 ---
 victoriametrics:
+  victoria-metrics-k8s-stack:
+    fullnameOverride: vm-k8s-st
 
   enabled: true
 

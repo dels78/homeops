@@ -5,7 +5,7 @@ name: victoriametrics
 version: 0.0.0  # unused
 appVersion: 0.0.0  # unused
 dependencies:
-  - name: victoria-metrics-single
+  - name: victoria-metrics-k8s-stack
     repository: https://victoriametrics.github.io/helm-charts/
-    version: 0.9.3
+    version: 0.17.5
     condition: victoriametrics.enabled

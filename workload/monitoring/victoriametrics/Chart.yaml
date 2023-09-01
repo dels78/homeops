@@ -1,11 +1,11 @@
 ---
 apiVersion: v2
 type: application
-name: victoriametrics
+name: vm
 version: 0.0.0  # unused
 appVersion: 0.0.0  # unused
 dependencies:
   - name: victoria-metrics-k8s-stack
     repository: https://victoriametrics.github.io/helm-charts/
     version: 0.17.5
-    condition: victoriametrics.enabled
+    condition: vm.enabled

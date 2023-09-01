@@ -4,7 +4,7 @@ kind: Application
 metadata:
   namespace: argocd
 
-  name: monitoring
+  name: victoriametrics
 
   annotations:
     # notifications.argoproj.io/subscribe.on-sync-succeeded.slack: github

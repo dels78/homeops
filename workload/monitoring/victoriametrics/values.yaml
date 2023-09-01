@@ -2,8 +2,9 @@
 vm:
 
   enabled: true
-
+  nameOverride: vm
   fullnameOverride: vm
+  argocdReleaseOverride: victoriametrics
 
   defaultRules:
     create: true

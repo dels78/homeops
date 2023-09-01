@@ -21,8 +21,4 @@ patches:
   - target:
       kind: Plan
       name: k3s-*
-    patch: |-
-      - op: replace
-        path: /spec/version
-        # renovate: datasource=github-releases depName=k3s-io/k3s
-        value: v1.20.2+k3s1
+    path: version.yaml

@@ -2,7 +2,7 @@
 prometheus-blackbox-exporter:
   enabled: true
 
-  namespaceOverride: "robusta"
+  namespaceOverride: "monitoring"
   serviceMonitor:
     selfMonitor:
       enabled: true

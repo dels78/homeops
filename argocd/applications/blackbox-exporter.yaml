@@ -31,7 +31,7 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: robusta
+    namespace: monitoring
 
   syncPolicy:
     automated:

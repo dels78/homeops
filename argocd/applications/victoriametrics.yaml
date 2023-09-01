@@ -24,9 +24,10 @@ spec:
     repoURL: https://github.com/dels78/homeops.git
     targetRevision: HEAD
     path: workload/monitoring/victoriametrics/
-    plugin:
-      name: argocd-lovely-plugin
-
+    helm:
+      releaseName: victoriametrics
+      valueFiles:
+        - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring

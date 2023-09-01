@@ -1,10 +1,9 @@
 ---
-victoriametrics:
+vm:
 
   enabled: true
 
-  victoriametrics-victoria-metrics-k8s-stack:
-    fullnameOverride: vm-k8s-st
+  fullnameOverride: vm
 
   defaultRules:
     create: true

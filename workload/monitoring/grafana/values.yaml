@@ -5,3 +5,8 @@ grafana:
   persistence:
     type: pvc
     enabled: true
+
+  ingress:
+    enabled: true
+    hosts:
+      - grafana.delisle.me

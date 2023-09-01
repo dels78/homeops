@@ -10,7 +10,7 @@
     {
       "description": "Process various other dependencies",
       "fileMatch": [
-        "apps/.+\\.ya?ml$"
+        "/.+\\.ya?ml$"
       ],
       "matchStrings": [
         "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n"
@@ -20,7 +20,7 @@
     },
     {
       "description": "update k8s labels",
-      "fileMatch": ["apps/.+\\.ya?ml$"],
+      "fileMatch": ["/.+\\.ya?ml$"],
       "matchStrings": [
         "app\\.kubernetes\\.io\\/version: [\"]?(?<currentValue>.*?)[\"]?\n(?s).*image: [\"]?(?<depName>.*?):.*?[\"]?\n"
       ],

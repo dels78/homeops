@@ -1,5 +1,0 @@
----
-- op: replace
-  path: /spec/version
-  # renovate: datasource=github-releases depName=k3s-io/k3s
-  value: "v1.20.2+k3s1"

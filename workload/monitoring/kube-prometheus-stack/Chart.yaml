@@ -1,11 +1,11 @@
 ---
 apiVersion: v2
 type: application
-name: prometheus-blackbox-exporter
+name: kube-prometheus-stack
 version: 0.0.0  # unused
 appVersion: 0.0.0  # unused
 dependencies:
-  - name: prometheus-blackbox-exporter
+  - name: kube-prometheus-stack
     repository: https://prometheus-community.github.io/helm-charts
     version: 8.3.0
-    condition: prometheus-blackbox-exporter.enabled
+    condition: kube-prometheus-stack.enabled

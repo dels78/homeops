@@ -4,10 +4,10 @@ kind: ServiceMonitor
 metadata:
   name: unpoller-servicemonitor
   # Change this to the namespace the Prometheus instance is running in
-  namespace: robusta
+  namespace: monitoring
   labels:
     app: unpoller
-    release: robusta
+    release: monitoring
 spec:
   selector:
     matchLabels:

@@ -12,6 +12,12 @@ kube-prometheus-stack:
               expr: probe_success{instance="<path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/whpihnlm7fc3tcuyi2or2xxyjq#adguard-dns-ip>"}==0
               for: 1m
 
+  # prometheus node exporter older image due to bug
+  # https://github.com/prometheus/node_exporter/issues/2746#issue-1806055586
+  prometheus-node-exporter:
+    image:
+      tag: v1.5.0
+
   #  grafana
   grafana:
     ingress:

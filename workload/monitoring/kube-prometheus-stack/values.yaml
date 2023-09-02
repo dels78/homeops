@@ -40,6 +40,16 @@ kube-prometheus-stack:
       hosts:
         - prometheus.delisle.me
     prometheusSpec:
+      # storage
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 20Gi
+      # addtionnal scrape configs
       additionalScrapeConfigs:
         - job_name: homeassistant
           metrics_path: /api/prometheus
@@ -91,6 +101,15 @@ kube-prometheus-stack:
       enabled: true
       hosts:
         - alertmanager.delisle.me
+    # storage
+    alertmanagerSpec:
+      storage:
+        volumeClaimTemplate:
+          spec:
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 10Gi
 
   # k3s specific
   kubeApiServer:

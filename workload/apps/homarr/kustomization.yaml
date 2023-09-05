@@ -20,4 +20,4 @@ images:
   - name: ajnart/homarr
     newName: ghcr.io/ajnart/homarr
     # renovate: datasource=github-releases depName=ajnart/homarr
-    newTag: 0.13.2
+    newTag: 0.13.3

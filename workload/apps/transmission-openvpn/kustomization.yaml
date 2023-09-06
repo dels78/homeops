@@ -16,7 +16,7 @@ images:
   - name: transmissionimage
     newName: haugene/transmission-openvpn
     # renovate: datasource=docker image=haugene/transmission-openvpn
-    newTag: "5.1"
+    newTag: "5.2"
 
 commonLabels:
   app.kubernetes.io/instance: transmission-openvpn

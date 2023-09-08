@@ -7,11 +7,11 @@ metadata:
   name: argocd
 
   annotations:
-    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: github
-    notifications.argoproj.io/subscribe.on-sync-failed.slack: github
-    notifications.argoproj.io/subscribe.on-sync-status-unknown.slack: github
-    notifications.argoproj.io/subscribe.on-health-degraded.slack: github
-    notifications.argoproj.io/subscribe.on-deployed.slack: github
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: argo
+    notifications.argoproj.io/subscribe.on-sync-failed.slack: argo
+    notifications.argoproj.io/subscribe.on-sync-status-unknown.slack: argo
+    notifications.argoproj.io/subscribe.on-health-degraded.slack: argo
+    notifications.argoproj.io/subscribe.on-deployed.slack: argo
     argocd.argoproj.io/sync-wave: "-3"  # sync before other apps
   # cascade deletes
   finalizers:

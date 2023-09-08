@@ -3,6 +3,7 @@ loki:
   enabled: true
   #  actual values for loki
   loki:
+    isDefault: false
     commonConfig:
       replication_factor: 1
     storage:

@@ -1,6 +1,7 @@
 ---
 loki:
   enabled: true
+
   #  actual values for loki
   loki:
     isDefault: false
@@ -8,5 +9,12 @@ loki:
       replication_factor: 1
     storage:
       type: 'filesystem'
+
   singleBinary:
     replicas: 1
+
+  # disable grafana sidecar
+  grafana:
+    sidecar:
+      datasources:
+        enabled: false

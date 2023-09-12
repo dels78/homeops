@@ -7,4 +7,4 @@ appVersion: 0.0.0  # unused
 dependencies:
   - name: adguard-home
     repository: https://charts.truecharts.org/
-    version: 6.0.1
+    version: 6.0.2

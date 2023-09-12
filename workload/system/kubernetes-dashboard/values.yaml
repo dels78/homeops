@@ -2,6 +2,12 @@
 kubernetes-dashboard:
   enabled: true
 
+  nginx:
+    enabled: false
+
+  cert-manager:
+    enabled: false
+
   ingress:
     enabled: true
     hosts:

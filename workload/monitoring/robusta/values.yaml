@@ -17,3 +17,14 @@ robusta:
   enablePlatformPlaybooks: true
   runner:
     sendAdditionalTelemetry: false
+
+  customPlaybooks:
+    - triggers:
+        - on_pod_crash_loop:
+          restart_reason: "CrashLoopBackOff"
+      actions:
+        - delete_pod:
+            delete_options:
+              grace_period_seconds: 0
+              force: true
+      name: delete_pod_on_crash_loop

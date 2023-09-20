@@ -21,7 +21,7 @@ robusta:
   customPlaybooks:
     - triggers:
         - on_pod_crash_loop:
-          restart_reason: "CrashLoopBackOff"
+            restart_reason: "CrashLoopBackOff"
       actions:
         - delete_pod:
             delete_options:

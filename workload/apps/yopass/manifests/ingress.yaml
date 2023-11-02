@@ -1,0 +1,19 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: yopass
+  namespace: default
+
+spec:
+  rules:
+    - host: yopass.delisle.me
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: yopass
+                port:
+                  number: 1337

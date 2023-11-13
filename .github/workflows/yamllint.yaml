@@ -14,4 +14,4 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@master
       - name: 'Yamllint'
-        uses: frenck/action-yamllint@v1.4.1
+        uses: frenck/action-yamllint@v1.4.2

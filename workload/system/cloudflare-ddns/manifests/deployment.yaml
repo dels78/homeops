@@ -21,8 +21,6 @@ spec:
             limits:
               memory: '32Mi'
               cpu: '50m'
-          command:
-            - sleep infinity
           env:
             - name: CONFIG_PATH
               value: '/etc/cloudflare-ddns/'

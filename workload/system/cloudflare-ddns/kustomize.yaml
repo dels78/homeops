@@ -12,7 +12,7 @@ images:
   - name: cloudflare-ddns-image
     newName: timothyjmiller/cloudflare-ddns
     # renovate: datasource=docker image=timothyjmiller/cloudflare-ddns
-    newDigest: sha256:9f55e3ad0e88bee4b74c178c82fa622db14ed24b9e723d80701bccb00231a9ee
+    digest: sha256:9f55e3ad0e88bee4b74c178c82fa622db14ed24b9e723d80701bccb00231a9ee
 
 commonLabels:
   app.kubernetes.io/instance: cloudflare-ddns

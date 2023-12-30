@@ -6,6 +6,7 @@ namespace: retool
 
 resources:
   - manifests/namespace.yaml
+  - manifests/license-secret.yaml
 
 helmCharts:
   - name: retool

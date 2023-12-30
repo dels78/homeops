@@ -8,7 +8,7 @@ config:
   licenseKeySecretName: license-key-secret
   # licenseKeySecretKey is the key in the k8s secret, default: license-key
   licenseKeySecretKey: license-key
-  useInsecureCookies: false
+  useInsecureCookies: true
   # Timeout for queries, in ms.
   # dbConnectorTimeout: 120000
   auth:
@@ -20,12 +20,12 @@ config:
       # clientSecretSecretKey is the key in the k8s secret, default: google-client-secret
       # clientSecretSecretKey:
       domain:
-  encryptionKey:
+  encryptionKey: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/bhbrqlozz23m6pj6v6xhdm4vhq#encryption-key>
   # encryptionKeySecretName is the name of the secret where the encryption key is stored (can be used instead of encryptionKey)
   # encryptionKeySecretName:
   # encryptionKeySecretKey is the key in the k8s secret, default: encryption-key
   # encryptionKeySecretKey:
-  jwtSecret:
+  jwtSecret: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/bhbrqlozz23m6pj6v6xhdm4vhq#jwt-secret>
   # jwtSecretSecretName is the name of the secret where the jwt secret is stored (can be used instead of jwtSecret)
   # jwtSecretSecretName:
   # jwtSecretSecretKey is the key in the k8s secret, default: jwt-secret

@@ -50,7 +50,7 @@ config:
 image:
   repository: "tryretool/backend"
   # You need to pick a specific tag here, this chart will not make a decision for you
-  tag: "3.24.6"
+  tag: "3.24.7"
   pullPolicy: "IfNotPresent"
 
 commandline:
@@ -146,15 +146,15 @@ ingress:
   # kubernetes.io/ingress.class: nginx
   # kubernetes.io/tls-acme: "true"
   hosts:
-   - host: retool.delisle.me
-     paths:
-       - path: /
-  #tls:
+    - host: retool.delisle.me
+      paths:
+        - path: /
+  # tls:
   # - secretName: retool.example.com
   #   hosts:
   #     - retool.example.com
   # servicePort: service-port
-  #pathType: ImplementationSpecific
+  # pathType: ImplementationSpecific
   # For supporting other ingress controllers that require customizing the .backend.service.name and .backend.service.port.name,
   # like AWS ALB extraPaths allows that customization, and it takes precedence in the list of paths of for the host,
   # this is in order to allow a rule like ssl-redirect from port 80-->443 to be first ( otherwise there wouldn't be a redirect )

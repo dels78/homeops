@@ -7,5 +7,5 @@ appVersion: 0.0.0  # unused
 dependencies:
   - name: uptime-kuma
     repository: https://dirsigler.github.io/uptime-kuma-helm
-    version: 2.17.0
+    version: 2.18.0
     condition: uptime-kuma.enabled

@@ -50,7 +50,7 @@ config:
 image:
   repository: "tryretool/backend"
   # You need to pick a specific tag here, this chart will not make a decision for you
-  tag: "3.32.9"
+  tag: "3.32.11"
   pullPolicy: "IfNotPresent"
 
 commandline:

@@ -15,6 +15,10 @@ argo-cd:
       # -- repo server timeout
       controller.repo.server.timeout.seconds: 120
 
+  # global domain
+  global:
+    domain: argocd.delisle.me
+
   ## Server
   server:
     # metrics:
@@ -23,8 +27,6 @@ argo-cd:
     #    enabled: true
     ingress:
       enabled: true
-      hosts:
-        - argocd.delisle.me
 
   ## Dex
   dex:

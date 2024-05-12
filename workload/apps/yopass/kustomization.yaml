@@ -12,7 +12,7 @@ resources:
 images:
   - name: yopassimage
     newName: jhaals/yopass
-    newTag: "11.15.1"
+    newTag: "11.16.0"
 
 commonLabels:
   app.kubernetes.io/instance: yopass

@@ -11,7 +11,7 @@ resources:
 images:
   - name: cloudflaredimage
     newName: cloudflare/cloudflared
-    newTag: "2024.4.1"
+    newTag: "2024.6.0"
 
 commonLabels:
   app.kubernetes.io/instance: cloudflared

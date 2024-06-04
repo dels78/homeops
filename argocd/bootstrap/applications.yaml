@@ -36,3 +36,4 @@ spec:
         kind: Deployment
         jqPathExpressions:
           - .spec.template.spec.containers[].resources
+          - .spec.template.spec.containers.resources

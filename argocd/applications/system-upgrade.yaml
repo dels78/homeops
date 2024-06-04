@@ -37,3 +37,8 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
+    ignoreDifferences:
+      - group: apps
+        kind: Deployment
+        jqPathExpressions:
+          - .spec.template.spec.containers[].resources

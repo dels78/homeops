@@ -46,7 +46,6 @@ spec:
         - .spec.template.spec.containers[].resources
         - .spec.template.spec.containers.resources
         - .spec.template.spec.initContainers[].resources
-    - group: apps
-      kind: ValidatingWebhookConfiguration
+    - kind: '*'
       jqPathExpressions:
         - .webhooks.clientConfig.caBundle

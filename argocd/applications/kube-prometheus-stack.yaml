@@ -41,8 +41,11 @@ spec:
       - RespectIgnoreDifferences=true
   ignoreDifferences:
     - group: apps
-      kind: Deployment
+      kind: '*'
       jqPathExpressions:
         - .spec.template.spec.containers[].resources
         - .spec.template.spec.containers.resources
-        - .webhooks.clientConfig.caBundle
+    - group: apps
+      kind: ValidatingWebhookConfiguration
+      jqPathExpressions:
+        - .webhooks[].clientConfig.caBundle

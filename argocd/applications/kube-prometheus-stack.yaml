@@ -48,4 +48,4 @@ spec:
         - .spec.template.spec.initContainers[].resources
     - kind: '*'
       jqPathExpressions:
-        - .webhooks.clientConfig.caBundle
+        - '.webhooks[]?.clientConfig.caBundle'

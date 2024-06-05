@@ -38,3 +38,11 @@ spec:
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
+      - RespectIgnoreDifferences=true
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jqPathExpressions:
+        - .spec.template.spec.containers[].resources
+        - .spec.template.spec.containers.resources
+        - .webhooks.clientConfig.caBundle

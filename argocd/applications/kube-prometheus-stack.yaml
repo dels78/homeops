@@ -49,4 +49,4 @@ spec:
     - group: apps
       kind: ValidatingWebhookConfiguration
       jqPathExpressions:
-        - .webhooks.clientConfig
+        - .webhooks.clientConfig.caBundle

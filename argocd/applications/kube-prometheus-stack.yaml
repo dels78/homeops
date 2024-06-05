@@ -46,6 +46,7 @@ spec:
         - .spec.template.spec.containers[].resources
         - .spec.template.spec.containers.resources
         - .spec.template.spec.initContainers[].resources
-    - kind: '*'
+    - group: admissionregistration.k8s.io
+      kind: '*'
       jqPathExpressions:
         - '.webhooks[]?.clientConfig.caBundle'

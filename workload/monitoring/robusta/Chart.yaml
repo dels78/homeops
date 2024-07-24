@@ -7,5 +7,5 @@ appVersion: 0.0.0  # unused
 dependencies:
   - name: robusta
     repository: https://robusta-charts.storage.googleapis.com
-    version: 0.13.1
+    version: 0.14.0
     condition: robusta.enabled

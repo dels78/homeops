@@ -7,5 +7,5 @@ appVersion: 0.0.0  # unused
 dependencies:
   - name: kube-prometheus-stack
     repository: https://prometheus-community.github.io/helm-charts
-    version: 61.9.0
+    version: 62.2.1
     condition: kube-prometheus-stack.enabled

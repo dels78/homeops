@@ -185,7 +185,7 @@ postgresql:
   # since Retool depends on the uuid-ossp extension
   image:
     repository: "postgres"
-    tag: "16"
+    tag: "17"
   postgresqlDataDir: "/data/pgdata"
   primary:
     persistence:

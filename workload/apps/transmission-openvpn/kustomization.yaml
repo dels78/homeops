@@ -26,4 +26,4 @@ configMapGenerator:
   - name: transmission-openvpn
     behavior: merge
     literals:
-      - OPENVPN_CONFIG=atl-006
+      - OPENVPN_CONFIG=mia-006

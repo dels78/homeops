@@ -21,3 +21,9 @@ images:
 commonLabels:
   app.kubernetes.io/instance: transmission-openvpn
   app.kubernetes.io/name: transmission-openvpn
+
+configMapGenerator:
+  - name: transmission-openvpn
+    behavior: merge
+    literals:
+      - OPENVPN_CONFIG=atl-006

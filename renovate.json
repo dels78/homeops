@@ -1,13 +1,16 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:recommended"
   ],
-    "argocd": {
-      "fileMatch": ["argocd/applications/.+\\.yaml$"]
-    },
-  "regexManagers": [
+  "argocd": {
+    "fileMatch": [
+      "argocd/applications/.+\\.yaml$"
+    ]
+  },
+  "customManagers": [
     {
+      "customType": "regex",
       "description": "Process various other dependencies",
       "fileMatch": [
         "/.+\\.ya?ml$"
@@ -19,17 +22,28 @@
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     },
     {
+      "customType": "regex",
       "description": "update k8s labels",
-      "fileMatch": ["/.+\\.ya?ml$"],
+      "fileMatch": [
+        "/.+\\.ya?ml$"
+      ],
       "matchStrings": [
         "app\\.kubernetes\\.io\\/version: [\"]?(?<currentValue>.*?)[\"]?\n(?s).*image: [\"]?(?<depName>.*?):.*?[\"]?\n"
       ],
-      "datasourceTemplate": "docker"}
+      "datasourceTemplate": "docker"
+    }
   ],
   "packageRules": [
     {
       "description": "Automerge",
-      "matchPackageNames": ["renovate", "argo-cd", "cloudflared", "retool", "homarr", "uptime-kuma"],
+      "matchPackageNames": [
+        "renovate",
+        "argo-cd",
+        "cloudflared",
+        "retool",
+        "homarr",
+        "uptime-kuma"
+      ],
       "automerge": true,
       "automergeType": "pr",
       "platformAutomerge": true

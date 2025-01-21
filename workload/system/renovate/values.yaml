@@ -13,7 +13,6 @@ renovate:
         "repositories": [
           "dels78/homeops"
         ],
-        "username": "renovate.delisle[bot]",
         gitAuthor: "278481+renovate-delisle[bot]@users.noreply.github.com"
       }
 

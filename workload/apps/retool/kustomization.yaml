@@ -12,7 +12,7 @@ helmCharts:
   - name: retool
     releaseName: "retool"
     repo: https://charts.retool.com
-    version: 6.4.0
+    version: 6.4.1
     namespace: retool
     includeCRDs: true
     valuesFile: ./values.yaml

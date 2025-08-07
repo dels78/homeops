@@ -76,7 +76,7 @@ argo-cd:
         # This command is actually already set in the image.
         command: [/var/run/argocd/argocd-cmp-server]  # Entrypoint should be Argo CD lightweight CMP server i.e. argocd-cmp-server
         # Choose your image here - this one has vault replacer in it
-        image: ghcr.io/crumbhole/argocd-lovely-plugin-cmp:1.2.2
+        image: ghcr.io/crumbhole/argocd-lovely-plugin-cmp:84a5cab38d7c4db0dd013a7fcc51ed8b66ef781b
         env:
           - name: LOVELY_PLUGINS
             value: argocd-vault-plugin generate -
@@ -385,3 +385,40 @@ argo-cd:
          - on-sync-failed
          - on-health-degraded
          - on-deployed
+
+# Alternative configuration without lovely plugin (uncomment if needed)
+# This uses the standard argocd-vault-plugin approach
+#   repoServer:
+#     serviceAccount:
+#       automountServiceAccountToken: true
+#     rbac:
+#       - verbs:
+#           - get
+#           - list
+#           - watch
+#         apiGroups:
+#           - ''
+#         resources:
+#           - secrets
+#           - configmaps
+#     envFrom:
+#       - secretRef:
+#           name: argocd-vault-plugin-credentials
+#     initContainers:
+#       - name: download-tools
+#         image: registry.access.redhat.com/ubi8
+#         env:
+#           - name: AVP_VERSION
+#             value: 1.14.0
+#         command: [sh, -c]
+#         args:
+#           - >-
+#             curl -L https://github.com/argoproj-labs/argocd-vault-plugin/releases/download/v$(AVP_VERSION)/argocd-vault-plugin_$(AVP_VERSION)_linux_amd64 -o argocd-vault-plugin &&
+#             chmod +x argocd-vault-plugin &&
+#             mv argocd-vault-plugin /custom-tools/
+#         volumeMounts:
+#           - mountPath: /custom-tools
+#             name: custom-tools
+#     volumes:
+#       - name: custom-tools
+#         emptyDir: {}

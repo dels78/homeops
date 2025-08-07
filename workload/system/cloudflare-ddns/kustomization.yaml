@@ -12,7 +12,7 @@ images:
   - name: cloudflare-ddns-image
     newName: timothyjmiller/cloudflare-ddns
     # renovate: datasource=docker image=timothyjmiller/cloudflare-ddns
-    digest: sha256:eefa838653388f2d7f3184cd9c7eff077fae744ebf1b6f8d7aebf55913dae2d9
+    digest: sha256:2187e122660d6a2d451ef7c53fd4805c133133f4f47552256352c1e2a7f49ee2
 
 labels:
   - pairs:

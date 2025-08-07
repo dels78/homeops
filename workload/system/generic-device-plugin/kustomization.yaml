@@ -12,9 +12,10 @@ resources:
 images:
   - name: ghcr.io/squat/generic-device-plugin
     newTag: 7f23e30a01dbb549faa2f6672f2a85975490da5f
-commonLabels:
-  app.kubernetes.io/name: generic-device-plugin
-  app.kubernetes.io/instance: generic-device-plugin
+labels:
+  - pairs:
+      app.kubernetes.io/name: generic-device-plugin
+      app.kubernetes.io/instance: generic-device-plugin
 
 patches:
   - path: usb.yaml

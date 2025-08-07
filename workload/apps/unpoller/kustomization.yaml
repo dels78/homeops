@@ -14,6 +14,7 @@ images:
     newName: ghcr.io/unpoller/unpoller
     newTag: "v2.14.1"
 
-commonLabels:
-  app.kubernetes.io/instance: unpoller
-  app.kubernetes.io/name: unpoller
+labels:
+  - pairs:
+      app.kubernetes.io/instance: unpoller
+      app.kubernetes.io/name: unpoller

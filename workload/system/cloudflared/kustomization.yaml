@@ -13,6 +13,7 @@ images:
     newName: cloudflare/cloudflared
     newTag: "2025.4.0"
 
-commonLabels:
-  app.kubernetes.io/instance: cloudflared
-  app.kubernetes.io/name: cloudflared
+labels:
+  - pairs:
+      app.kubernetes.io/instance: cloudflared
+      app.kubernetes.io/name: cloudflared

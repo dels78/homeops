@@ -12,9 +12,10 @@ resources:
   - manifests/pvc.yaml
   - manifests/ingress.yaml
 
-commonLabels:
-  app.kubernetes.io/instance: homarr
-  app.kubernetes.io/name: homarr
+labels:
+  - pairs:
+      app.kubernetes.io/instance: homarr
+      app.kubernetes.io/name: homarr
 
 images:
   - name: ajnart/homarr

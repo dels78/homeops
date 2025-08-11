@@ -17,12 +17,7 @@ argo-cd:
     # Enable native Helm + Kustomize integration
     cm:
       kustomize.buildOptions: --enable-helm
-      # Configure argocd-vault-plugin as a native config management plugin
-      configManagementPlugins: |-
-        - name: argocd-vault-plugin
-          generate:
-            command: ["argocd-vault-plugin"]
-            args: ["generate", "./"]
+
 
   # global domain
   global:
@@ -79,13 +74,25 @@ argo-cd:
           - mountPath: /custom-tools
             name: custom-tools
     # Add volume mount to repo-server container for vault plugin
-    volumeMounts:
-      - mountPath: /custom-tools
-        name: custom-tools
-      # Mount vault plugin to PATH location
-      - name: custom-tools
-        subPath: argocd-vault-plugin
-        mountPath: /usr/local/bin/argocd-vault-plugin
+            volumeMounts:
+          - mountPath: /custom-tools
+            name: custom-tools
+
+    # Add sidecar vault plugin
+    extraContainers:
+      - name: vault-plugin
+        image: quay.io/argoproj/argocd:latest
+        command: [/var/run/argocd/argocd-cmp-server]
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 999
+        envFrom:
+          - secretRef:
+              name: argocd-vault-plugin-credentials
+        volumeMounts:
+          - name: custom-tools
+            subPath: argocd-vault-plugin
+            mountPath: /usr/local/bin/argocd-vault-plugin
 
     volumes:
       - name: custom-tools

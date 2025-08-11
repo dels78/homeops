@@ -82,6 +82,8 @@ argo-cd:
     volumes:
       - name: custom-tools
         emptyDir: {}
+      - name: tmp
+        emptyDir: {}
 
 
   ## Notifications controller

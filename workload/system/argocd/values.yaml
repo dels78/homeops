@@ -21,7 +21,7 @@ argo-cd:
       configManagementPlugins: |-
         - name: argocd-vault-plugin
           generate:
-            command: ["argocd-vault-plugin"]
+            command: ["/custom-tools/argocd-vault-plugin"]
             args: ["generate", "./"]
 
   # global domain

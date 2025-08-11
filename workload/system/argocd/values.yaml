@@ -78,6 +78,10 @@ argo-cd:
         volumeMounts:
           - mountPath: /custom-tools
             name: custom-tools
+    # Add volume mount to repo-server container for vault plugin
+    volumeMounts:
+      - mountPath: /custom-tools
+        name: custom-tools
 
     volumes:
       - name: custom-tools

@@ -111,6 +111,10 @@ argo-cd:
         emptyDir: {}
       - name: tmp
         emptyDir: {}
+      - name: var-files
+        emptyDir: {}
+      - name: plugins
+        emptyDir: {}
 
 
   ## Notifications controller

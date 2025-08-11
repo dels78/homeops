@@ -39,75 +39,27 @@ argo-cd:
 
   ## Plugins
   repoServer:
-    serviceAccount:
-      automountServiceAccountToken: true
-    # -- rbac config for vault plugin
-    rbac:
-      - verbs:
-          - get
-          - list
-          - watch
-        apiGroups:
-          - ''
-        resources:
-          - secrets
-          - configmaps
-    # -- load env from secret
-    envFrom:
-      - secretRef:
-          name: argocd-vault-plugin-credentials
-    # -- init container to download vault plugin
-    initContainers:
-      - name: download-tools
-        image: registry.access.redhat.com/ubi8
-        env:
-          - name: AVP_VERSION
-            # renovate: datasource=github-releases depName=argoproj-labs/argocd-vault-plugin
-            value: 1.14.0
-        command: [sh, -c]
-        args:
-          - >-
-            curl -L https://github.com/argoproj-labs/argocd-vault-plugin/releases/download/v$(AVP_VERSION)/argocd-vault-plugin_$(AVP_VERSION)_linux_amd64 -o argocd-vault-plugin &&
-            chmod +x argocd-vault-plugin &&
-            mv argocd-vault-plugin /custom-tools/
-        volumeMounts:
-          - mountPath: /custom-tools
-            name: custom-tools
-    # Add volume mount to repo-server container for vault plugin
-            volumeMounts:
-          - mountPath: /custom-tools
-            name: custom-tools
-
-    # Add sidecar vault plugin
     extraContainers:
-      - name: vault-plugin
-        image: quay.io/argoproj/argocd:latest
+      - name: lovely-plugin
+        image: ghcr.io/crumbhole/argocd-lovely-plugin-cmp:84a5cab38d7c4db0dd013a7fcc51ed8b66ef781b
         command: [/var/run/argocd/argocd-cmp-server]
         securityContext:
           runAsNonRoot: true
           runAsUser: 999
-        envFrom:
-          - secretRef:
-              name: argocd-vault-plugin-credentials
+        env:
+          - name: LOVELY_PLUGINS
+            value: argocd-vault-plugin generate -
         volumeMounts:
-          - name: custom-tools
-            subPath: argocd-vault-plugin
-            mountPath: /usr/local/bin/argocd-vault-plugin
           - mountPath: /var/run/argocd
             name: var-files
-          - mountPath: /home/argocd/cmp-server/config
-            name: plugin-config
+          - mountPath: /tmp
+            name: tmp
 
     volumes:
-      - name: custom-tools
+      - name: var-files
         emptyDir: {}
       - name: tmp
         emptyDir: {}
-      - name: var-files
-        emptyDir: {}
-      - name: plugin-config
-        configMap:
-          name: argocd-vault-plugin-config
 
 
   ## Notifications controller

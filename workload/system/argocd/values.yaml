@@ -76,7 +76,7 @@ argo-cd:
         # This command is actually already set in the image.
         command: [/var/run/argocd/argocd-cmp-server]  # Entrypoint should be Argo CD lightweight CMP server i.e. argocd-cmp-server
         # Choose your image here - this one has vault replacer in it
-        image: ghcr.io/crumbhole/argocd-lovely-plugin-cmp:84a5cab38d7c4db0dd013a7fcc51ed8b66ef781b
+        image: ghcr.io/crumbhole/argocd-lovely-plugin-cmp:069ee7b0083f7e433a93bc498b1de0d1a5db6f8a
         env:
           - name: LOVELY_PLUGINS
             value: argocd-vault-plugin generate -

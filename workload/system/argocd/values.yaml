@@ -21,7 +21,7 @@ argo-cd:
       configManagementPlugins: |-
         - name: argocd-vault-plugin
           generate:
-            command: ["/custom-tools/argocd-vault-plugin"]
+            command: ["argocd-vault-plugin"]
             args: ["generate", "./"]
 
   # global domain
@@ -82,6 +82,10 @@ argo-cd:
     volumeMounts:
       - mountPath: /custom-tools
         name: custom-tools
+      # Mount vault plugin to PATH location
+      - name: custom-tools
+        subPath: argocd-vault-plugin
+        mountPath: /usr/local/bin/argocd-vault-plugin
 
     volumes:
       - name: custom-tools

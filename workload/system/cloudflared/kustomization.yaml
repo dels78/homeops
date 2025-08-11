@@ -1,5 +1,5 @@
 ---
-apiVersion: kustomize.config.k8s.io/v1
+apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 namespace: cloudflared
@@ -11,8 +11,9 @@ resources:
 images:
   - name: cloudflaredimage
     newName: cloudflare/cloudflared
-    newTag: "2025.7.0"
+    newTag: "2025.8.0"
 
-commonLabels:
-  app.kubernetes.io/instance: cloudflared
-  app.kubernetes.io/name: cloudflared
+labels:
+  - pairs:
+      app.kubernetes.io/instance: cloudflared
+      app.kubernetes.io/name: cloudflared

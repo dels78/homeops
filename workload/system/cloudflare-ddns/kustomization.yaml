@@ -1,5 +1,5 @@
 ---
-apiVersion: kustomize.config.k8s.io/v1
+apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 namespace: cloudflare-ddns
@@ -14,6 +14,7 @@ images:
     # renovate: datasource=docker image=timothyjmiller/cloudflare-ddns
     digest: sha256:2187e122660d6a2d451ef7c53fd4805c133133f4f47552256352c1e2a7f49ee2
 
-commonLabels:
-  app.kubernetes.io/instance: cloudflare-ddns
-  app.kubernetes.io/name: cloudflare-ddns
+labels:
+  - pairs:
+      app.kubernetes.io/instance: cloudflare-ddns
+      app.kubernetes.io/name: cloudflare-ddns

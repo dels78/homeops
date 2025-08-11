@@ -25,7 +25,6 @@ spec:
     path: workload/system/cloudflare-ddns/
     plugin:
       name: argocd-lovely-plugin
-
   destination:
     server: https://kubernetes.default.svc
     namespace: cloudflare-ddns

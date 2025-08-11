@@ -26,7 +26,6 @@ spec:
     path: workload/monitoring/robusta/
     plugin:
       name: argocd-lovely-plugin
-
   destination:
     server: https://kubernetes.default.svc
     namespace: robusta

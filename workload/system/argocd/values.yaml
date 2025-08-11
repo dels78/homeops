@@ -95,6 +95,8 @@ argo-cd:
             mountPath: /usr/local/bin/argocd-vault-plugin
           - mountPath: /var/run/argocd
             name: var-files
+          - mountPath: /home/argocd/cmp-server/config
+            name: plugin-config
 
     volumes:
       - name: custom-tools
@@ -103,6 +105,9 @@ argo-cd:
         emptyDir: {}
       - name: var-files
         emptyDir: {}
+      - name: plugin-config
+        configMap:
+          name: argocd-vault-plugin-config
 
 
   ## Notifications controller

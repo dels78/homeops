@@ -93,11 +93,15 @@ argo-cd:
           - name: custom-tools
             subPath: argocd-vault-plugin
             mountPath: /usr/local/bin/argocd-vault-plugin
+          - mountPath: /var/run/argocd
+            name: var-files
 
     volumes:
       - name: custom-tools
         emptyDir: {}
       - name: tmp
+        emptyDir: {}
+      - name: var-files
         emptyDir: {}
 
 

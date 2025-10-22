@@ -12,7 +12,7 @@ resources:
 images:
   - name: yopassimage
     newName: jhaals/yopass
-    newTag: "12.3.0"
+    newTag: "12.4.0"
 
 labels:
   - pairs:

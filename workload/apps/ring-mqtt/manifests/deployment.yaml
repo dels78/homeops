@@ -21,6 +21,28 @@ spec:
         app.kubernetes.io/name: ring-mqtt
         app.kubernetes.io/instance: ring-mqtt
     spec:
+      initContainers:
+        - name: init-state
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - |
+              if [ ! -f /data/ring-state.json ]; then
+                echo '{"ring_token": "'$RINGTOKEN'"}' > /data/ring-state.json
+                echo "Created initial state file with token"
+              else
+                echo "State file already exists, skipping initialization"
+              fi
+          env:
+            - name: RINGTOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: ring-mqtt-secret
+                  key: ring-token
+          volumeMounts:
+            - name: data
+              mountPath: /data
       containers:
         - name: ring-mqtt
           image: tsightler/ring-mqtt:latest

@@ -51,6 +51,9 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /data
+            - name: config
+              mountPath: /data/config.json
+              subPath: config.json
           resources:
             requests:
               cpu: 50m
@@ -76,4 +79,7 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: ring-mqtt-data
+        - name: config
+          configMap:
+            name: ring-mqtt-config
       restartPolicy: Always

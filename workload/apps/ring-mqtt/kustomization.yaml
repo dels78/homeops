@@ -10,6 +10,7 @@ resources:
   - manifests/service.yaml
   - manifests/pvc.yaml
   - manifests/sealedsecret-ring-mqtt.yaml
+  - manifests/configmap-config.yaml
 
 labels:
   - pairs:

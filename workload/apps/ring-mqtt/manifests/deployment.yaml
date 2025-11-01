@@ -1,0 +1,79 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ring-mqtt
+  namespace: home-automation
+  labels:
+    app.kubernetes.io/name: ring-mqtt
+    app.kubernetes.io/instance: ring-mqtt
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ring-mqtt
+      app.kubernetes.io/instance: ring-mqtt
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ring-mqtt
+        app.kubernetes.io/instance: ring-mqtt
+    spec:
+      containers:
+        - name: ring-mqtt
+          image: tsightler/ring-mqtt:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: RINGTOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: ring-mqtt-secret
+                  key: ring-token
+            - name: MQTTHOST
+              value: "mosquitto.home-automation.svc.cluster.local"
+            - name: MQTTPORT
+              value: "1883"
+            - name: ENABLECAMERAS
+              value: "true"
+            - name: SNAPSHOTMODE
+              value: "all"
+            - name: TZ
+              value: "America/New_York"
+          ports:
+            - name: rtsp
+              containerPort: 8554
+              protocol: TCP
+            - name: http
+              containerPort: 55123
+              protocol: TCP
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 300m
+              memory: 512Mi
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 15
+            timeoutSeconds: 5
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: ring-mqtt-data
+      restartPolicy: Always

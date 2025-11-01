@@ -9,7 +9,6 @@ resources:
   - manifests/deployment.yaml
   - manifests/service.yaml
   - manifests/pvc.yaml
-  # Uncomment after creating sealed secret:
   - manifests/sealedsecret-ring-mqtt.yaml
 
 labels:

@@ -53,7 +53,7 @@ workload/apps/
 ### Key Configuration Decisions
 
 ✅ **USB Device Strategy:**
-- Using existing `generic-device-plugin` 
+- Using existing `generic-device-plugin`
 - Both pods pinned to `minipc.dels.local` with nodeSelector
 - Z-Wave stick for ZWaveJS2MQTT: `squat.ai/serial: 1`
 - SkyConnect for Home Assistant: `squat.ai/serial: 1`
@@ -88,7 +88,7 @@ workload/apps/
    cd /Users/martindelisle/code/personal/homeops
    ./scripts/seal-ha-secrets.sh
    ```
-   
+
    You'll need:
    - Ring refresh token (from `/Volumes/Backup/dockerbian/home/dels/src/dockerFiles/ring-mqtt/compose.yml`)
    - secrets.yaml (from `/Volumes/Backup/dockerbian/homeassistant/secrets.yaml`)
@@ -135,7 +135,7 @@ See complete checklist in `docs/MIGRATION-HOME-ASSISTANT.md`, but key items:
 - [ ] All pods running: `kubectl get pods -n home-automation`
 - [ ] Home Assistant accessible: https://ha.delisle.me
 - [ ] Z-Wave devices online
-- [ ] Zigbee devices online  
+- [ ] Zigbee devices online
 - [ ] Ring sensors reporting
 - [ ] Automations firing
 
@@ -171,17 +171,17 @@ Well within cluster capacity ✅
 
 **High confidence** (~90%) this will work:
 
-✅ USB infrastructure verified (generic-device-plugin healthy, devices visible)  
-✅ Backup configs analyzed (know exactly what was running)  
-✅ Ingress pattern matches existing setup (yopass.delisle.me)  
-✅ Service communication via k8s DNS (standard pattern)  
-✅ ArgoCD sync waves prevent race conditions  
-✅ Rollback plan documented  
+✅ USB infrastructure verified (generic-device-plugin healthy, devices visible)
+✅ Backup configs analyzed (know exactly what was running)
+✅ Ingress pattern matches existing setup (yopass.delisle.me)
+✅ Service communication via k8s DNS (standard pattern)
+✅ ArgoCD sync waves prevent race conditions
+✅ Rollback plan documented
 
 **Medium confidence** areas (need validation):
-⚠️  ZWaveJS will auto-detect USB device (should work, but verify)  
-⚠️  Home Assistant config compatible with containerized environment (should be fine)  
-⚠️  Ring token still valid (may need refresh)  
+⚠️  ZWaveJS will auto-detect USB device (should work, but verify)
+⚠️  Home Assistant config compatible with containerized environment (should be fine)
+⚠️  Ring token still valid (may need refresh)
 
 ### Next Steps
 
@@ -192,4 +192,3 @@ The migration guide (`docs/MIGRATION-HOME-ASSISTANT.md`) has comprehensive troub
 ---
 
 **Questions?** Everything is documented. The setup follows your existing patterns (yopass ingress, sealed-secrets, ArgoCD gitops, nfs-client storage).
-

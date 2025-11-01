@@ -1,0 +1,37 @@
+# Pre-commit hooks configuration for homeops
+# Install: pip install pre-commit (or brew install pre-commit)
+# Setup: pre-commit install
+# Run manually: pre-commit run --all-files
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: '.*sealedsecret.*\.yaml$'
+      - id: end-of-file-fixer
+        exclude: '.*sealedsecret.*\.yaml$'
+      - id: check-yaml
+        args: ['--allow-multiple-documents']
+      - id: check-added-large-files
+      - id: check-merge-conflict
+
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        exclude: '.*sealedsecret.*\.yaml$|.*sealed-secret.*\.yaml$'
+        args:
+          - --config-data
+          - |
+            extends: default
+            rules:
+              line-length:
+                max: 200
+                level: warning
+              empty-lines:
+                max: 1
+              comments-indentation: disable
+              trailing-spaces: enable
+              new-lines:
+                type: unix

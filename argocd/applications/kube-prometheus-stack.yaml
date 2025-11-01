@@ -1,0 +1,51 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  namespace: argocd
+
+  name: kube-prometheus-stack
+
+  annotations:
+    # notifications.argoproj.io/subscribe.on-sync-succeeded.slack: argo
+    notifications.argoproj.io/subscribe.on-sync-failed.slack: argo
+    notifications.argoproj.io/subscribe.on-sync-status-unknown.slack: argo
+    notifications.argoproj.io/subscribe.on-health-degraded.slack: argo
+    notifications.argoproj.io/subscribe.on-deployed.slack: argo
+    argocd.argoproj.io/sync-wave: "-1"  # sync before other apps
+  # cascade deletes
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/dels78/homeops.git
+    targetRevision: HEAD
+    path: workload/monitoring/kube-prometheus-stack/
+    plugin:
+      name: argocd-lovely-plugin
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+      - RespectIgnoreDifferences=true
+  ignoreDifferences:
+    - group: apps
+      kind: '*'
+      jqPathExpressions:
+        - .spec.template.spec.containers[].resources
+        - .spec.template.spec.containers.resources
+        - .spec.template.spec.initContainers[].resources
+    - group: admissionregistration.k8s.io
+      kind: '*'
+      jqPathExpressions:
+        - '.webhooks[]?.clientConfig.caBundle'

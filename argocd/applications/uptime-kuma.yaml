@@ -1,0 +1,40 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  namespace: argocd
+
+  name: uptime-kuma
+
+  annotations:
+    # notifications.argoproj.io/subscribe.on-sync-succeeded.slack: argo
+    notifications.argoproj.io/subscribe.on-sync-failed.slack: argo
+    notifications.argoproj.io/subscribe.on-sync-status-unknown.slack: argo
+    notifications.argoproj.io/subscribe.on-health-degraded.slack: argo
+    notifications.argoproj.io/subscribe.on-deployed.slack: argo
+  # cascade deletes
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/dels78/homeops.git
+    targetRevision: HEAD
+    path: workload/monitoring/uptime-kuma/
+    helm:
+      releaseName: uptime-kuma
+      valueFiles:
+        - values.yaml
+
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: uptime-kuma
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

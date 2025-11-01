@@ -46,9 +46,6 @@ spec:
             - name: google-service-account
               mountPath: /config/SERVICE_ACCOUNT.json
               subPath: SERVICE_ACCOUNT.json
-            - name: localtime
-              mountPath: /etc/localtime
-              readOnly: true
           resources:
             requests:
               squat.ai/serial: "1"
@@ -89,8 +86,4 @@ spec:
         - name: google-service-account
           secret:
             secretName: home-assistant-google
-        - name: localtime
-          hostPath:
-            path: /etc/localtime
-            type: File
       restartPolicy: Always

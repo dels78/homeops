@@ -12,7 +12,7 @@ spec:
       match: Host(`home.dels.info`)
       services:
         - name: home-dels-info
-          port: 80
+          port: 8123
       middlewares:
         - name: security
   tls:

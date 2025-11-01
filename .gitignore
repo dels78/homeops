@@ -2,3 +2,4 @@ secret.yaml
 apps/**/charts/*
 Chart.lock
 .DS_Store
+.env.local

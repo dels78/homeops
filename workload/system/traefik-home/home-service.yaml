@@ -6,8 +6,8 @@ metadata:
   namespace: default
 spec:
   type: ExternalName
-  externalName: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/iuz4hyi26smueirmdvyndrzw2i#ip>
+  externalName: home-assistant.home-automation.svc.cluster.local
   ports:
     - name: http
-      port: 80
-      targetPort: 80
+      port: 8123
+      targetPort: 8123

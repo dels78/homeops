@@ -21,4 +21,4 @@ images:
   - name: tsightler/ring-mqtt
     newName: tsightler/ring-mqtt
     # renovate: datasource=docker depName=tsightler/ring-mqtt
-    newTag: "5.10.2"
+    newTag: "5.8.1"

@@ -1,0 +1,25 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: home-automation
+
+resources:
+  - manifests/deployment.yaml
+  - manifests/service.yaml
+  - manifests/pvc.yaml
+  # Uncomment after creating sealed secret:
+  - manifests/sealedsecret-ring-mqtt.yaml
+
+labels:
+  - pairs:
+      app.kubernetes.io/name: ring-mqtt
+      app.kubernetes.io/instance: ring-mqtt
+
+images:
+  - name: tsightler/ring-mqtt
+    newName: tsightler/ring-mqtt
+    # renovate: datasource=docker depName=tsightler/ring-mqtt
+    newTag: "5.10.2"
+

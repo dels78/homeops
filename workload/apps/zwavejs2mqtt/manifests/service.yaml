@@ -1,0 +1,24 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zwavejs2mqtt
+  namespace: home-automation
+  labels:
+    app.kubernetes.io/name: zwavejs2mqtt
+    app.kubernetes.io/instance: zwavejs2mqtt
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8091
+      targetPort: http
+      protocol: TCP
+    - name: websocket
+      port: 3000
+      targetPort: websocket
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: zwavejs2mqtt
+    app.kubernetes.io/instance: zwavejs2mqtt
+

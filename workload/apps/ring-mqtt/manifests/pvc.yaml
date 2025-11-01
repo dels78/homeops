@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ring-mqtt-data
+  namespace: home-automation
+  labels:
+    app.kubernetes.io/name: ring-mqtt
+    app.kubernetes.io/instance: ring-mqtt
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: nfs-client
+

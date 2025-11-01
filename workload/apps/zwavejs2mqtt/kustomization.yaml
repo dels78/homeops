@@ -19,4 +19,4 @@ images:
   - name: zwavejs/zwavejs2mqtt
     newName: ghcr.io/zwave-js/zwave-js-ui
     # renovate: datasource=github-releases depName=zwave-js/zwave-js-ui
-    newTag: "11.4.0"
+    newTag: "latest"

@@ -47,6 +47,13 @@
       "automerge": true,
       "automergeType": "pr",
       "platformAutomerge": true
+    },
+    {
+      "description": "Ignore Home Assistant - handled by automated workflow",
+      "matchPackageNames": [
+        "home-assistant/core"
+      ],
+      "enabled": false
     }
   ],
   "prHourlyLimit": 10

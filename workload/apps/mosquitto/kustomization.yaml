@@ -21,4 +21,4 @@ images:
   - name: eclipse-mosquitto
     newName: eclipse-mosquitto
     # renovate: datasource=docker depName=eclipse-mosquitto
-    newTag: "2.0.20"
+    newTag: "2.0.22"

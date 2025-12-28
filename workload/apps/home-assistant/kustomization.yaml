@@ -12,7 +12,7 @@ resources:
   - manifests/sealedsecret-secrets.yaml
   - manifests/sealedsecret-google.yaml
   # Uncomment after creating sealedsecret-github-app.yaml:
-  # - manifests/sealedsecret-github-app.yaml
+  - manifests/sealedsecret-github-app.yaml
 
 labels:
   - pairs:

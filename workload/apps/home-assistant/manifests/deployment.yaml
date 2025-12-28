@@ -43,6 +43,9 @@ spec:
             - name: secrets
               mountPath: /config/secrets.yaml
               subPath: secrets.yaml
+            - name: github-app-key
+              mountPath: /config/github_app_private_key.pem
+              subPath: github_app_private_key.pem
             - name: google-service-account
               mountPath: /config/SERVICE_ACCOUNT.json
               subPath: SERVICE_ACCOUNT.json
@@ -83,6 +86,10 @@ spec:
         - name: secrets
           secret:
             secretName: home-assistant-secrets
+        - name: github-app-key
+          secret:
+            secretName: home-assistant-github-app
+            optional: true
         - name: google-service-account
           secret:
             secretName: home-assistant-google

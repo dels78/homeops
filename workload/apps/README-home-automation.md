@@ -39,6 +39,31 @@ All services in `home-automation` namespace. USB devices on `minipc.dels.local` 
 **External access:** Home Assistant via `home.dels.info` (existing Traefik route)  
 **Internal communication:** Services use k8s DNS (e.g., `mosquitto.home-automation.svc.cluster.local`)
 
+## GitHub App auth (recommended)
+
+Home Assistant can optionally push config changes back to `dels78/home-assistant` and trigger workflows without using a long-lived PAT by using a GitHub App installation token.
+
+- **Home Assistant repo** expects:
+  - `github_app_id` and `github_app_installation_id` in `/config/secrets.yaml`
+  - the private key PEM mounted at `/config/github_app_private_key.pem`
+
+### Create the sealed secret
+
+1. Create a local PEM file (do **not** commit it), e.g. `~/Downloads/github-app-private-key.pem`.
+2. Create the secret YAML and seal it (controller name/namespace may differ in your cluster):
+
+```bash
+kubectl --context homeops -n home-automation create secret generic home-assistant-github-app \
+  --from-file=github_app_private_key.pem=~/Downloads/github-app-private-key.pem \
+  --dry-run=client -o yaml \
+| kubeseal --context homeops --format yaml \
+  --controller-name sealed-secrets-controller \
+  --controller-namespace sealed-secrets \
+> workload/apps/home-assistant/manifests/sealedsecret-github-app.yaml
+```
+
+3. Uncomment `manifests/sealedsecret-github-app.yaml` in `workload/apps/home-assistant/kustomization.yaml`.
+
 ## Troubleshooting
 
 Check logs:

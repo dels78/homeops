@@ -50,8 +50,12 @@
     },
     {
       "description": "Ignore Home Assistant - handled by automated workflow",
+      "matchDatasources": [
+        "docker"
+      ],
       "matchPackageNames": [
-        "home-assistant/core"
+        "home-assistant/core",
+        "ghcr.io/home-assistant/home-assistant"
       ],
       "enabled": false
     }

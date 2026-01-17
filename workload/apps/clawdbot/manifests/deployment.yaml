@@ -30,6 +30,8 @@ spec:
           # See workload/apps/README-automation.md for build instructions
           image: ghcr.io/dels78/clawdbot:latest
           imagePullPolicy: Always
+          command: ["clawdbot"]
+          args: ["gateway", "--port", "18789"]
           env:
             # ClawdBot authentication (Claude AI session)
             - name: CLAUDE_AI_SESSION_KEY

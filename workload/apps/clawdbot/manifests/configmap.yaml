@@ -22,8 +22,7 @@ data:
           "allowTailscale": false
         },
         "controlUi": {
-          "enabled": true,
-          "basePath": "/clawdbot"
+          "enabled": true
         }
       },
       "agent": {

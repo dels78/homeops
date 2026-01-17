@@ -21,6 +21,10 @@ spec:
         app.kubernetes.io/name: clawdbot
         app.kubernetes.io/instance: clawdbot
     spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsNonRoot: true
       imagePullSecrets:
         - name: ghcr-pull-secret
       initContainers:
@@ -35,8 +39,7 @@ spec:
                 echo "Bootstrapping clawdbot.json from ConfigMap..."
                 mkdir -p /home/node/.clawdbot
                 cp /bootstrap/clawdbot.json /home/node/.clawdbot/clawdbot.json
-                chown -R 1000:1000 /home/node/.clawdbot
-                echo "Set ownership to 1000:1000"
+                echo "Bootstrap complete"
               else
                 echo "Config already exists, skipping bootstrap"
               fi
@@ -54,6 +57,9 @@ spec:
           imagePullPolicy: Always
           command: ["node", "dist/index.js", "gateway-daemon", "--bind", "lan", "--port", "18789"]
           env:
+            # Home directory (required for ClawdBot to find config)
+            - name: HOME
+              value: "/home/node"
             # ClawdBot authentication (Claude AI session)
             - name: CLAUDE_AI_SESSION_KEY
               valueFrom:

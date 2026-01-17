@@ -21,6 +21,8 @@ spec:
         app.kubernetes.io/name: clawdbot
         app.kubernetes.io/instance: clawdbot
     spec:
+      imagePullSecrets:
+        - name: ghcr-pull-secret
       containers:
         - name: clawdbot
           # Build from https://github.com/clawdbot/clawdbot

@@ -20,6 +20,10 @@ spec:
         app.kubernetes.io/name: postgresql
         app.kubernetes.io/instance: postgresql
     spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsNonRoot: true
       containers:
         - name: postgresql
           image: postgres:16-alpine

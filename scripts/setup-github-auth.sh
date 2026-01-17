@@ -1,49 +1,45 @@
 #!/bin/bash
-# Setup GitHub authentication for this project
-set -e
+# Setup GitHub authentication for this repo (multi-account safe).
+#
+# Key idea: avoid `gh auth switch` (global) and instead export `GH_TOKEN`
+# for the desired account for this shell session.
+set -euo pipefail
 
-# Check if .env.local exists
-if [ ! -f .env.local ]; then
-    echo "Error: .env.local not found"
-    echo "Please create it with: echo 'GITHUB_USER=martindelisle' > .env.local"
-    exit 1
+fail() {
+  echo "Error: $*" >&2
+  if [ "${BASH_SOURCE[0]}" != "$0" ]; then
+    return 1
+  fi
+  exit 1
+}
+
+if [ -f .env.local ]; then
+  # shellcheck disable=SC1091
+  source .env.local
 fi
 
-# Source the config
-source .env.local
+: "${GITHUB_HOST:=github.com}"
+: "${GITHUB_USER:=dels78}"
 
-if [ -z "$GITHUB_USER" ]; then
-    echo "Error: GITHUB_USER not set in .env.local"
-    echo "Please edit .env.local and set your GitHub username"
-    exit 1
+command -v gh >/dev/null 2>&1 || fail "GitHub CLI (gh) is not installed. Run: gh auth login -h ${GITHUB_HOST}"
+
+if ! gh auth status -h "${GITHUB_HOST}" >/dev/null 2>&1; then
+  fail "gh is not authenticated for ${GITHUB_HOST}. Run: gh auth login -h ${GITHUB_HOST}"
 fi
 
-echo "Switching GitHub auth to $GITHUB_USER..."
+# Avoid accidental overrides from other environments (e.g. Haus).
+unset GITHUB_TOKEN || true
 
-# Check if user is already authenticated with gh
-if ! gh auth status 2>&1 | grep -q "$GITHUB_USER"; then
-    echo "Error: Not authenticated with gh CLI as $GITHUB_USER"
-    echo ""
-    echo "Please run: gh auth login"
-    exit 1
+export GH_TOKEN
+GH_TOKEN="$(gh auth token --hostname "${GITHUB_HOST}" --user "${GITHUB_USER}")" || true
+if [ -z "${GH_TOKEN}" ]; then
+  fail "No oauth token found for ${GITHUB_HOST} account ${GITHUB_USER}. Log in: gh auth login -h ${GITHUB_HOST}"
 fi
 
-# Check if GITHUB_TOKEN env var is set (from Haus or other)
-if [ -n "$GITHUB_TOKEN" ]; then
-    echo "⚠️  GITHUB_TOKEN environment variable is set (probably from Haus)"
-    echo "Unsetting it for this shell session..."
-    unset GITHUB_TOKEN
-fi
+# Backwards-compat: some scripts/tools still look for GITHUB_TOKEN.
+export GITHUB_TOKEN="${GH_TOKEN}"
 
-# Switch to the specified user
-gh auth switch -u "$GITHUB_USER"
-
-# Export the token from gh CLI
-export GITHUB_TOKEN=$(gh auth token)
-
-echo "✓ Switched to $GITHUB_USER"
-echo "✓ GITHUB_TOKEN exported"
-echo ""
+echo "✓ GH_TOKEN exported for ${GITHUB_USER} (${GITHUB_HOST})"
 echo "To use in your current shell, run:"
 echo "  source scripts/setup-github-auth.sh"
 

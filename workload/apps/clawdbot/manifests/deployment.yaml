@@ -29,7 +29,7 @@ spec:
           # No official pre-built images available yet; must build yourself
           # See workload/apps/README-automation.md for build instructions
           image: ghcr.io/dels78/clawdbot:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           env:
             # ClawdBot authentication (Claude AI session)
             - name: CLAUDE_AI_SESSION_KEY

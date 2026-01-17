@@ -61,10 +61,8 @@ spec:
               containerPort: 18790
               protocol: TCP
           volumeMounts:
-            - name: config
-              mountPath: /home/node/.clawdbot
-            - name: workspace
-              mountPath: /home/node/clawd
+            - name: data
+              mountPath: /home/node
           resources:
             requests:
               cpu: 200m
@@ -75,12 +73,7 @@ spec:
           # Note: ClawdBot may not expose standard health endpoints
           # Monitor via pod restarts and logs instead
       volumes:
-        - name: config
+        - name: data
           persistentVolumeClaim:
             claimName: clawdbot-data
-            subPath: config
-        - name: workspace
-          persistentVolumeClaim:
-            claimName: clawdbot-data
-            subPath: workspace
       restartPolicy: Always

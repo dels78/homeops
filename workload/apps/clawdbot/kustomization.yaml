@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: automation
+
+resources:
+  - manifests/namespace.yaml
+  - manifests/configmap.yaml
+  - manifests/pvc.yaml
+  - manifests/deployment.yaml
+  - manifests/service.yaml
+  - manifests/ingress.yaml
+  # Uncomment after creating sealedsecret-credentials.yaml:
+  # - manifests/sealedsecret-credentials.yaml
+
+labels:
+  - pairs:
+      app.kubernetes.io/name: clawdbot
+      app.kubernetes.io/instance: clawdbot
+
+images:
+  - name: ghcr.io/yourusername/clawdbot
+    newName: ghcr.io/yourusername/clawdbot
+    # Update this tag once you build and push the image
+    newTag: "latest"

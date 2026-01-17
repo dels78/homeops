@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: clawdbot-config
+  namespace: automation
+  labels:
+    app.kubernetes.io/name: clawdbot
+    app.kubernetes.io/instance: clawdbot
+data:
+  # ClawdBot configuration
+  # See: https://github.com/bra1nDump/clawd-bot for configuration options
+  TZ: "America/New_York"
+
+  # Database configuration
+  DB_TYPE: "postgresql"
+  DB_HOST: "postgresql.automation.svc.cluster.local"
+  DB_PORT: "5432"
+  DB_NAME: "clawdbot"
+  DB_USER: "clawdbot"
+
+  # n8n integration
+  N8N_URL: "http://n8n.automation.svc.cluster.local:5678"
+  N8N_ENABLED: "true"
+
+  # Webhook configuration
+  WEBHOOK_URL: "https://clawdbot.delisle.me"
+
+  # Data directory
+  DATA_DIR: "/data"

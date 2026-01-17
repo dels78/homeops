@@ -1,0 +1,108 @@
+---
+# n8n Helm chart values
+# Using official n8n Helm chart: https://github.com/8gears/n8n-helm-chart
+
+replicaCount: 1
+
+image:
+  repository: n8nio/n8n
+  pullPolicy: IfNotPresent
+  # renovate: datasource=docker depName=n8nio/n8n
+  tag: "1.71.3"
+
+service:
+  type: ClusterIP
+  port: 5678
+
+env:
+  # Database configuration
+  - name: DB_TYPE
+    value: "postgresdb"
+  - name: DB_POSTGRESDB_HOST
+    value: "postgresql.automation.svc.cluster.local"
+  - name: DB_POSTGRESDB_PORT
+    value: "5432"
+  - name: DB_POSTGRESDB_DATABASE
+    value: "n8n"
+  - name: DB_POSTGRESDB_USER
+    value: "n8n"
+  - name: DB_POSTGRESDB_PASSWORD
+    valueFrom:
+      secretKeyRef:
+        name: n8n-secrets
+        key: db-password
+
+  # Encryption key for credentials
+  - name: N8N_ENCRYPTION_KEY
+    valueFrom:
+      secretKeyRef:
+        name: n8n-secrets
+        key: encryption-key
+
+  # General n8n configuration
+  - name: N8N_HOST
+    value: "n8n.delisle.me"
+  - name: N8N_PROTOCOL
+    value: "https"
+  - name: WEBHOOK_URL
+    value: "https://n8n.delisle.me/"
+  - name: N8N_EDITOR_BASE_URL
+    value: "https://n8n.delisle.me/"
+  - name: GENERIC_TIMEZONE
+    value: "America/New_York"
+  - name: TZ
+    value: "America/New_York"
+
+  # Execution settings
+  - name: EXECUTIONS_PROCESS
+    value: "main"
+  - name: EXECUTIONS_MODE
+    value: "regular"
+
+persistence:
+  enabled: true
+  type: nfs
+  nfs:
+    server: "192.168.1.252"
+    path: "/volume1/n8n"
+  accessModes:
+    - ReadWriteOnce
+  size: 10Gi
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 512Mi
+  limits:
+    cpu: 2000m
+    memory: 2Gi
+
+livenessProbe:
+  enabled: true
+  httpGet:
+    path: /healthz
+    port: 5678
+  initialDelaySeconds: 60
+  periodSeconds: 30
+  timeoutSeconds: 10
+  failureThreshold: 5
+
+readinessProbe:
+  enabled: true
+  httpGet:
+    path: /healthz
+    port: 5678
+  initialDelaySeconds: 30
+  periodSeconds: 15
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+# Disable ingress in Helm chart (we manage it separately)
+ingress:
+  enabled: false
+
+# Security context
+securityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000

@@ -1,0 +1,27 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgresql-init
+  namespace: automation
+  labels:
+    app.kubernetes.io/name: postgresql
+    app.kubernetes.io/instance: postgresql
+data:
+  init-databases.sh: |
+    #!/bin/bash
+    set -e
+
+    psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
+        -- Create n8n database and user
+        CREATE DATABASE n8n;
+        CREATE USER n8n WITH ENCRYPTED PASSWORD '$N8N_DB_PASSWORD';
+        GRANT ALL PRIVILEGES ON DATABASE n8n TO n8n;
+
+        -- Create clawdbot database and user
+        CREATE DATABASE clawdbot;
+        CREATE USER clawdbot WITH ENCRYPTED PASSWORD '$CLAWDBOT_DB_PASSWORD';
+        GRANT ALL PRIVILEGES ON DATABASE clawdbot TO clawdbot;
+    EOSQL
+
+    echo "Databases created successfully"

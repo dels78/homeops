@@ -22,3 +22,9 @@ labels:
   - pairs:
       app.kubernetes.io/name: n8n
       app.kubernetes.io/instance: n8n
+
+images:
+  - name: n8nio/n8n
+    newName: n8nio/n8n
+    # renovate: datasource=docker depName=n8nio/n8n
+    newTag: "2.3.6"

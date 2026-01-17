@@ -16,4 +16,4 @@ spec:
               service:
                 name: clawdbot
                 port:
-                  number: 3000
+                  number: 18789

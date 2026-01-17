@@ -17,11 +17,6 @@ data:
         CREATE DATABASE n8n;
         CREATE USER n8n WITH ENCRYPTED PASSWORD '$N8N_DB_PASSWORD';
         GRANT ALL PRIVILEGES ON DATABASE n8n TO n8n;
-
-        -- Create clawdbot database and user
-        CREATE DATABASE clawdbot;
-        CREATE USER clawdbot WITH ENCRYPTED PASSWORD '$CLAWDBOT_DB_PASSWORD';
-        GRANT ALL PRIVILEGES ON DATABASE clawdbot TO clawdbot;
     EOSQL
 
-    echo "Databases created successfully"
+    echo "Database created successfully"

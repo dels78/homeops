@@ -23,63 +23,45 @@ spec:
     spec:
       containers:
         - name: clawdbot
-          # TODO: Build custom image from https://github.com/bra1nDump/clawd-bot
-          # For now, using Node.js base image as placeholder
-          # You'll need to build and push a custom image with ClawdBot installed
-          image: ghcr.io/yourusername/clawdbot:latest
+          # Build from https://github.com/clawdbot/clawdbot
+          # No official pre-built images available yet; must build yourself
+          # See workload/apps/README-automation.md for build instructions
+          image: ghcr.io/dels78/clawdbot:latest
           imagePullPolicy: IfNotPresent
-          envFrom:
-            - configMapRef:
-                name: clawdbot-config
           env:
-            # Secrets from sealed secret
-            - name: ANTHROPIC_API_KEY
+            # ClawdBot authentication (Claude AI session)
+            - name: CLAUDE_AI_SESSION_KEY
               valueFrom:
                 secretKeyRef:
                   name: clawdbot-secrets
-                  key: anthropic-api-key
-            - name: OPENAI_API_KEY
+                  key: claude-session-key
+            # Gateway configuration
+            - name: CLAWDBOT_GATEWAY_PORT
+              value: "18789"
+            - name: CLAWDBOT_BRIDGE_PORT
+              value: "18790"
+            - name: CLAWDBOT_GATEWAY_BIND
+              value: "lan"
+            - name: CLAWDBOT_GATEWAY_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: clawdbot-secrets
-                  key: openai-api-key
-                  optional: true
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: clawdbot-secrets
-                  key: db-password
-            - name: WHATSAPP_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: clawdbot-secrets
-                  key: whatsapp-token
-                  optional: true
-            - name: TELEGRAM_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: clawdbot-secrets
-                  key: telegram-token
-                  optional: true
-            - name: DISCORD_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: clawdbot-secrets
-                  key: discord-token
-                  optional: true
-            - name: SLACK_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: clawdbot-secrets
-                  key: slack-token
-                  optional: true
+                  key: gateway-token
+            # Terminal settings
+            - name: TERM
+              value: "xterm-256color"
           ports:
-            - name: http
-              containerPort: 3000
+            - name: gateway
+              containerPort: 18789
+              protocol: TCP
+            - name: bridge
+              containerPort: 18790
               protocol: TCP
           volumeMounts:
-            - name: data
-              mountPath: /data
+            - name: config
+              mountPath: /home/node/.clawdbot
+            - name: workspace
+              mountPath: /home/node/clawd
           resources:
             requests:
               cpu: 200m
@@ -87,26 +69,15 @@ spec:
             limits:
               cpu: 1000m
               memory: 1Gi
-          livenessProbe:
-            httpGet:
-              path: /health
-              port: http
-              scheme: HTTP
-            initialDelaySeconds: 60
-            periodSeconds: 30
-            timeoutSeconds: 10
-            failureThreshold: 5
-          readinessProbe:
-            httpGet:
-              path: /health
-              port: http
-              scheme: HTTP
-            initialDelaySeconds: 30
-            periodSeconds: 15
-            timeoutSeconds: 5
-            failureThreshold: 3
+          # Note: ClawdBot may not expose standard health endpoints
+          # Monitor via pod restarts and logs instead
       volumes:
-        - name: data
+        - name: config
           persistentVolumeClaim:
             claimName: clawdbot-data
+            subPath: config
+        - name: workspace
+          persistentVolumeClaim:
+            claimName: clawdbot-data
+            subPath: workspace
       restartPolicy: Always

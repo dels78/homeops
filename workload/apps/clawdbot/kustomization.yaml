@@ -21,7 +21,9 @@ labels:
       app.kubernetes.io/instance: clawdbot
 
 images:
-  - name: ghcr.io/yourusername/clawdbot
-    newName: ghcr.io/yourusername/clawdbot
-    # Update this tag once you build and push the image
-    newTag: "latest"
+  - name: ghcr.io/dels78/clawdbot
+    newName: ghcr.io/dels78/clawdbot
+    # renovate: datasource=github-releases depName=clawdbot/clawdbot
+    # Build image from https://github.com/clawdbot/clawdbot
+    # No official images published yet; must build yourself
+    newTag: "v2026.1.16-2"

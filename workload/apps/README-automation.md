@@ -1,9 +1,9 @@
 # Automation Stack Deployment
 
 This document describes the deployment of the automation stack consisting of:
-- **PostgreSQL**: Shared database for n8n and ClawdBot
+- **PostgreSQL**: Database for n8n (for workflow state and execution history)
 - **n8n**: Workflow orchestration and automation platform
-- **ClawdBot**: Multi-channel AI assistant interface
+- **ClawdBot**: Multi-channel AI assistant interface (uses filesystem storage)
 
 ## Architecture Overview
 
@@ -14,8 +14,8 @@ This document describes the deployment of the automation stack consisting of:
 └──────────────────────────┬──────────────────────────────────┘
                            │
                     ┌──────▼──────┐
-                    │  ClawdBot   │
-                    │  (Node.js)  │
+                    │  ClawdBot   │ ← NFS PVC (clawdbot-data)
+                    │  (Node.js)  │   (config + workspace)
                     └──────┬──────┘
               ┌────────────┼────────────┐
               │            │            │
@@ -25,7 +25,8 @@ This document describes the deployment of the automation stack consisting of:
       └──────┬───────┘ └───┬────┘ └──────────────┘
              │             │
       ┌──────▼─────────────▼──────┐
-      │  PostgreSQL Database      │
+      │  PostgreSQL Database      │ ← NFS: /volume1/postgresql
+      │  (n8n workflows/state)    │   NFS: /volume1/n8n (n8n data)
       └───────────────────────────┘
 ```
 
@@ -60,13 +61,11 @@ chmod 750 /volume1/postgresql /volume1/n8n
 # Generate random passwords
 POSTGRES_PASSWORD=$(openssl rand -base64 32)
 N8N_PASSWORD=$(openssl rand -base64 32)
-CLAWDBOT_PASSWORD=$(openssl rand -base64 32)
 
 # Create sealed secret
 kubectl create secret generic postgresql-credentials \
   --from-literal=postgres-password="$POSTGRES_PASSWORD" \
   --from-literal=n8n-password="$N8N_PASSWORD" \
-  --from-literal=clawdbot-password="$CLAWDBOT_PASSWORD" \
   --namespace=automation \
   --dry-run=client -o yaml | \
   kubeseal -o yaml > workload/system/postgresql/manifests/sealedsecret-credentials.yaml
@@ -98,19 +97,20 @@ kubectl create secret generic n8n-secrets \
 #### ClawdBot Secrets
 
 ```bash
-# Get your API keys
-ANTHROPIC_API_KEY="your-anthropic-api-key"  # Get from https://console.anthropic.com
-# Optional: OPENAI_API_KEY, TELEGRAM_TOKEN, DISCORD_TOKEN, etc.
+# Get Claude AI session key
+# 1. Go to https://claude.ai and log in
+# 2. Open browser DevTools (F12)
+# 3. Go to Application/Storage > Cookies
+# 4. Find the sessionKey cookie value
+# See: https://docs.clawd.bot for detailed instructions
 
-# Create sealed secret (use same CLAWDBOT_PASSWORD from above)
+CLAUDE_SESSION_KEY="your-claude-session-key"
+GATEWAY_TOKEN=$(openssl rand -base64 32)
+
+# Create sealed secret
 kubectl create secret generic clawdbot-secrets \
-  --from-literal=anthropic-api-key="$ANTHROPIC_API_KEY" \
-  --from-literal=openai-api-key="" \
-  --from-literal=db-password="$CLAWDBOT_PASSWORD" \
-  --from-literal=whatsapp-token="" \
-  --from-literal=telegram-token="" \
-  --from-literal=discord-token="" \
-  --from-literal=slack-token="" \
+  --from-literal=claude-session-key="$CLAUDE_SESSION_KEY" \
+  --from-literal=gateway-token="$GATEWAY_TOKEN" \
   --namespace=automation \
   --dry-run=client -o yaml | \
   kubeseal -o yaml > workload/apps/clawdbot/manifests/sealedsecret-credentials.yaml
@@ -122,47 +122,58 @@ kubectl create secret generic clawdbot-secrets \
 
 ### 4. Build ClawdBot Container Image
 
-ClawdBot doesn't have an official pre-built image, so you need to build one:
+**Important:** ClawdBot doesn't publish official pre-built images yet (as of January 2026). You must build the image yourself from their GitHub releases.
+
+#### Option A: Use the Build Script (Recommended)
 
 ```bash
-# Clone ClawdBot repository
-git clone https://github.com/bra1nDump/clawd-bot.git
-cd clawd-bot
+cd workload/apps/clawdbot
 
-# Create Dockerfile if not present
-cat > Dockerfile <<'EOF'
-FROM node:20-alpine
+# Make script executable
+chmod +x build-image.sh
 
-WORKDIR /app
+# Build image for the version specified in kustomization.yaml
+./build-image.sh
 
-# Install dependencies
-COPY package*.json ./
-RUN npm ci --only=production
-
-# Copy application code
-COPY . .
-
-# Expose port (adjust based on ClawdBot config)
-EXPOSE 3000
-
-# Health check endpoint
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/health || exit 1
-
-# Start ClawdBot
-CMD ["npm", "start"]
-EOF
-
-# Build and push image
-docker build -t ghcr.io/yourusername/clawdbot:latest .
-docker push ghcr.io/yourusername/clawdbot:latest
-
-# Update kustomization.yaml with actual image
-# Edit: workload/apps/clawdbot/kustomization.yaml
-# Update image name and tag
+# Or build a specific version
+./build-image.sh v2026.1.16-2
 ```
 
-**Note:** You may need to adjust the Dockerfile based on ClawdBot's actual structure and requirements. Check the official repository for build instructions.
+#### Option B: Manual Build
+
+```bash
+# Set version (check latest at https://github.com/clawdbot/clawdbot/releases)
+VERSION="v2026.1.16-2"
+
+# Clone ClawdBot repository
+git clone --branch ${VERSION} --depth 1 https://github.com/clawdbot/clawdbot.git
+cd clawdbot
+
+# Build using their Dockerfile
+docker build -t ghcr.io/dels78/clawdbot:${VERSION} -t ghcr.io/dels78/clawdbot:latest .
+
+# Push to registry (requires authentication to ghcr.io)
+docker push ghcr.io/dels78/clawdbot:${VERSION}
+docker push ghcr.io/dels78/clawdbot:latest
+```
+
+#### Renovate Integration
+
+The ClawdBot kustomization.yaml is configured to track GitHub releases:
+
+```yaml
+images:
+  - name: ghcr.io/dels78/clawdbot
+    # renovate: datasource=github-releases depName=clawdbot/clawdbot
+    newTag: "v2026.1.16-2"
+```
+
+When renovate detects a new ClawdBot release, it will create a PR updating the tag. You'll need to:
+1. Rebuild the image with the new version
+2. Push to your registry
+3. Merge the renovate PR
+
+**Future:** Once ClawdBot publishes official images to Docker Hub or GHCR, update the image reference and renovate will track those automatically.
 
 ### 5. Deploy via ArgoCD
 

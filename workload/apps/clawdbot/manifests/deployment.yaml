@@ -78,6 +78,17 @@ spec:
                 secretKeyRef:
                   name: clawdbot-secrets
                   key: gateway-token
+            # Slack integration
+            - name: SLACK_APP_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: clawdbot-secrets
+                  key: slack-app-token
+            - name: SLACK_BOT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: clawdbot-secrets
+                  key: slack-bot-token
             # Terminal settings
             - name: TERM
               value: "xterm-256color"

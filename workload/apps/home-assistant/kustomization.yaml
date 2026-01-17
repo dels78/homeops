@@ -23,4 +23,4 @@ images:
   - name: ghcr.io/home-assistant/home-assistant
     newName: ghcr.io/home-assistant/home-assistant
     # renovate: datasource=docker depName=home-assistant/core
-    newTag: "2026.1.1"
+    newTag: "2026.1.2"

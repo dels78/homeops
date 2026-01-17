@@ -45,9 +45,16 @@ trap "rm -rf ${TEMP_DIR}" EXIT
 echo "Cloning ClawdBot repository..."
 git clone --branch "${VERSION}" --depth 1 https://github.com/clawdbot/clawdbot.git "${TEMP_DIR}"
 
+# Workaround: Dockerfile references patches directory that doesn't exist
+# Create it if missing to avoid build failure
+cd "${TEMP_DIR}"
+if [ ! -d "patches" ]; then
+  echo "Creating empty patches directory (workaround for Dockerfile bug)..."
+  mkdir -p patches
+fi
+
 # Build Docker image
 echo "Building image ${FULL_IMAGE}..."
-cd "${TEMP_DIR}"
 docker build -t "${FULL_IMAGE}" -t "${LATEST_IMAGE}" .
 
 # Push to registry

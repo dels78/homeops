@@ -13,8 +13,8 @@ resources:
 helmCharts:
   - name: n8n
     releaseName: "n8n"
-    repo: https://8gears.container-registry.com/chartrepo/library
-    version: 0.24.0
+    repo: oci://8gears.container-registry.com/library
+    version: 2.0.1
     namespace: automation
     includeCRDs: true
     valuesFile: ./values.yaml

@@ -126,6 +126,8 @@ kubectl create secret generic clawdbot-secrets \
 
 #### Option A: Use the Build Script (Recommended)
 
+The build script automatically handles GitHub authentication using your personal account.
+
 ```bash
 cd workload/apps/clawdbot
 
@@ -133,17 +135,30 @@ cd workload/apps/clawdbot
 chmod +x build-image.sh
 
 # Build image for the version specified in kustomization.yaml
+# The script will:
+# 1. Source scripts/setup-github-auth.sh to get your personal account token
+# 2. Authenticate to ghcr.io
+# 3. Clone ClawdBot from GitHub
+# 4. Build and push the image
 ./build-image.sh
 
 # Or build a specific version
 ./build-image.sh v2026.1.16-2
 ```
 
+**Note:** The script uses `scripts/setup-github-auth.sh` to safely get your personal account token even when you have multiple GitHub accounts logged in via `gh` CLI.
+
 #### Option B: Manual Build
 
 ```bash
 # Set version (check latest at https://github.com/clawdbot/clawdbot/releases)
 VERSION="v2026.1.16-2"
+
+# Setup GitHub authentication for personal account (multi-account safe)
+source scripts/setup-github-auth.sh
+
+# Authenticate to GitHub Container Registry
+echo "${GITHUB_TOKEN}" | docker login ghcr.io -u dels78 --password-stdin
 
 # Clone ClawdBot repository
 git clone --branch ${VERSION} --depth 1 https://github.com/clawdbot/clawdbot.git
@@ -152,7 +167,7 @@ cd clawdbot
 # Build using their Dockerfile
 docker build -t ghcr.io/dels78/clawdbot:${VERSION} -t ghcr.io/dels78/clawdbot:latest .
 
-# Push to registry (requires authentication to ghcr.io)
+# Push to registry
 docker push ghcr.io/dels78/clawdbot:${VERSION}
 docker push ghcr.io/dels78/clawdbot:latest
 ```

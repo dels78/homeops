@@ -55,7 +55,7 @@ fi
 
 # Build Docker image
 echo "Building image ${FULL_IMAGE}..."
-docker build -t "${FULL_IMAGE}" -t "${LATEST_IMAGE}" .
+docker build --platform linux/amd64 -t "${FULL_IMAGE}" -t "${LATEST_IMAGE}" .
 
 # Push to registry
 echo "Pushing image to registry..."

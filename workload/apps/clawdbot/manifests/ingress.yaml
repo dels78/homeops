@@ -1,0 +1,19 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: clawdbot
+  namespace: automation
+
+spec:
+  rules:
+    - host: clawdbot.delisle.me
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: clawdbot
+                port:
+                  number: 18789

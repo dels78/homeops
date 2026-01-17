@@ -1,0 +1,28 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: automation
+
+resources:
+  - manifests/namespace.yaml
+  - manifests/configmap.yaml
+  - manifests/pvc.yaml
+  - manifests/deployment.yaml
+  - manifests/service.yaml
+  - manifests/ingress.yaml
+  - manifests/sealedsecret-credentials.yaml
+
+labels:
+  - pairs:
+      app.kubernetes.io/name: clawdbot
+      app.kubernetes.io/instance: clawdbot
+
+images:
+  - name: ghcr.io/dels78/clawdbot
+    newName: ghcr.io/dels78/clawdbot
+    # renovate: datasource=github-releases depName=clawdbot/clawdbot
+    # Build image from https://github.com/clawdbot/clawdbot
+    # No official images published yet; must build yourself
+    newTag: "v2026.1.16-2"

@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: clawdbot-config
+  namespace: automation
+  labels:
+    app.kubernetes.io/name: clawdbot
+    app.kubernetes.io/instance: clawdbot
+data:
+  # ClawdBot configuration
+  # See: https://github.com/clawdbot/clawdbot for configuration options
+  TZ: "America/New_York"
+
+  # n8n integration (for triggering workflows)
+  N8N_URL: "http://n8n.automation.svc.cluster.local:5678"
+
+  # Gateway configuration
+  CLAWDBOT_GATEWAY_URL: "https://clawdbot.delisle.me"

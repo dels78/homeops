@@ -1,0 +1,83 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clawdbot
+  namespace: automation
+  labels:
+    app.kubernetes.io/name: clawdbot
+    app.kubernetes.io/instance: clawdbot
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: clawdbot
+      app.kubernetes.io/instance: clawdbot
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: clawdbot
+        app.kubernetes.io/instance: clawdbot
+    spec:
+      containers:
+        - name: clawdbot
+          # Build from https://github.com/clawdbot/clawdbot
+          # No official pre-built images available yet; must build yourself
+          # See workload/apps/README-automation.md for build instructions
+          image: ghcr.io/dels78/clawdbot:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            # ClawdBot authentication (Claude AI session)
+            - name: CLAUDE_AI_SESSION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: clawdbot-secrets
+                  key: claude-session-key
+            # Gateway configuration
+            - name: CLAWDBOT_GATEWAY_PORT
+              value: "18789"
+            - name: CLAWDBOT_BRIDGE_PORT
+              value: "18790"
+            - name: CLAWDBOT_GATEWAY_BIND
+              value: "lan"
+            - name: CLAWDBOT_GATEWAY_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: clawdbot-secrets
+                  key: gateway-token
+            # Terminal settings
+            - name: TERM
+              value: "xterm-256color"
+          ports:
+            - name: gateway
+              containerPort: 18789
+              protocol: TCP
+            - name: bridge
+              containerPort: 18790
+              protocol: TCP
+          volumeMounts:
+            - name: config
+              mountPath: /home/node/.clawdbot
+            - name: workspace
+              mountPath: /home/node/clawd
+          resources:
+            requests:
+              cpu: 200m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+          # Note: ClawdBot may not expose standard health endpoints
+          # Monitor via pod restarts and logs instead
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: clawdbot-data
+            subPath: config
+        - name: workspace
+          persistentVolumeClaim:
+            claimName: clawdbot-data
+            subPath: workspace
+      restartPolicy: Always

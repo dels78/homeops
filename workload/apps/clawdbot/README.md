@@ -41,12 +41,46 @@ ClawdBot is designed for local CLI usage where `clawdbot dashboard` generates th
 - **Storage**: NFS-backed PVC at `/home/node` (contains `.clawdbot` config and `clawd` workspace)
 - **Bootstrap**: initContainer copies minimal config from ConfigMap if not exists
 - **Config**: User configuration via Control UI persists to PVC
+- **Channels**: Slack integration enabled via socket mode (app token + bot token)
+
+## Slack Integration
+
+ClawdBot is configured with Slack socket mode integration. The bot automatically connects to your Slack workspace.
+
+### Using Slack
+
+1. Invite the bot to any channel: `/invite @Clawdbot`
+2. Send direct messages to the bot for 1:1 conversations
+3. Use the `/clawd` slash command in any channel
+
+### Configuration
+
+Slack tokens are stored in the `clawdbot-secrets` sealed secret:
+- `slack-app-token`: App-level token (xapp-...) for socket mode
+- `slack-bot-token`: Bot user OAuth token (xoxb-...) for API access
+
+DM policy is set to "open" - anyone in the workspace can DM the bot.
 
 ## Troubleshooting
 
 ### Control UI Shows "Unauthorized"
 
 Clear browser cache/localStorage and re-authenticate using the token URL above.
+
+### Slack Bot Not Responding
+
+Check if the bot is connected:
+
+```bash
+kubectl logs -n automation -l app.kubernetes.io/name=clawdbot --tail=100 | grep -i slack
+```
+
+Verify the tokens are correct:
+
+```bash
+kubectl get secret clawdbot-secrets -n automation -o jsonpath='{.data.slack-app-token}' | base64 -d && echo
+kubectl get secret clawdbot-secrets -n automation -o jsonpath='{.data.slack-bot-token}' | base64 -d && echo
+```
 
 ### Check Pod Status
 

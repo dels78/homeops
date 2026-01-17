@@ -59,18 +59,9 @@ main:
       value: "America/New_York"
 
   persistence:
-    enabled: false
-
-  # Use direct NFS mount like PostgreSQL (must use different name than default "data" volume)
-  extraVolumes:
-    - name: n8n-nfs-data
-      nfs:
-        server: "192.168.1.252"
-        path: "/volume1/n8n"
-
-  extraVolumeMounts:
-    - name: n8n-nfs-data
-      mountPath: /home/node/.n8n
+    enabled: true
+    type: existing
+    existingClaim: n8n
 
   resources:
     requests:

@@ -1,0 +1,29 @@
+---
+# Static PersistentVolume pointing to pre-created NFS directory
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: n8n-nfs
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: "192.168.1.252"
+    path: "/volume1/n8n"
+---
+# PersistentVolumeClaim that binds to the static PV
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: n8n
+  namespace: automation
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  volumeName: n8n-nfs

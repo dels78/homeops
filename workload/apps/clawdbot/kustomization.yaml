@@ -12,8 +12,7 @@ resources:
   - manifests/deployment.yaml
   - manifests/service.yaml
   - manifests/ingress.yaml
-  # Uncomment after creating sealedsecret-credentials.yaml:
-  # - manifests/sealedsecret-credentials.yaml
+  - manifests/sealedsecret-credentials.yaml
 
 labels:
   - pairs:

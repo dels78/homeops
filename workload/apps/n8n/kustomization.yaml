@@ -8,8 +8,7 @@ namespace: automation
 resources:
   - manifests/namespace.yaml
   - manifests/ingress.yaml
-  # Uncomment after creating sealedsecret-encryption.yaml:
-  # - manifests/sealedsecret-encryption.yaml
+  - manifests/sealedsecret-encryption.yaml
 
 helmCharts:
   - name: n8n

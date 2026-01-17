@@ -10,8 +10,7 @@ resources:
   - manifests/configmap-init.yaml
   - manifests/statefulset.yaml
   - manifests/service.yaml
-  # Uncomment after creating sealedsecret-credentials.yaml:
-  # - manifests/sealedsecret-credentials.yaml
+  - manifests/sealedsecret-credentials.yaml
 
 labels:
   - pairs:

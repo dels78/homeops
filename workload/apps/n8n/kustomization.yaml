@@ -8,6 +8,7 @@ namespace: automation
 resources:
   - manifests/ingress.yaml
   - manifests/sealedsecret-encryption.yaml
+  - manifests/pv-pvc.yaml
 
 helmCharts:
   - name: n8n

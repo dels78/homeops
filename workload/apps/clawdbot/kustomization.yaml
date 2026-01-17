@@ -13,6 +13,7 @@ resources:
   - manifests/service.yaml
   - manifests/ingress.yaml
   - manifests/sealedsecret-credentials.yaml
+  - manifests/sealedsecret-ghcr-pull.yaml
 
 labels:
   - pairs:

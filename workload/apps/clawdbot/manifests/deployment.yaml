@@ -35,6 +35,8 @@ spec:
                 echo "Bootstrapping clawdbot.json from ConfigMap..."
                 mkdir -p /home/node/.clawdbot
                 cp /bootstrap/clawdbot.json /home/node/.clawdbot/clawdbot.json
+                chown -R 1000:1000 /home/node/.clawdbot
+                echo "Set ownership to 1000:1000"
               else
                 echo "Config already exists, skipping bootstrap"
               fi

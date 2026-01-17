@@ -10,6 +10,7 @@ kind: Kustomization
 # - ClawdBot: Multi-channel AI assistant interface
 
 resources:
+  - namespace.yaml
   - ../system/postgresql
   - ../apps/n8n
   - ../apps/clawdbot

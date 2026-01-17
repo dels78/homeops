@@ -6,7 +6,6 @@ kind: Kustomization
 namespace: automation
 
 resources:
-  - manifests/namespace.yaml
   - manifests/configmap-init.yaml
   - manifests/statefulset.yaml
   - manifests/service.yaml

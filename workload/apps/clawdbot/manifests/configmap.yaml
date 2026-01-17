@@ -19,7 +19,7 @@ data:
         "bind": "lan",
         "auth": {
           "mode": "token",
-          "allowTailscale": false
+          "token": "${CLAWDBOT_GATEWAY_TOKEN}"
         },
         "controlUi": {
           "enabled": true

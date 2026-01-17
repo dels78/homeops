@@ -23,6 +23,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: ""  # Must be empty to bind to PV without storageClass
   resources:
     requests:
       storage: 10Gi

@@ -6,7 +6,6 @@ kind: Kustomization
 namespace: automation
 
 resources:
-  - manifests/namespace.yaml
   - manifests/ingress.yaml
   - manifests/sealedsecret-encryption.yaml
 

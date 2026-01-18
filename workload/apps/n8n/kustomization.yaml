@@ -8,6 +8,7 @@ namespace: automation
 resources:
   - manifests/ingress.yaml
   - manifests/sealedsecret-encryption.yaml
+  - manifests/sealedsecret-agent-secrets.yaml
   - manifests/pv-pvc.yaml
   - manifests/rbac.yaml
 

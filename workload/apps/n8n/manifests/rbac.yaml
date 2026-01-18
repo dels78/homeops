@@ -1,11 +1,6 @@
 # RBAC for n8n to create/manage agent jobs
 # Allows n8n to create K8s Jobs for Claude coding agents
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: n8n
-  namespace: automation
+# ServiceAccount is created by Helm chart (see values.yaml)
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role

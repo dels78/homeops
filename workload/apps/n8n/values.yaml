@@ -101,7 +101,7 @@ securityContext:
   runAsGroup: 1000
   fsGroup: 1000
 
-# Use our ServiceAccount with RBAC for agent jobs
+# Let Helm chart create the ServiceAccount (RBAC bindings in rbac.yaml)
 serviceAccount:
-  create: false
+  create: true
   name: n8n

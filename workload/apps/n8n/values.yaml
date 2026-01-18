@@ -7,8 +7,8 @@ replicaCount: 1
 image:
   repository: n8nio/n8n
   pullPolicy: IfNotPresent
-  # renovate: datasource=docker depName=n8nio/n8n
-  tag: "1.71.3"
+  # NOTE: image tag is managed by kustomization.yaml `images:` section
+  # Do not set tag here - it will be overridden by kustomize
 
 service:
   type: ClusterIP

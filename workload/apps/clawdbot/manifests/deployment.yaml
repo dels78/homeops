@@ -91,9 +91,9 @@ spec:
                   key: slack-bot-token
             # GitHub App authentication
             - name: GITHUB_APP_ID
-              value: "2677285"
+              value: "2679439"
             - name: GITHUB_APP_INSTALLATION_ID
-              value: "104738677"
+              value: "104792861"
             - name: GITHUB_APP_PRIVATE_KEY_PATH
               value: "/secrets/github-app-private-key.pem"
             # Terminal settings

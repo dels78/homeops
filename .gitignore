@@ -3,3 +3,10 @@ apps/**/charts/*
 Chart.lock
 .DS_Store
 .env.local
+
+# CoreOS/Ignition provisioning
+infrastructure/coreos/.env
+infrastructure/coreos/output/
+*.ign
+*.bu
+!*.bu.template

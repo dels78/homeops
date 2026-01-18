@@ -10,6 +10,7 @@ resources:
   - manifests/pvc.yaml
   - manifests/deployment.yaml
   - manifests/service.yaml
+  - manifests/service-bridge.yaml
   - manifests/ingress.yaml
   - manifests/sealedsecret-credentials.yaml
   - manifests/sealedsecret-ghcr-pull.yaml

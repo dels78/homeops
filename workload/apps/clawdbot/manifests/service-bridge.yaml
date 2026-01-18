@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: clawdbot-bridge
+  namespace: automation
+  labels:
+    app.kubernetes.io/name: clawdbot
+    app.kubernetes.io/instance: clawdbot
+    app.kubernetes.io/component: bridge
+spec:
+  type: LoadBalancer
+  ports:
+    - name: bridge
+      port: 18790
+      targetPort: bridge
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: clawdbot
+    app.kubernetes.io/instance: clawdbot

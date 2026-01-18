@@ -9,6 +9,7 @@ resources:
   - manifests/ingress.yaml
   - manifests/sealedsecret-encryption.yaml
   - manifests/pv-pvc.yaml
+  - manifests/rbac.yaml
 
 helmCharts:
   - name: n8n

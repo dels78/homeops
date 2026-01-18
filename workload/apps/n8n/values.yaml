@@ -100,3 +100,8 @@ securityContext:
   runAsUser: 1000
   runAsGroup: 1000
   fsGroup: 1000
+
+# Use our ServiceAccount with RBAC for agent jobs
+serviceAccount:
+  create: false
+  name: n8n

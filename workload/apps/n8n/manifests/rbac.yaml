@@ -1,0 +1,46 @@
+# RBAC for n8n to create/manage agent jobs
+# Allows n8n to create K8s Jobs for Claude coding agents
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: n8n
+  namespace: automation
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: agent-job-manager
+  namespace: automation
+rules:
+  # Jobs - create and monitor agent jobs
+  - apiGroups: ["batch"]
+    resources: ["jobs"]
+    verbs: ["create", "get", "list", "watch", "delete"]
+  # Pods - view logs from agent jobs
+  - apiGroups: [""]
+    resources: ["pods", "pods/log"]
+    verbs: ["get", "list", "watch"]
+  # ConfigMaps - read job templates (optional)
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "list"]
+  # Secrets - read API keys for jobs (specific secret only)
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get"]
+    resourceNames: ["agent-secrets"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: n8n-agent-job-manager
+  namespace: automation
+subjects:
+  - kind: ServiceAccount
+    name: n8n
+    namespace: automation
+roleRef:
+  kind: Role
+  name: agent-job-manager
+  apiGroup: rbac.authorization.k8s.io

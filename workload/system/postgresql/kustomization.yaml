@@ -20,4 +20,4 @@ images:
   - name: postgres
     newName: postgres
     # renovate: datasource=docker depName=postgres
-    newTag: "16-alpine"
+    newTag: "18-alpine"

@@ -89,6 +89,13 @@ spec:
                 secretKeyRef:
                   name: clawdbot-secrets
                   key: slack-bot-token
+            # GitHub App authentication
+            - name: GITHUB_APP_ID
+              value: "2677285"
+            - name: GITHUB_APP_INSTALLATION_ID
+              value: "104738677"
+            - name: GITHUB_APP_PRIVATE_KEY_PATH
+              value: "/secrets/github-app-private-key.pem"
             # Terminal settings
             - name: TERM
               value: "xterm-256color"
@@ -102,6 +109,9 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /home/node
+            - name: github-app-key
+              mountPath: /secrets
+              readOnly: true
           resources:
             requests:
               cpu: 200m
@@ -118,4 +128,10 @@ spec:
         - name: bootstrap-config
           configMap:
             name: clawdbot-config
+        - name: github-app-key
+          secret:
+            secretName: clawdbot-secrets
+            items:
+              - key: github-app-private-key.pem
+                path: github-app-private-key.pem
       restartPolicy: Always

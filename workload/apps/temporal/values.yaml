@@ -13,8 +13,8 @@ server:
           port: 5432
           database: temporal
           user: temporal
-          existingSecret: temporal-postgres
-          secretKey: password
+          existingSecret: github-app
+          secretKey: postgres-password
       visibility:
         driver: sql
         sql:
@@ -23,8 +23,8 @@ server:
           port: 5432
           database: temporal_visibility
           user: temporal
-          existingSecret: temporal-postgres
-          secretKey: password
+          existingSecret: github-app
+          secretKey: postgres-password
 
   resources:
     requests:

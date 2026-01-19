@@ -18,7 +18,7 @@ helmCharts:
     releaseName: temporal
     repo: https://go.temporal.io/helm-charts
     # renovate: datasource=helm depName=temporal registryUrl=https://go.temporal.io/helm-charts
-    version: 0.45.0
+    version: 0.73.1
     namespace: temporal
     includeCRDs: true
     valuesFile: ./values.yaml

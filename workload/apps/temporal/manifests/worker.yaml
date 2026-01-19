@@ -35,23 +35,22 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: github-app
-                  key: app-id
+                  key: github-app-id
             - name: GITHUB_APP_INSTALLATION_ID
               valueFrom:
                 secretKeyRef:
                   name: github-app
-                  key: installation-id
+                  key: github-installation-id
             - name: GITHUB_APP_PRIVATE_KEY
               valueFrom:
                 secretKeyRef:
                   name: github-app
-                  key: private-key
-            - name: SLACK_WEBHOOK_URL
+                  key: github-app-private-key
+            - name: GITHUB_WEBHOOK_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: slack-webhook
-                  key: url
-                  optional: true
+                  name: github-app
+                  key: github-webhook-secret
           resources:
             requests:
               cpu: 100m
@@ -96,6 +95,11 @@ spec:
               value: "3000"
             - name: TEMPORAL_ADDRESS
               value: "temporal.temporal.svc.cluster.local:7233"
+            - name: GITHUB_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: github-app
+                  key: github-webhook-secret
           resources:
             requests:
               cpu: 50m

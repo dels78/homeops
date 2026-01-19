@@ -1,0 +1,38 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: temporal
+
+resources:
+  - manifests/namespace.yaml
+  - manifests/pvc.yaml
+  - manifests/server.yaml
+  - manifests/ui.yaml
+  - manifests/worker.yaml
+  - manifests/ingress.yaml
+  - manifests/rbac.yaml
+  # Uncomment after creating sealed secrets:
+  # - manifests/sealedsecret-github-app.yaml
+  # - manifests/sealedsecret-slack-webhook.yaml
+
+labels:
+  - pairs:
+      app.kubernetes.io/name: temporal
+      app.kubernetes.io/instance: temporal
+
+images:
+  - name: temporalio/auto-setup
+    newName: temporalio/auto-setup
+    # renovate: datasource=docker depName=temporalio/auto-setup
+    newTag: "1.25.2"
+  - name: temporalio/ui
+    newName: temporalio/ui
+    # renovate: datasource=docker depName=temporalio/ui
+    newTag: "2.31.2"
+  - name: ghcr.io/dels78/agent-orchestrator
+    newName: ghcr.io/dels78/agent-orchestrator
+    # renovate: datasource=docker depName=ghcr.io/dels78/agent-orchestrator
+    # Workflow image built from focus-ai repo
+    newTag: "latest"

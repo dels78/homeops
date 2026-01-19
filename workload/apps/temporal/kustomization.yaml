@@ -11,9 +11,7 @@ resources:
   - manifests/ingress-webhook.yaml
   - manifests/rbac.yaml
   - manifests/onepassworditem-github-app.yaml
-  # Additional secrets - uncomment after creating:
-  # - manifests/onepassworditem-postgres.yaml
-  # - manifests/onepassworditem-ghcr-pull.yaml
+  - manifests/cronjob-ghcr-refresh.yaml
 
 helmCharts:
   - name: temporal

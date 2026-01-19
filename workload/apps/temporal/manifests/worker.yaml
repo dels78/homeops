@@ -1,7 +1,6 @@
 ---
 # Agent Orchestrator Worker
-# Executes workflows defined in the focus-ai repo
-# Image: ghcr.io/dels78/agent-orchestrator (built from focus-ai)
+# Executes Temporal workflows for agent orchestration
 apiVersion: apps/v1
 kind: Deployment
 metadata:

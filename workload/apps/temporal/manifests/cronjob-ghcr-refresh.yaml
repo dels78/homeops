@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/name: temporal
     app.kubernetes.io/component: ghcr-refresh
 spec:
-  schedule: "0 * * * *"  # Every hour
+  schedule: "0 * * * *"
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 3
   jobTemplate:
@@ -21,7 +21,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: refresh
-              image: ghcr.io/tarampampam/curl:latest
+              image: bitnami/kubectl:latest
               env:
                 - name: GITHUB_APP_ID
                   valueFrom:
@@ -39,57 +39,50 @@ spec:
                       name: github-app
                       key: github-app-private-key
                 - name: NAMESPACE
-                  value: "temporal"
+                  value: temporal
                 - name: SECRET_NAME
-                  value: "ghcr-pull-secret"
-              command: ["/bin/sh", "-c"]
-              args:
+                  value: ghcr-pull-secret
+              command:
+                - /bin/bash
+                - -c
                 - |
                   set -e
-                  apk add --no-cache openssl jq kubectl > /dev/null 2>&1
-                  
-                  # Generate JWT
+
+                  # Generate JWT header and payload
                   NOW=$(date +%s)
                   IAT=$((NOW - 60))
                   EXP=$((NOW + 600))
-                  
-                  HEADER=$(printf '{"alg":"RS256","typ":"JWT"}' | openssl base64 -e | tr -d '=' | tr '/+' '_-' | tr -d '
-')
-                  PAYLOAD=$(printf '{"iat":%d,"exp":%d,"iss":"%s"}' "$IAT" "$EXP" "$GITHUB_APP_ID" | openssl base64 -e | tr -d '=' | tr '/+' '_-' | tr -d '
-')
-                  
+
+                  b64enc() { openssl base64 -e | tr -d '=' | tr '/+' '_-' | tr -d '\n'; }
+
+                  HEADER=$(echo -n '{"alg":"RS256","typ":"JWT"}' | b64enc)
+                  PAYLOAD=$(echo -n "{\"iat\":${IAT},\"exp\":${EXP},\"iss\":\"${GITHUB_APP_ID}\"}" | b64enc)
+
                   # Sign JWT
-                  SIGNATURE=$(printf '%s.%s' "$HEADER" "$PAYLOAD" | openssl dgst -sha256 -sign <(echo "$GITHUB_APP_PRIVATE_KEY") | openssl base64 -e | tr -d '=' | tr '/+' '_-' | tr -d '
-')
+                  SIGNATURE=$(echo -n "${HEADER}.${PAYLOAD}" | openssl dgst -sha256 -sign <(echo "$GITHUB_APP_PRIVATE_KEY") | b64enc)
                   JWT="${HEADER}.${PAYLOAD}.${SIGNATURE}"
-                  
+
                   # Get installation token
-                  TOKEN=$(curl -s -X POST \
+                  TOKEN=$(curl -sf -X POST \
                     -H "Authorization: Bearer ${JWT}" \
                     -H "Accept: application/vnd.github+json" \
                     "https://api.github.com/app/installations/${GITHUB_APP_INSTALLATION_ID}/access_tokens" | jq -r '.token')
-                  
+
                   if [ -z "$TOKEN" ] || [ "$TOKEN" = "null" ]; then
-                    echo "Failed to get installation token"
+                    echo "ERROR: Failed to get installation token"
                     exit 1
                   fi
-                  
-                  # Create dockerconfigjson
-                  AUTH=$(printf "x-access-token:%s" "$TOKEN" | base64 | tr -d '
-')
-                  DOCKERCONFIG=$(printf '{"auths":{"ghcr.io":{"auth":"%s"}}}' "$AUTH")
-                  
-                  # Update or create the secret
+
+                  # Create or update the pull secret
                   kubectl create secret docker-registry "$SECRET_NAME" \
                     --namespace="$NAMESPACE" \
                     --docker-server=ghcr.io \
                     --docker-username=x-access-token \
                     --docker-password="$TOKEN" \
                     --dry-run=client -o yaml | kubectl apply -f -
-                  
+
                   echo "Successfully refreshed $SECRET_NAME in $NAMESPACE"
 ---
-# ServiceAccount for the CronJob
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -99,7 +92,6 @@ metadata:
     app.kubernetes.io/name: temporal
     app.kubernetes.io/component: ghcr-refresh
 ---
-# Role to manage the pull secret
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -112,12 +104,7 @@ rules:
   - apiGroups: [""]
     resources: ["secrets"]
     verbs: ["get", "create", "update", "patch"]
-    resourceNames: ["ghcr-pull-secret"]
-  - apiGroups: [""]
-    resources: ["secrets"]
-    verbs: ["create"]
 ---
-# RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:

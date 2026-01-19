@@ -22,6 +22,8 @@ spec:
         app.kubernetes.io/component: agent-worker
     spec:
       serviceAccountName: agent-orchestrator
+      imagePullSecrets:
+        - name: ghcr-pull-secret
       containers:
         - name: worker
           image: ghcr.io/dels78/agent-orchestrator
@@ -30,9 +32,15 @@ spec:
             - name: TEMPORAL_ADDRESS
               value: "temporal.temporal.svc.cluster.local:7233"
             - name: GITHUB_APP_ID
-              value: "2679439"
+              valueFrom:
+                secretKeyRef:
+                  name: github-app
+                  key: app-id
             - name: GITHUB_APP_INSTALLATION_ID
-              value: "104792861"
+              valueFrom:
+                secretKeyRef:
+                  name: github-app
+                  key: installation-id
             - name: GITHUB_APP_PRIVATE_KEY
               valueFrom:
                 secretKeyRef:
@@ -74,6 +82,8 @@ spec:
         app.kubernetes.io/name: temporal
         app.kubernetes.io/component: agent-webhook
     spec:
+      imagePullSecrets:
+        - name: ghcr-pull-secret
       containers:
         - name: webhook
           image: ghcr.io/dels78/agent-orchestrator

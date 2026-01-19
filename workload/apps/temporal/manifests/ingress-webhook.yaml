@@ -1,22 +1,16 @@
 ---
 # Agent Webhook Ingress (GitHub webhooks)
-# Note: Temporal UI ingress is handled by the Helm chart
+# SSL handled by Cloudflare
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: agent-webhook
   namespace: temporal
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
   labels:
     app.kubernetes.io/name: temporal
     app.kubernetes.io/component: agent-webhook
 spec:
   ingressClassName: traefik
-  tls:
-    - hosts:
-        - agent-webhook.delisle.me
-      secretName: agent-webhook-tls
   rules:
     - host: agent-webhook.delisle.me
       http:

@@ -37,7 +37,7 @@ spec:
                   valueFrom:
                     secretKeyRef:
                       name: github-app
-                      key: github-app-private-key
+                      key: github-app-private-key.pem
                 - name: NAMESPACE
                   value: temporal
                 - name: SECRET_NAME

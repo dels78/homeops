@@ -1,0 +1,82 @@
+---
+# Temporal Server - lightweight deployment with SQLite
+# For production scale, consider Temporal Cloud or Helm chart with Postgres
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: temporal-server
+  namespace: temporal
+  labels:
+    app.kubernetes.io/name: temporal
+    app.kubernetes.io/component: server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: temporal
+      app.kubernetes.io/component: server
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: temporal
+        app.kubernetes.io/component: server
+    spec:
+      containers:
+        - name: temporal
+          image: temporalio/auto-setup
+          ports:
+            - containerPort: 7233
+              name: grpc
+            - containerPort: 8233
+              name: http
+          env:
+            - name: DB
+              value: sqlite
+            - name: SKIP_SCHEMA_SETUP
+              value: "false"
+            - name: SKIP_DEFAULT_NAMESPACE_CREATION
+              value: "false"
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/temporal
+          resources:
+            requests:
+              cpu: 200m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+          livenessProbe:
+            tcpSocket:
+              port: 7233
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          readinessProbe:
+            tcpSocket:
+              port: 7233
+            initialDelaySeconds: 10
+            periodSeconds: 10
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: temporal-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: temporal
+  namespace: temporal
+  labels:
+    app.kubernetes.io/name: temporal
+    app.kubernetes.io/component: server
+spec:
+  selector:
+    app.kubernetes.io/name: temporal
+    app.kubernetes.io/component: server
+  ports:
+    - port: 7233
+      targetPort: 7233
+      name: grpc
+    - port: 8233
+      targetPort: 8233
+      name: http

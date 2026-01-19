@@ -38,6 +38,10 @@ server:
 web:
   enabled: true
   replicaCount: 1
+  image:
+    repository: temporalio/ui
+    tag: "2.44.1"
+    pullPolicy: IfNotPresent
   ingress:
     enabled: true
     className: traefik

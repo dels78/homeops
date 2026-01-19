@@ -45,7 +45,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: github-app
-                  key: github-app-private-key
+                  key: github-app-private-key.pem
             - name: GITHUB_WEBHOOK_SECRET
               valueFrom:
                 secretKeyRef:

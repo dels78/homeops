@@ -7,15 +7,23 @@ namespace: temporal
 
 resources:
   - manifests/namespace.yaml
-  - manifests/pvc.yaml
-  - manifests/server.yaml
-  - manifests/ui.yaml
   - manifests/worker.yaml
-  - manifests/ingress.yaml
+  - manifests/ingress-webhook.yaml
   - manifests/rbac.yaml
-  # Uncomment after creating sealed secrets:
+  # Secrets - uncomment after creating sealed secrets:
+  # - manifests/sealedsecret-postgres.yaml
   # - manifests/sealedsecret-github-app.yaml
   # - manifests/sealedsecret-slack-webhook.yaml
+
+helmCharts:
+  - name: temporal
+    releaseName: temporal
+    repo: https://charts.temporal.io
+    # renovate: datasource=helm depName=temporal registryUrl=https://charts.temporal.io
+    version: 0.45.0
+    namespace: temporal
+    includeCRDs: true
+    valuesFile: ./values.yaml
 
 labels:
   - pairs:
@@ -23,14 +31,6 @@ labels:
       app.kubernetes.io/instance: temporal
 
 images:
-  - name: temporalio/auto-setup
-    newName: temporalio/auto-setup
-    # renovate: datasource=docker depName=temporalio/auto-setup
-    newTag: "1.25.2"
-  - name: temporalio/ui
-    newName: temporalio/ui
-    # renovate: datasource=docker depName=temporalio/ui
-    newTag: "2.31.2"
   - name: ghcr.io/dels78/agent-orchestrator
     newName: ghcr.io/dels78/agent-orchestrator
     # renovate: datasource=docker depName=ghcr.io/dels78/agent-orchestrator

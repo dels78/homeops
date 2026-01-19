@@ -13,6 +13,7 @@ resources:
   # Secrets - uncomment after creating sealed secrets:
   # - manifests/sealedsecret-postgres.yaml
   # - manifests/sealedsecret-github-app.yaml
+  # - manifests/sealedsecret-ghcr-pull.yaml
   # - manifests/sealedsecret-slack-webhook.yaml
 
 helmCharts:

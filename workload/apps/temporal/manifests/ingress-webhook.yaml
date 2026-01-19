@@ -1,0 +1,25 @@
+---
+# Agent Webhook Ingress
+# Routes /webhook/* to the webhook server
+# Temporal UI handles / (via Helm chart ingress)
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: agent-webhook
+  namespace: temporal
+  labels:
+    app.kubernetes.io/name: temporal
+    app.kubernetes.io/component: agent-webhook
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: temporal.delisle.me
+      http:
+        paths:
+          - path: /webhook
+            pathType: Prefix
+            backend:
+              service:
+                name: agent-webhook
+                port:
+                  number: 80

@@ -1,0 +1,44 @@
+---
+# ServiceAccount for agent-orchestrator worker
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: agent-orchestrator
+  namespace: temporal
+  labels:
+    app.kubernetes.io/name: temporal
+    app.kubernetes.io/component: agent-worker
+---
+# ClusterRole to manage jobs in automation namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: agent-orchestrator
+  labels:
+    app.kubernetes.io/name: temporal
+rules:
+  # Jobs - create and monitor agent jobs
+  - apiGroups: ["batch"]
+    resources: ["jobs"]
+    verbs: ["create", "get", "list", "watch", "delete"]
+  # Pods - view logs from agent jobs
+  - apiGroups: [""]
+    resources: ["pods", "pods/log"]
+    verbs: ["get", "list", "watch"]
+---
+# Bind to automation namespace (where agent jobs run)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: agent-orchestrator
+  namespace: automation
+  labels:
+    app.kubernetes.io/name: temporal
+subjects:
+  - kind: ServiceAccount
+    name: agent-orchestrator
+    namespace: temporal
+roleRef:
+  kind: ClusterRole
+  name: agent-orchestrator
+  apiGroup: rbac.authorization.k8s.io

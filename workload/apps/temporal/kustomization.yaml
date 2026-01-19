@@ -1,0 +1,35 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: temporal
+
+resources:
+  - manifests/namespace.yaml
+  - manifests/worker.yaml
+  - manifests/ingress-webhook.yaml
+  - manifests/rbac.yaml
+  - manifests/onepassworditem-github-app.yaml
+  - manifests/cronjob-ghcr-refresh.yaml
+
+helmCharts:
+  - name: temporal
+    releaseName: temporal
+    repo: https://charts.temporal.io
+    # renovate: datasource=helm depName=temporal registryUrl=https://charts.temporal.io
+    version: 0.45.0
+    namespace: temporal
+    includeCRDs: true
+    valuesFile: ./values.yaml
+
+labels:
+  - pairs:
+      app.kubernetes.io/name: temporal
+      app.kubernetes.io/instance: temporal
+
+images:
+  - name: ghcr.io/dels78/agent-orchestrator
+    newName: ghcr.io/dels78/agent-orchestrator
+    # renovate: datasource=docker depName=ghcr.io/dels78/agent-orchestrator
+    newTag: "latest"

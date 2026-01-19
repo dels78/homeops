@@ -1,0 +1,83 @@
+# Temporal Helm Chart Values
+# https://github.com/temporalio/helm-charts
+
+server:
+  replicaCount: 1
+  config:
+    persistence:
+      default:
+        driver: sql
+        sql:
+          driver: postgres12
+          host: postgresql.automation.svc.cluster.local
+          port: 5432
+          database: temporal
+          user: temporal
+          existingSecret: github-app
+          secretKey: postgres-password
+      visibility:
+        driver: sql
+        sql:
+          driver: postgres12
+          host: postgresql.automation.svc.cluster.local
+          port: 5432
+          database: temporal_visibility
+          user: temporal
+          existingSecret: github-app
+          secretKey: postgres-password
+
+  resources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+
+# Web UI
+web:
+  enabled: true
+  replicaCount: 1
+  ingress:
+    enabled: true
+    className: traefik
+    hosts:
+      - temporal.delisle.me
+    # SSL handled by Cloudflare - no TLS config needed
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+
+# Admin tools
+admintools:
+  enabled: true
+
+# Schema setup job
+schema:
+  setup:
+    enabled: true
+  update:
+    enabled: true
+
+# Disable built-in dependencies (we use external Postgres)
+cassandra:
+  enabled: false
+
+mysql:
+  enabled: false
+
+postgresql:
+  enabled: false
+
+elasticsearch:
+  enabled: false
+
+prometheus:
+  enabled: false
+
+grafana:
+  enabled: false

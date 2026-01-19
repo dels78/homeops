@@ -34,5 +34,4 @@ images:
   - name: ghcr.io/dels78/agent-orchestrator
     newName: ghcr.io/dels78/agent-orchestrator
     # renovate: datasource=docker depName=ghcr.io/dels78/agent-orchestrator
-    # Workflow image built from focus-ai repo
     newTag: "latest"

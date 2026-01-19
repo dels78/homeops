@@ -10,10 +10,10 @@ resources:
   - manifests/worker.yaml
   - manifests/ingress-webhook.yaml
   - manifests/rbac.yaml
-  - manifests/secret-github-app.yaml
+  - manifests/onepassworditem-github-app.yaml
   # Additional secrets - uncomment after creating:
-  # - manifests/secret-postgres.yaml
-  # - manifests/secret-ghcr-pull.yaml
+  # - manifests/onepassworditem-postgres.yaml
+  # - manifests/onepassworditem-ghcr-pull.yaml
 
 helmCharts:
   - name: temporal

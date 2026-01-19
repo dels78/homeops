@@ -58,8 +58,13 @@ spec:
                   HEADER=$(echo -n '{"alg":"RS256","typ":"JWT"}' | b64enc)
                   PAYLOAD=$(echo -n "{\"iat\":${IAT},\"exp\":${EXP},\"iss\":\"${GITHUB_APP_ID}\"}" | b64enc)
 
+                  # Write private key to temp file (handles single-line format from secret)
+                  KEY_FILE=$(mktemp)
+                  echo "$GITHUB_APP_PRIVATE_KEY" > "$KEY_FILE"
+                  trap "rm -f $KEY_FILE" EXIT
+
                   # Sign JWT
-                  SIGNATURE=$(echo -n "${HEADER}.${PAYLOAD}" | openssl dgst -sha256 -sign <(echo "$GITHUB_APP_PRIVATE_KEY") | b64enc)
+                  SIGNATURE=$(echo -n "${HEADER}.${PAYLOAD}" | openssl dgst -sha256 -sign "$KEY_FILE" | b64enc)
                   JWT="${HEADER}.${PAYLOAD}.${SIGNATURE}"
 
                   # Get installation token

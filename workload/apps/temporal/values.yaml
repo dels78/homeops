@@ -43,12 +43,7 @@ web:
     className: traefik
     hosts:
       - temporal.delisle.me
-    tls:
-      - secretName: temporal-ui-tls
-        hosts:
-          - temporal.delisle.me
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-prod
+    # SSL handled by Cloudflare - no TLS config needed
   resources:
     requests:
       cpu: 50m

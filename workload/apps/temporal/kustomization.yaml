@@ -16,8 +16,8 @@ resources:
 helmCharts:
   - name: temporal
     releaseName: temporal
-    repo: https://charts.temporal.io
-    # renovate: datasource=helm depName=temporal registryUrl=https://charts.temporal.io
+    repo: https://go.temporal.io/helm-charts
+    # renovate: datasource=helm depName=temporal registryUrl=https://go.temporal.io/helm-charts
     version: 0.45.0
     namespace: temporal
     includeCRDs: true

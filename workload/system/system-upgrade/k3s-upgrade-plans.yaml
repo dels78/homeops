@@ -12,7 +12,8 @@ spec:
   cordon: true
   nodeSelector:
     matchExpressions:
-      - key: node-role.kubernetes.io/master
+      # Match nodes with control-plane role (modern label, k3s 1.20+)
+      - key: node-role.kubernetes.io/control-plane
         operator: In
         values:
           - "true"
@@ -24,6 +25,8 @@ spec:
           - "amd64"
   serviceAccountName: system-upgrade
   tolerations:
+    - key: "node-role.kubernetes.io/control-plane"
+      operator: "Exists"
     - key: "node-role.kubernetes.io/master"
       operator: "Exists"
   drain:

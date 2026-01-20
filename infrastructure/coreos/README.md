@@ -110,6 +110,101 @@ curl -sfL https://get.k3s.io | K3S_TOKEN={{K3S_TOKEN}} sh -s - server \
   --disable traefik
 ```
 
+## Serving Ignition via Kubernetes
+
+If macOS firewall blocks the local HTTP server, serve via a temp pod:
+
+```bash
+# Create configmap and pod
+kubectl create configmap node-ignition --from-file=node.ign=output/my-new-node.ign
+kubectl run ignition-server --image=nginx:alpine --restart=Never --overrides='
+{
+  "spec": {
+    "containers": [{
+      "name": "ignition-server",
+      "image": "nginx:alpine",
+      "ports": [{"containerPort": 80}],
+      "volumeMounts": [{"name": "ignition", "mountPath": "/usr/share/nginx/html"}]
+    }],
+    "volumes": [{"name": "ignition", "configMap": {"name": "node-ignition"}}]
+  }
+}'
+kubectl expose pod ignition-server --type=NodePort --port=80
+
+# Get the URL
+NODE_IP=$(kubectl get nodes -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}')
+NODE_PORT=$(kubectl get svc ignition-server -o jsonpath='{.spec.ports[0].nodePort}')
+echo "http://${NODE_IP}:${NODE_PORT}/node.ign"
+
+# Cleanup after install
+kubectl delete pod ignition-server && kubectl delete svc ignition-server && kubectl delete configmap node-ignition
+```
+
+## Promoting Agent to Server
+
+To convert an existing agent node to a control-plane node:
+
+```bash
+# 1. Delete the node from kubernetes
+kubectl delete node <node-name>
+
+# 2. On the node, uninstall k3s agent
+sudo /usr/local/bin/k3s-agent-uninstall.sh
+
+# 3. Reinstall as server
+curl -sfL https://get.k3s.io | K3S_TOKEN='<token>' sh -s - server --server https://<control-plane-ip>:6443
+
+# 4. Start the service
+sudo systemctl start k3s
+
+# 5. Add label for system-upgrade-controller
+kubectl label node <node-name> node-role.kubernetes.io/master=true
+```
+
+## Removing a Server Node
+
+To remove a dead/failed control-plane node:
+
+```bash
+# 1. Create etcd backup
+ssh core@<healthy-node> 'sudo k3s etcd-snapshot save --name pre-removal'
+
+# 2. Get etcd member ID
+ssh core@<healthy-node> 'curl -sL https://github.com/etcd-io/etcd/releases/download/v3.5.9/etcd-v3.5.9-linux-amd64.tar.gz | sudo tar xzf - -C /tmp etcd-v3.5.9-linux-amd64/etcdctl'
+ssh core@<healthy-node> "sudo /tmp/etcd-v3.5.9-linux-amd64/etcdctl \
+  --endpoints='https://127.0.0.1:2379' \
+  --cacert='/var/lib/rancher/k3s/server/tls/etcd/server-ca.crt' \
+  --cert='/var/lib/rancher/k3s/server/tls/etcd/server-client.crt' \
+  --key='/var/lib/rancher/k3s/server/tls/etcd/server-client.key' \
+  member list -w table"
+
+# 3. Remove from etcd (use member ID from above)
+ssh core@<healthy-node> "sudo /tmp/etcd-v3.5.9-linux-amd64/etcdctl \
+  --endpoints='https://127.0.0.1:2379' \
+  --cacert='/var/lib/rancher/k3s/server/tls/etcd/server-ca.crt' \
+  --cert='/var/lib/rancher/k3s/server/tls/etcd/server-client.crt' \
+  --key='/var/lib/rancher/k3s/server/tls/etcd/server-client.key' \
+  member remove <member-id>"
+
+# 4. Delete from kubernetes
+kubectl delete node <node-name>
+
+# 5. Cleanup temp etcdctl
+ssh core@<healthy-node> 'sudo rm -rf /tmp/etcd-v3.5.9-linux-amd64'
+```
+
+## System Upgrade Controller
+
+Server nodes need the `control-plane` label for automatic upgrades. New k3s versions set this by default, but if a node isn't upgrading:
+
+```bash
+# Check labels
+kubectl get node <node> --show-labels | grep -E 'master|control-plane'
+
+# Add if missing (for server nodes)
+kubectl label node <node> node-role.kubernetes.io/master=true
+```
+
 ## Troubleshooting
 
 ### Node doesn't join cluster
@@ -120,12 +215,15 @@ SSH to the node and check:
 # Check k3s installer service
 sudo journalctl -u run-k3s-installer.service
 
-# Check k3s agent service
+# Check k3s agent service (or k3s for servers)
 sudo journalctl -u k3s-agent
+sudo journalctl -u k3s
 
 # Verify network connectivity to server
 curl -k ${K3S_SERVER}
 ```
+
+**Tip**: If the primary control-plane node is degraded, try pointing to a different healthy control-plane node.
 
 ### k3s-selinux installation failed
 
@@ -136,4 +234,13 @@ sudo journalctl -u rpm-ostree-install-k3s-selinux.service
 # Manual install
 sudo rpm-ostree install k3s-selinux
 sudo systemctl reboot
+```
+
+### SSH key not found
+
+The build script looks for `~/.ssh/id_ed25519.pub` by default. If using 1Password SSH agent, get the key from an existing node:
+
+```bash
+ssh core@<existing-node> 'cat ~/.ssh/authorized_keys.d/*'
+# Add to .env as SSH_PUBKEY="..."
 ```

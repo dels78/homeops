@@ -11,7 +11,7 @@ resources:
   - manifests/ingress-webhook.yaml
   - manifests/rbac.yaml
   - manifests/onepassworditem-github-app.yaml
-  - manifests/cronjob-ghcr-refresh.yaml
+  - manifests/sealedsecret-ghcr-pull.yaml
 
 helmCharts:
   - name: temporal

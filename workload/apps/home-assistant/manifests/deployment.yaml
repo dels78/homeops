@@ -35,7 +35,7 @@ spec:
               value: "America/New_York"
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8123
               protocol: TCP
           volumeMounts:
             - name: config

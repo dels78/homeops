@@ -30,7 +30,7 @@ spec:
           command: ["python", "worker.py"]
           env:
             - name: TEMPORAL_ADDRESS
-              value: "temporal.temporal.svc.cluster.local:7233"
+              value: "temporal-frontend.temporal.svc.cluster.local:7233"
             - name: GITHUB_APP_ID
               valueFrom:
                 secretKeyRef:
@@ -94,7 +94,7 @@ spec:
             - name: PORT
               value: "3000"
             - name: TEMPORAL_ADDRESS
-              value: "temporal.temporal.svc.cluster.local:7233"
+              value: "temporal-frontend.temporal.svc.cluster.local:7233"
             - name: GITHUB_WEBHOOK_SECRET
               valueFrom:
                 secretKeyRef:

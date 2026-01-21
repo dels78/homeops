@@ -30,4 +30,4 @@ images:
   - name: n8nio/n8n
     newName: n8nio/n8n
     # renovate: datasource=docker depName=n8nio/n8n
-    newTag: "2.4.4"
+    newTag: "2.5.0"

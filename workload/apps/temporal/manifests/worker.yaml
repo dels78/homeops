@@ -26,7 +26,7 @@ spec:
         - name: ghcr-pull-secret
       containers:
         - name: worker
-          image: ghcr.io/dels78/agent-orchestrator
+          image: ghcr.io/dels78/agent-orchestrator:f53fb81
           command: ["python", "worker.py"]
           env:
             - name: TEMPORAL_ADDRESS
@@ -85,7 +85,7 @@ spec:
         - name: ghcr-pull-secret
       containers:
         - name: webhook
-          image: ghcr.io/dels78/agent-orchestrator
+          image: ghcr.io/dels78/agent-orchestrator:f53fb81
           command: ["python", "webhook.py"]
           ports:
             - containerPort: 3000

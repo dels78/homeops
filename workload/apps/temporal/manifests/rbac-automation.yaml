@@ -1,0 +1,20 @@
+---
+# RoleBinding in automation namespace
+# This allows the agent-orchestrator service account (from temporal namespace)
+# to create and manage jobs in the automation namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: agent-orchestrator
+  namespace: automation
+  labels:
+    app.kubernetes.io/name: temporal
+    app.kubernetes.io/component: agent-orchestrator
+subjects:
+  - kind: ServiceAccount
+    name: agent-orchestrator
+    namespace: temporal
+roleRef:
+  kind: ClusterRole
+  name: agent-orchestrator
+  apiGroup: rbac.authorization.k8s.io

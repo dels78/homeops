@@ -10,6 +10,7 @@ resources:
   - manifests/worker.yaml
   - manifests/ingress-webhook.yaml
   - manifests/rbac.yaml
+  - manifests/rbac-automation.yaml
   - manifests/onepassworditem-github-app.yaml
   - manifests/sealedsecret-ghcr-pull.yaml
 

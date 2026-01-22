@@ -25,20 +25,3 @@ rules:
   - apiGroups: [""]
     resources: ["pods", "pods/log"]
     verbs: ["get", "list", "watch"]
----
-# Bind to automation namespace (where agent jobs run)
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: agent-orchestrator
-  namespace: automation
-  labels:
-    app.kubernetes.io/name: temporal
-subjects:
-  - kind: ServiceAccount
-    name: agent-orchestrator
-    namespace: temporal
-roleRef:
-  kind: ClusterRole
-  name: agent-orchestrator
-  apiGroup: rbac.authorization.k8s.io

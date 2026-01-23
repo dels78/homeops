@@ -21,6 +21,25 @@ New cluster nodes can be provisioned using the butane/ignition configs in [`infr
 
 Applications are deployed via ArgoCD. See [`argocd/applications/`](argocd/applications/) for the full list.
 
+## Development
+
+### GitHub Authentication
+
+**Required for all git/gh operations in this repo.**
+
+This repo uses the central auth script from the personal workspace:
+
+```bash
+# Before any git push, gh pr create, etc:
+source ~/code/personal/scripts/setup-github-auth.sh
+
+# Then proceed with git/gh operations
+gh pr create ...
+git push
+```
+
+**Why:** Using `gh auth switch` does NOT export `GH_TOKEN` properly and will cause authentication failures.
+
 ## Access
 
 All ingresses are behind Cloudflare Zero Trust which requires either my home IP or GitHub authentication to view.

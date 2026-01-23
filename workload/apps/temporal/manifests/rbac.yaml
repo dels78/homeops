@@ -9,6 +9,16 @@ metadata:
     app.kubernetes.io/name: temporal
     app.kubernetes.io/component: agent-worker
 ---
+# ServiceAccount for agent jobs (the actual agents that run)
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: agent-runner
+  namespace: temporal
+  labels:
+    app.kubernetes.io/name: temporal
+    app.kubernetes.io/component: agent-job
+---
 # ClusterRole to manage jobs in automation namespace
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole

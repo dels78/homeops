@@ -17,6 +17,21 @@ robusta:
   enablePlatformPlaybooks: true
   runner:
     sendAdditionalTelemetry: false
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "100m"
+      limits:
+        memory: "512Mi"
+        cpu: "500m"
+  kubewatch:
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "50m"
+      limits:
+        memory: "256Mi"
+        cpu: "200m"
 
   customPlaybooks:
     - triggers:

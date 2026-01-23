@@ -53,6 +53,11 @@ spec:
                   key: github-webhook-secret
             - name: CLAUDE_AGENT_IMAGE
               value: "ghcr.io/dels78/claude-agent:be5edd3"
+            - name: SLACK_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: github-app
+                  key: SLACK_WEBHOOK_URL
           resources:
             requests:
               cpu: 100m

@@ -1,0 +1,41 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: temporal-scheduler-setup
+  namespace: temporal
+  labels:
+    app: temporal-scheduler
+spec:
+  ttlSecondsAfterFinished: 3600
+  template:
+    metadata:
+      labels:
+        app: temporal-scheduler
+    spec:
+      restartPolicy: Never
+      serviceAccountName: agent-runner
+      containers:
+        - name: scheduler
+          image: ghcr.io/dels78/temporal-orchestrator:latest
+          imagePullPolicy: Always
+          command: ["python", "scheduler.py"]
+          env:
+            - name: TEMPORAL_ADDRESS
+              value: "temporal:7233"
+            - name: TEMPORAL_NAMESPACE
+              value: "default"
+            - name: REPO
+              value: "dels78/focus-ai"
+            - name: OWNER
+              value: "dels78"
+            - name: REPO_NAME
+              value: "focus-ai"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+      imagePullSecrets:
+        - name: ghcr-pull-secret

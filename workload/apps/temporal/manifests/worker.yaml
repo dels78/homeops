@@ -27,7 +27,7 @@ spec:
       containers:
         - name: worker
           image: ghcr.io/dels78/agent-orchestrator
-          command: ["python", "worker.py"]
+          command: ["python", "-u", "worker.py"]
           env:
             - name: TEMPORAL_ADDRESS
               value: "temporal-frontend.temporal.svc.cluster.local:7233"
@@ -86,7 +86,7 @@ spec:
       containers:
         - name: webhook
           image: ghcr.io/dels78/agent-orchestrator
-          command: ["python", "webhook.py"]
+          command: ["python", "-u", "webhook.py"]
           ports:
             - containerPort: 3000
               name: http

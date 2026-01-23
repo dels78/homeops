@@ -12,6 +12,7 @@ resources:
   - manifests/rbac.yaml
   - manifests/rbac-automation.yaml
   - manifests/onepassworditem-github-app.yaml
+  - manifests/onepassworditem-agent-secrets.yaml
   - manifests/sealedsecret-ghcr-pull.yaml
 
 helmCharts:

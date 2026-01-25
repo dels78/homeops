@@ -33,4 +33,4 @@ images:
   - name: ghcr.io/dels78/agent-orchestrator
     newName: ghcr.io/dels78/agent-orchestrator
     # renovate: datasource=docker depName=ghcr.io/dels78/agent-orchestrator
-    newTag: "4eaf7bb"
+    newTag: "326e7f0"

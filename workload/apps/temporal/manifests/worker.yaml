@@ -52,7 +52,7 @@ spec:
                   name: github-app
                   key: github-webhook-secret
             - name: CLAUDE_AGENT_IMAGE
-              value: "ghcr.io/dels78/claude-agent:e9d9167"
+              value: "ghcr.io/dels78/claude-agent:2117693"
             - name: SLACK_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:

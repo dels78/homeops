@@ -7,5 +7,5 @@ appVersion: 0.0.0  # unused
 dependencies:
   - name: prometheus-blackbox-exporter
     repository: https://prometheus-community.github.io/helm-charts
-    version: 11.7.0
+    version: 11.7.1
     condition: prometheus-blackbox-exporter.enabled

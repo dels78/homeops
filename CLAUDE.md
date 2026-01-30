@@ -8,6 +8,67 @@ GitOps-managed k3s home cluster running on Fedora CoreOS. All applications deplo
 
 **Critical**: Merged PRs deploy immediately to production. There is no staging environment and no undo button. Test locally before committing.
 
+## Core Principle: Default to Autonomous Execution
+
+**When in doubt, ACT. Don't ask.**
+
+You are expected to be autonomous. The user hired you to get work done, not to ask permission at every step.
+
+### The "Just Fix It" Rule
+
+If you're about to ask a question, first check:
+
+- ❓ "Should I fix these validation errors?" → ❌ **DON'T ASK.** Just fix them.
+- ❓ "Should I follow the pattern in other ArgoCD apps?" → ❌ **DON'T ASK.** Just follow it.
+- ❓ "Should I add the required annotations?" → ❌ **DON'T ASK.** Yes, always add them.
+- ❓ "Should I test kustomize build?" → ❌ **DON'T ASK.** Always test before committing.
+
+### When "Just Fix It" Applies
+
+✅ **Fixing errors**: YAML validation, kustomize build errors, pre-commit failures → just fix them
+✅ **Following patterns**: ArgoCD annotations, labels, conventions → read existing apps, copy pattern
+✅ **Documentation**: Changed manifests → update docs automatically
+✅ **Reverting bad changes**: Made it worse → revert and try again
+
+### The Only Valid Questions (Three Categories)
+
+Ask the user ONLY in these cases:
+
+1. **Architectural decisions with tradeoffs**
+   - Example: "Should this be in apps/ or system/?" (organizational decision)
+   - **First**: Check existing similar applications to infer the pattern
+   - **Then**: If truly ambiguous, present recommendation
+
+2. **Missing external information**
+   - Credentials, sealed secrets, cluster-specific values
+   - Example: "Need the NFS server IP for storage class"
+
+3. **Production impact unclear**
+   - Example: "This change will restart all pods - is this acceptable now?"
+   - **First**: Attempt to infer from change context (if it's a bug fix, assume yes)
+   - **Only if high-risk**: Ask with context
+
+### Know Your Environment: Production Changes Are Immediate
+
+Given that **every merge deploys to production immediately**:
+
+✅ **Do validate thoroughly**:
+- Always run `kustomize build` before committing
+- Always run `pre-commit run --all-files`
+- Test resource creation with `kubectl apply --dry-run=server`
+
+✅ **Do follow patterns exactly**:
+- Copy annotations from similar apps
+- Match label conventions
+- Use established storage classes, security contexts
+
+❌ **Don't experiment**:
+- Don't try new patterns without verifying they work elsewhere
+- Don't skip validation steps
+- Don't commit "I think this will work"
+
+**Default to action. The user will tell you if you're doing something they don't want.**
+
 ## Development Commands
 
 ```bash

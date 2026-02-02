@@ -12,7 +12,7 @@ resources:
 images:
   - name: unpollerimage
     newName: ghcr.io/unpoller/unpoller
-    newTag: "v2.30.0"
+    newTag: "v2.32.0"
 
 labels:
   - pairs:

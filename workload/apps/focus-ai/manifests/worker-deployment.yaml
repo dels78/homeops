@@ -32,7 +32,7 @@ spec:
             - sh
             - -c
             - |
-              export DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgresql.focus-ai.svc.cluster.local:5432/${POSTGRES_DB}"
+              export DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgresql:5432/${POSTGRES_DB}"
               exec python -m backend.services.worker.main
           env:
             - name: USE_DATABASE

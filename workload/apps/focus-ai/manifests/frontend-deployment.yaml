@@ -35,6 +35,8 @@ spec:
           env:
             - name: NEXT_PUBLIC_API_URL
               value: https://focus-ai-api.delisle.me
+            - name: API_URL
+              value: http://api.focus-ai.svc.cluster.local:8000
           livenessProbe:
             httpGet:
               path: /api/healthz

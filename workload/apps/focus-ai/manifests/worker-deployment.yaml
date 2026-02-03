@@ -29,17 +29,29 @@ spec:
           image: ghcr.io/dels78/focus-ai-api:latest
           imagePullPolicy: Always
           command:
-            - python
-            - -m
-            - backend.services.worker.main
+            - sh
+            - -c
+            - |
+              export DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgresql.focus-ai.svc.cluster.local:5432/${POSTGRES_DB}"
+              exec python -m backend.services.worker.main
           env:
             - name: USE_DATABASE
               value: "true"
-            - name: DATABASE_URL
+            - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: focus-ai-secrets
-                  key: DATABASE_URL
+                  name: postgres-credentials
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: POSTGRES_DB
             - name: REDIS_URL
               valueFrom:
                 secretKeyRef:

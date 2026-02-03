@@ -32,7 +32,8 @@ spec:
             - sh
             - -c
             - |
-              export DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgresql:5432/${POSTGRES_DB}"
+              ENCODED_PASSWORD=$(python -c "import urllib.parse; print(urllib.parse.quote('${POSTGRES_PASSWORD}', safe=''))")
+              export DATABASE_URL="postgresql://${POSTGRES_USER}:${ENCODED_PASSWORD}@postgresql:5432/${POSTGRES_DB}"
               exec python -m backend.services.worker.main
           env:
             - name: USE_DATABASE

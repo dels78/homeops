@@ -20,9 +20,9 @@ spec:
         app.kubernetes.io/component: database
     spec:
       securityContext:
-        fsGroup: 999
+        fsGroup: 70
         runAsNonRoot: true
-        runAsUser: 999
+        runAsUser: 70
       containers:
         - name: postgresql
           image: postgres:16-alpine

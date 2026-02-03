@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: focus-ai
+  namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-failed.slack: argo
+    notifications.argoproj.io/subscribe.on-sync-status-unknown.slack: argo
+    notifications.argoproj.io/subscribe.on-health-degraded.slack: argo
+    notifications.argoproj.io/subscribe.on-deployed.slack: argo
+    argocd.argoproj.io/sync-wave: "2"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/dels78/homeops.git
+    targetRevision: HEAD
+    path: workload/apps/focus-ai/
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: focus-ai
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,119 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api
+  namespace: focus-ai
+  labels:
+    app.kubernetes.io/name: focus-ai
+    app.kubernetes.io/component: api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: focus-ai
+      app.kubernetes.io/component: api
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: focus-ai
+        app.kubernetes.io/component: api
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      imagePullSecrets:
+        - name: ghcr-pull-secret
+      initContainers:
+        - name: migrations
+          image: ghcr.io/dels78/focus-ai-api:latest
+          imagePullPolicy: Always
+          command:
+            - alembic
+            - upgrade
+            - head
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: focus-ai-secrets
+                  key: DATABASE_URL
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+      containers:
+        - name: api
+          image: ghcr.io/dels78/focus-ai-api:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: focus-ai-secrets
+                  key: DATABASE_URL
+            - name: REDIS_URL
+              valueFrom:
+                secretKeyRef:
+                  name: focus-ai-secrets
+                  key: REDIS_URL
+            - name: JWT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: focus-ai-secrets
+                  key: JWT_SECRET
+            - name: TOKEN_ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: focus-ai-secrets
+                  key: TOKEN_ENCRYPTION_KEY
+            - name: COOKIE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: focus-ai-secrets
+                  key: COOKIE_SECRET
+            - name: GOOGLE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: focus-ai-secrets
+                  key: GOOGLE_CLIENT_ID
+            - name: GOOGLE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: focus-ai-secrets
+                  key: GOOGLE_CLIENT_SECRET
+            - name: GOOGLE_REDIRECT_URI
+              valueFrom:
+                secretKeyRef:
+                  name: focus-ai-secrets
+                  key: GOOGLE_REDIRECT_URI
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi

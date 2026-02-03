@@ -45,18 +45,18 @@ spec:
                 sleep 2
               done
 
-              # Wait for PostgreSQL to be ready (max 60s)
+              # Wait for PostgreSQL to accept connections (max 60s)
+              export DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgresql:5432/${POSTGRES_DB}"
               for i in $(seq 1 30); do
-                if pg_isready -h postgresql -p 5432 -U "$POSTGRES_USER" -d "$POSTGRES_DB" >/dev/null 2>&1; then
-                  echo "PostgreSQL is ready"
+                if python -c "import asyncpg, asyncio; asyncio.run(asyncpg.connect('$DATABASE_URL', timeout=2))" >/dev/null 2>&1; then
+                  echo "PostgreSQL is ready and accepting connections"
                   break
                 fi
-                echo "Waiting for PostgreSQL... attempt $i/30"
+                echo "Waiting for PostgreSQL to accept connections... attempt $i/30"
                 sleep 2
               done
 
               # Run migrations
-              export DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgresql:5432/${POSTGRES_DB}"
               echo "Running Alembic migrations..."
               exec alembic upgrade head
           env:

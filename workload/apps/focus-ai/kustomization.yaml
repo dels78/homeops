@@ -1,0 +1,32 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: focus-ai
+
+resources:
+  - manifests/namespace.yaml
+  - manifests/postgres-pv-pvc.yaml
+  - manifests/postgres-statefulset.yaml
+  - manifests/postgres-service.yaml
+  - manifests/postgres-configmap.yaml
+  - manifests/redis.yaml
+  - manifests/api-deployment.yaml
+  - manifests/api-service.yaml
+  - manifests/api-ingress.yaml
+  - manifests/worker-deployment.yaml
+  - manifests/frontend-deployment.yaml
+  - manifests/frontend-service.yaml
+  - manifests/frontend-ingress.yaml
+  - manifests/onepassworditem-postgres.yaml
+  - manifests/onepassworditem-app-secrets.yaml
+  - manifests/onepassworditem-ghcr-pull.yaml
+
+commonLabels:
+  app.kubernetes.io/name: focus-ai
+  app.kubernetes.io/instance: focus-ai
+
+images:
+  - name: ghcr.io/dels78/focus-ai-api
+    newTag: latest  # renovate: datasource=docker depName=ghcr.io/dels78/focus-ai-api
+  - name: ghcr.io/dels78/focus-ai-frontend
+    newTag: latest  # renovate: datasource=docker depName=ghcr.io/dels78/focus-ai-frontend

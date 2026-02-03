@@ -35,6 +35,10 @@ spec:
               set -e
               echo "Waiting for PostgreSQL to be ready..."
 
+              # URL-encode the password for use in DATABASE_URL
+              ENCODED_PASSWORD=$(python -c "import urllib.parse; print(urllib.parse.quote('${POSTGRES_PASSWORD}', safe=''))")
+              export DATABASE_URL="postgresql://${POSTGRES_USER}:${ENCODED_PASSWORD}@postgresql:5432/${POSTGRES_DB}"
+
               # Wait for DNS resolution (max 60s)
               for i in $(seq 1 30); do
                 if getent hosts postgresql >/dev/null 2>&1; then
@@ -46,7 +50,6 @@ spec:
               done
 
               # Wait for PostgreSQL to accept connections (max 60s)
-              export DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgresql:5432/${POSTGRES_DB}"
               for i in $(seq 1 30); do
                 if python -c "import asyncpg, asyncio; asyncio.run(asyncpg.connect('$DATABASE_URL', timeout=2))" >/dev/null 2>&1; then
                   echo "PostgreSQL is ready and accepting connections"
@@ -90,7 +93,8 @@ spec:
             - sh
             - -c
             - |
-              export DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgresql:5432/${POSTGRES_DB}"
+              ENCODED_PASSWORD=$(python -c "import urllib.parse; print(urllib.parse.quote('${POSTGRES_PASSWORD}', safe=''))")
+              export DATABASE_URL="postgresql://${POSTGRES_USER}:${ENCODED_PASSWORD}@postgresql:5432/${POSTGRES_DB}"
               exec uvicorn backend.services.api.main:app --host 0.0.0.0 --port 8000
           ports:
             - name: http

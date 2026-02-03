@@ -33,6 +33,9 @@ spec:
             - -c
             - |
               export DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgresql.focus-ai.svc.cluster.local:5432/${POSTGRES_DB}"
+              echo "DEBUG: DATABASE_URL constructed (password masked): postgresql://${POSTGRES_USER}:****@postgresql.focus-ai.svc.cluster.local:5432/${POSTGRES_DB}"
+              echo "DEBUG: Testing DNS resolution for postgresql.focus-ai.svc.cluster.local"
+              nslookup postgresql.focus-ai.svc.cluster.local || echo "DNS lookup failed"
               exec alembic upgrade head
           env:
             - name: POSTGRES_USER

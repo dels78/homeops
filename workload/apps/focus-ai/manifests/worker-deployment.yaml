@@ -33,6 +33,8 @@ spec:
             - -m
             - app.services.worker.main
           env:
+            - name: USE_DATABASE
+              value: "true"
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:

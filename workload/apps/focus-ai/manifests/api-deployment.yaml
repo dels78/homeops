@@ -32,10 +32,32 @@ spec:
             - sh
             - -c
             - |
+              set -e
+              echo "Waiting for PostgreSQL to be ready..."
+
+              # Wait for DNS resolution (max 60s)
+              for i in $(seq 1 30); do
+                if getent hosts postgresql >/dev/null 2>&1; then
+                  echo "DNS resolution successful for postgresql"
+                  break
+                fi
+                echo "Waiting for DNS resolution... attempt $i/30"
+                sleep 2
+              done
+
+              # Wait for PostgreSQL to be ready (max 60s)
+              for i in $(seq 1 30); do
+                if pg_isready -h postgresql -p 5432 -U "$POSTGRES_USER" -d "$POSTGRES_DB" >/dev/null 2>&1; then
+                  echo "PostgreSQL is ready"
+                  break
+                fi
+                echo "Waiting for PostgreSQL... attempt $i/30"
+                sleep 2
+              done
+
+              # Run migrations
               export DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgresql:5432/${POSTGRES_DB}"
-              echo "DEBUG: DATABASE_URL constructed (password masked): postgresql://${POSTGRES_USER}:****@postgresql:5432/${POSTGRES_DB}"
-              echo "DEBUG: Testing DNS resolution for postgresql"
-              nslookup postgresql || echo "DNS lookup failed"
+              echo "Running Alembic migrations..."
               exec alembic upgrade head
           env:
             - name: POSTGRES_USER

@@ -4,16 +4,16 @@
     "config:recommended"
   ],
   "argocd": {
-    "fileMatch": [
-      "argocd/applications/.+\\.yaml$"
+    "managerFilePatterns": [
+      "/argocd/applications/.+\\.yaml$/"
     ]
   },
   "customManagers": [
     {
       "customType": "regex",
       "description": "Process various other dependencies",
-      "fileMatch": [
-        "/.+\\.ya?ml$"
+      "managerFilePatterns": [
+        "//.+\\.ya?ml$/"
       ],
       "matchStrings": [
         "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n"
@@ -24,8 +24,8 @@
     {
       "customType": "regex",
       "description": "update k8s labels",
-      "fileMatch": [
-        "/.+\\.ya?ml$"
+      "managerFilePatterns": [
+        "//.+\\.ya?ml$/"
       ],
       "matchStrings": [
         "app\\.kubernetes\\.io\\/version: [\"]?(?<currentValue>.*?)[\"]?\n(?s).*image: [\"]?(?<depName>.*?):.*?[\"]?\n"

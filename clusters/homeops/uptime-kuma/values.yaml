@@ -1,0 +1,19 @@
+---
+image:
+  repository: louislam/uptime-kuma
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "1.23.17-debian"
+
+ingress:
+  enabled: true
+  hosts:
+    - host: uptime-kuma.delisle.me
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+          service:
+            name: uptime-kuma
+            port:
+              number: 3001

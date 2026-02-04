@@ -1,0 +1,17 @@
+---
+cronjob:
+  # At 01:00 every day
+  schedule: '0 1 * * *'
+
+renovate:
+  # See https://docs.renovatebot.com/self-hosted-configuration
+  config: |
+    {
+      "platform": "github",
+      "repositories": [
+        "dels78/homeops"
+      ],
+      gitAuthor: "278481+renovate-delisle[bot]@users.noreply.github.com"
+    }
+
+existingSecret: "renovate-env"

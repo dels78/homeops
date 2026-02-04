@@ -1,0 +1,57 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: homeops-apps
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  # Prevent cascade deletion of apps if ApplicationSet is deleted
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  generators:
+    - merge:
+        mergeKeys:
+          - path
+        generators:
+          # First: scan directories to discover apps
+          - git:
+              repoURL: https://github.com/dels78/homeops.git
+              revision: HEAD
+              directories:
+                - path: clusters/homeops/*
+          # Second: read app-config.yaml for per-app overrides
+          - git:
+              repoURL: https://github.com/dels78/homeops.git
+              revision: HEAD
+              files:
+                - path: clusters/homeops/*/app-config.yaml
+  template:
+    metadata:
+      name: "{{ path.basename }}"
+      namespace: argocd
+      annotations:
+        notifications.argoproj.io/subscribe.on-sync-failed.slack: argo
+        notifications.argoproj.io/subscribe.on-sync-status-unknown.slack: argo
+        notifications.argoproj.io/subscribe.on-health-degraded.slack: argo
+        notifications.argoproj.io/subscribe.on-deployed.slack: argo
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/dels78/homeops.git
+        targetRevision: HEAD
+        path: "{{ path }}"
+        kustomize:
+          buildOptions: --enable-helm
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{ destination.namespace }}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

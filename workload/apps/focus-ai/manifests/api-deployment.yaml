@@ -151,6 +151,8 @@ spec:
                 secretKeyRef:
                   name: focus-ai-secrets
                   key: GOOGLE_REDIRECT_URI
+            - name: FRONTEND_URL
+              value: https://focus-ai.delisle.me
           livenessProbe:
             httpGet:
               path: /healthz

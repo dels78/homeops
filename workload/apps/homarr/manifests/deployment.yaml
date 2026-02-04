@@ -73,8 +73,6 @@ spec:
             - name: NVIDIA_VISIBLE_DEVICES
               value: "void"
             - name: TZ
-              value: "UTC"
-            - name: "TZ"
               value: "America/New_York"
           ports:
             - name: main

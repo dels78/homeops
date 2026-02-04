@@ -1,0 +1,4 @@
+---
+# ApplicationSet overrides for this app
+destination:
+  namespace: system-upgrade

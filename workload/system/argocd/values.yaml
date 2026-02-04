@@ -114,14 +114,8 @@ argo-cd:
       # A temporary directory for the lovely plugin to work in.
       - emptyDir: {}
         name: lovely-tmp
-      # Volumes for cmp-plugins
+      # Volume for vault plugin binary
       - name: custom-tools
-        emptyDir: {}
-      - name: tmp
-        emptyDir: {}
-      - name: var-files
-        emptyDir: {}
-      - name: plugins
         emptyDir: {}
 
 

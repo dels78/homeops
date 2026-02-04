@@ -27,9 +27,20 @@ spec:
     server: https://kubernetes.default.svc
     namespace: automation
 
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      name: n8n
+      namespace: automation
+      jqPathExpressions:
+        - .spec.template.spec.containers[].livenessProbe.enabled
+        - .spec.template.spec.containers[].readinessProbe.enabled
+        - .spec.template.spec.containers[].resources
+
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+      - RespectIgnoreDifferences=true

@@ -1,4 +1,0 @@
----
-# ApplicationSet overrides for this app
-destination:
-  namespace: monitoring

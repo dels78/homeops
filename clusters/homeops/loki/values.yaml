@@ -1,0 +1,16 @@
+---
+loki:
+  isDefault: false
+  commonConfig:
+    replication_factor: 1
+  storage:
+    type: 'filesystem'
+
+singleBinary:
+  replicas: 1
+
+# disable grafana sidecar
+grafana:
+  sidecar:
+    datasources:
+      enabled: false

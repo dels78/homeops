@@ -1,0 +1,14 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: uptime-kuma
+
+helmCharts:
+  - name: uptime-kuma
+    releaseName: uptime-kuma
+    repo: https://dirsigler.github.io/uptime-kuma-helm
+    # renovate: registryUrl=https://dirsigler.github.io/uptime-kuma-helm
+    version: 2.24.0
+    namespace: uptime-kuma
+    valuesFile: ./values.yaml

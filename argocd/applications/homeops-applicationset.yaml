@@ -49,9 +49,28 @@ spec:
       destination:
         server: https://kubernetes.default.svc
         namespace: "{{ destination.namespace }}"
+      ignoreDifferences:
+        - group: apps
+          kind: Deployment
+          jqPathExpressions:
+            - .spec.template.spec.containers[].resources
+            - .spec.template.spec.containers.resources
+            - .spec.template.spec.initContainers[].resources
+        - group: apps
+          kind: StatefulSet
+          jqPathExpressions:
+            - .spec.template.spec.containers[].resources
+            - .spec.template.spec.containers.resources
+            - .spec.template.spec.initContainers[].resources
+        - group: admissionregistration.k8s.io
+          kind: "*"
+          jqPathExpressions:
+            - ".webhooks[]?.clientConfig.caBundle"
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
         syncOptions:
           - CreateNamespace=true
+          - ServerSideApply=true
+          - RespectIgnoreDifferences=true

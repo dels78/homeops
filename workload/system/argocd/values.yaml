@@ -16,6 +16,7 @@ argo-cd:
       controller.repo.server.timeout.seconds: 120
 
     cm:
+      kustomize.buildOptions: "--enable-helm"
       resource.customizations: |
         apiextensions.k8s.io/CustomResourceDefinition:
           ignoreDifferences: |

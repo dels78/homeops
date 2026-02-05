@@ -1,7 +1,6 @@
 ---
 # Values for robusta helm chart (unwrapped from umbrella chart)
 clusterName: homeops
-isSmallCluster: true
 globalConfig:
   signing_key: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/46gjjkrum5jogfxzpejrrd6bam#signing_key>
   account_id: <path:vaults/mfjan54l7fzgdzlykwb2b6nj3a/items/46gjjkrum5jogfxzpejrrd6bam#account_id>

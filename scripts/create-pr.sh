@@ -9,9 +9,6 @@ if [ "$CURRENT_BRANCH" = "main" ]; then
     exit 1
 fi
 
-# Ensure GitHub auth is set up
-source scripts/setup-github-auth.sh
-
 echo ""
 echo "Creating PR..."
 

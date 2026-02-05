@@ -21,15 +21,6 @@ LATEST_IMAGE="${REGISTRY}/${IMAGE_NAME}:latest"
 
 echo "Building ClawdBot ${VERSION}..."
 
-# Setup GitHub authentication for personal account (multi-account safe)
-echo "Setting up GitHub authentication..."
-if [ -f "${REPO_ROOT}/scripts/setup-github-auth.sh" ]; then
-  # shellcheck disable=SC1091
-  source "${REPO_ROOT}/scripts/setup-github-auth.sh"
-else
-  echo "Warning: setup-github-auth.sh not found, using existing gh auth"
-fi
-
 # Authenticate to GitHub Container Registry
 if [ -n "${GITHUB_TOKEN:-}" ]; then
   echo "Authenticating to ghcr.io..."

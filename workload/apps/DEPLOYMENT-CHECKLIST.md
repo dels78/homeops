@@ -192,7 +192,6 @@ Also updated build-image.sh with patches directory workaround.
 Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
 
 # Push to feature branch
-source scripts/setup-github-auth.sh
 git push origin feature/add-n8n-clawdbot
 ```
 

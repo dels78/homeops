@@ -7,5 +7,5 @@ helmCharts:
     releaseName: sealed-secrets
     repo: https://bitnami-labs.github.io/sealed-secrets
     # renovate: registryUrl=https://bitnami-labs.github.io/sealed-secrets
-    version: 2.18.0
+    version: 2.18.1
     namespace: kube-system

@@ -57,7 +57,7 @@ spec:
         - name: openclaw
           image: ghcr.io/openclaw/openclaw:latest
           imagePullPolicy: Always
-          command: ["node", "dist/index.js", "gateway-daemon", "--bind", "lan", "--port", "18789"]
+          command: ["node", "dist/index.js", "gateway", "--bind", "lan", "--port", "18789"]
           env:
             # Home directory (required for OpenClaw to find config)
             - name: HOME

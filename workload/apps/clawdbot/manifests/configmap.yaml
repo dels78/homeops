@@ -17,12 +17,14 @@ data:
         "mode": "local",
         "port": 18789,
         "bind": "lan",
+        "trustedProxies": ["10.42.0.0/16"],
         "auth": {
           "mode": "token",
           "token": "${OPENCLAW_GATEWAY_TOKEN}"
         },
         "controlUi": {
-          "enabled": true
+          "enabled": true,
+          "allowInsecureAuth": true
         }
       },
       "agent": {

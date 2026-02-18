@@ -36,18 +36,19 @@ spec:
               mkdir -p /home/node/.openclaw/agents/main/sessions
               mkdir -p /home/node/.openclaw/credentials
               chmod 700 /home/node/.openclaw
-              # Replace stale config that still references old CLAWDBOT_ env vars
-              if [ -f /home/node/.openclaw/openclaw.json ] && grep -q "CLAWDBOT_" /home/node/.openclaw/openclaw.json; then
-                echo "Replacing stale config (contains old CLAWDBOT_ env vars)..."
-                cp /bootstrap/openclaw.json /home/node/.openclaw/openclaw.json
-                echo "Config replaced"
-              # Bootstrap from ConfigMap if no config exists
-              elif [ ! -f /home/node/.openclaw/openclaw.json ]; then
+              # Replace config if stale (missing trustedProxies or has old CLAWDBOT_ refs)
+              if [ -f /home/node/.openclaw/openclaw.json ]; then
+                if grep -q "CLAWDBOT_" /home/node/.openclaw/openclaw.json || ! grep -q "trustedProxies" /home/node/.openclaw/openclaw.json; then
+                  echo "Replacing outdated config from ConfigMap..."
+                  cp /bootstrap/openclaw.json /home/node/.openclaw/openclaw.json
+                  echo "Config replaced"
+                else
+                  echo "Config already exists, skipping bootstrap"
+                fi
+              else
                 echo "Bootstrapping openclaw.json from ConfigMap..."
                 cp /bootstrap/openclaw.json /home/node/.openclaw/openclaw.json
                 echo "Bootstrap complete"
-              else
-                echo "Config already exists, skipping bootstrap"
               fi
           volumeMounts:
             - name: data

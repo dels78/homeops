@@ -9,6 +9,6 @@ helmCharts:
     releaseName: uptime-kuma
     repo: https://dirsigler.github.io/uptime-kuma-helm
     # renovate: registryUrl=https://dirsigler.github.io/uptime-kuma-helm
-    version: 2.25.0
+    version: 4.0.0
     namespace: uptime-kuma
     valuesFile: ./values.yaml

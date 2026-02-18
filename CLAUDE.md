@@ -305,4 +305,3 @@ cp .env.example .env
 | Duplicate resources | Each resource defined once; organize parent/children carefully |
 | Deleted app = deleted resources | Finalizers + auto-prune = immediate cleanup |
 | Lost secrets | Never commit unencrypted; use sealed-secrets |
-

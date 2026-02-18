@@ -25,4 +25,3 @@ gh pr create \
 
 echo ""
 echo "✓ PR created"
-

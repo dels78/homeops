@@ -49,4 +49,3 @@ echo ""
 echo "✅ All sealed secrets created!"
 echo ""
 echo "Next: Uncomment sealed secret lines in kustomization.yaml files"
-

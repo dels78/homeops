@@ -15,7 +15,7 @@ Complete these steps **before** committing and deploying:
   ```bash
   # Verify or copy:
   ssh [user]@192.168.1.252 "ls -la /volume1/homeassistant/"
-  
+
   # If needed, restore:
   rsync -avP /Volumes/Backup/dockerbian/homeassistant/ \
     [user]@192.168.1.252:/volume1/homeassistant/
@@ -102,4 +102,3 @@ open https://home.dels.info
 # Configure integrations (ZWave, Zigbee, Ring)
 # See Phase 4 in migration guide
 ```
-

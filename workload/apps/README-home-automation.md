@@ -6,7 +6,7 @@ Home automation stack running on homeops k3s cluster.
 
 - **Mosquitto** - MQTT broker
 - **ZWaveJS2MQTT** - Z-Wave device management with USB stick
-- **Ring-MQTT** - Ring alarm sensors bridge  
+- **Ring-MQTT** - Ring alarm sensors bridge
 - **Home Assistant** - Main automation hub with Zigbee/Matter USB dongle
 
 ## Quick Start
@@ -36,7 +36,7 @@ open https://home.dels.info
 
 All services in `home-automation` namespace. USB devices on `minipc.dels.local` node.
 
-**External access:** Home Assistant via `home.dels.info` (existing Traefik route)  
+**External access:** Home Assistant via `home.dels.info` (existing Traefik route)
 **Internal communication:** Services use k8s DNS (e.g., `mosquitto.home-automation.svc.cluster.local`)
 
 ## GitHub App auth (recommended)
@@ -81,4 +81,3 @@ kubectl --context homeops port-forward -n home-automation svc/ring-mqtt 55123:55
 ```
 
 See full guide in [docs/MIGRATION-HOME-ASSISTANT.md](../../docs/MIGRATION-HOME-ASSISTANT.md).
-

@@ -12,7 +12,7 @@ resources:
   - manifests/service.yaml
   - manifests/service-bridge.yaml
   - manifests/ingress.yaml
-  - manifests/sealedsecret-credentials.yaml
+  - manifests/onepassworditem-secrets.yaml
 
 labels:
   - pairs:

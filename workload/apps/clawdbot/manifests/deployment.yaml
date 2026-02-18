@@ -36,9 +36,9 @@ spec:
               mkdir -p /home/node/.openclaw/agents/main/sessions
               mkdir -p /home/node/.openclaw/credentials
               chmod 700 /home/node/.openclaw
-              # Replace config if stale (missing trustedProxies or has old CLAWDBOT_ refs)
+              # Replace config if stale (old CLAWDBOT_ refs, missing trustedProxies, or deprecated "agent" key)
               if [ -f /home/node/.openclaw/openclaw.json ]; then
-                if grep -q "CLAWDBOT_" /home/node/.openclaw/openclaw.json || ! grep -q "trustedProxies" /home/node/.openclaw/openclaw.json; then
+                if grep -q "CLAWDBOT_" /home/node/.openclaw/openclaw.json || ! grep -q "trustedProxies" /home/node/.openclaw/openclaw.json || grep -q '"agent"' /home/node/.openclaw/openclaw.json; then
                   echo "Replacing outdated config from ConfigMap..."
                   cp /bootstrap/openclaw.json /home/node/.openclaw/openclaw.json
                   echo "Config replaced"

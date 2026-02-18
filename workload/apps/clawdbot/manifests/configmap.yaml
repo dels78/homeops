@@ -27,15 +27,18 @@ data:
           "allowInsecureAuth": true
         }
       },
-      "agent": {
-        "workspace": "/home/node/openclaw"
+      "agents": {
+        "defaults": {
+          "workspace": "/home/node/openclaw"
+        }
       },
       "channels": {
         "slack": {
           "enabled": true,
           "appToken": "${SLACK_APP_TOKEN}",
           "botToken": "${SLACK_BOT_TOKEN}",
-          "dmPolicy": "open"
+          "dmPolicy": "open",
+          "allowFrom": ["*"]
         }
       }
     }

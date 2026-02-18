@@ -32,7 +32,10 @@ spec:
             - sh
             - -c
             - |
-              mkdir -p /home/node/.openclaw
+              # Create required OpenClaw directory structure
+              mkdir -p /home/node/.openclaw/agents/main/sessions
+              mkdir -p /home/node/.openclaw/credentials
+              chmod 700 /home/node/.openclaw
               # Replace stale config that still references old CLAWDBOT_ env vars
               if [ -f /home/node/.openclaw/openclaw.json ] && grep -q "CLAWDBOT_" /home/node/.openclaw/openclaw.json; then
                 echo "Replacing stale config (contains old CLAWDBOT_ env vars)..."

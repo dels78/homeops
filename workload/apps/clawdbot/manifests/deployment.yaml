@@ -25,8 +25,6 @@ spec:
         fsGroup: 1000
         runAsUser: 1000
         runAsNonRoot: true
-      imagePullSecrets:
-        - name: ghcr-pull-secret
       initContainers:
         - name: bootstrap-config
           image: busybox:1.36
@@ -34,11 +32,18 @@ spec:
             - sh
             - -c
             - |
-              # Only copy bootstrap config if clawdbot.json doesn't exist
-              if [ ! -f /home/node/.clawdbot/clawdbot.json ]; then
-                echo "Bootstrapping clawdbot.json from ConfigMap..."
-                mkdir -p /home/node/.clawdbot
-                cp /bootstrap/clawdbot.json /home/node/.clawdbot/clawdbot.json
+              # Migrate config from old clawdbot path if it exists
+              if [ -f /home/node/.clawdbot/clawdbot.json ] && [ ! -f /home/node/.openclaw/openclaw.json ]; then
+                echo "Migrating config from .clawdbot/ to .openclaw/..."
+                mkdir -p /home/node/.openclaw
+                cp /home/node/.clawdbot/clawdbot.json /home/node/.openclaw/openclaw.json
+                echo "Migration complete"
+              fi
+              # Bootstrap from ConfigMap if no config exists
+              if [ ! -f /home/node/.openclaw/openclaw.json ]; then
+                echo "Bootstrapping openclaw.json from ConfigMap..."
+                mkdir -p /home/node/.openclaw
+                cp /bootstrap/openclaw.json /home/node/.openclaw/openclaw.json
                 echo "Bootstrap complete"
               else
                 echo "Config already exists, skipping bootstrap"
@@ -49,31 +54,28 @@ spec:
             - name: bootstrap-config
               mountPath: /bootstrap
       containers:
-        - name: clawdbot
-          # Build from https://github.com/clawdbot/clawdbot
-          # No official pre-built images available yet; must build yourself
-          # See workload/apps/README-automation.md for build instructions
-          image: ghcr.io/dels78/clawdbot:latest
+        - name: openclaw
+          image: ghcr.io/openclaw/openclaw:latest
           imagePullPolicy: Always
           command: ["node", "dist/index.js", "gateway-daemon", "--bind", "lan", "--port", "18789"]
           env:
-            # Home directory (required for ClawdBot to find config)
+            # Home directory (required for OpenClaw to find config)
             - name: HOME
               value: "/home/node"
-            # ClawdBot authentication (Claude AI session)
+            # OpenClaw authentication (Claude AI session)
             - name: CLAUDE_AI_SESSION_KEY
               valueFrom:
                 secretKeyRef:
                   name: clawdbot-secrets
                   key: claude-session-key
             # Gateway configuration
-            - name: CLAWDBOT_GATEWAY_PORT
+            - name: OPENCLAW_GATEWAY_PORT
               value: "18789"
-            - name: CLAWDBOT_BRIDGE_PORT
+            - name: OPENCLAW_BRIDGE_PORT
               value: "18790"
-            - name: CLAWDBOT_GATEWAY_BIND
+            - name: OPENCLAW_GATEWAY_BIND
               value: "lan"
-            - name: CLAWDBOT_GATEWAY_TOKEN
+            - name: OPENCLAW_GATEWAY_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: clawdbot-secrets
@@ -119,7 +121,7 @@ spec:
             limits:
               cpu: 1000m
               memory: 1Gi
-          # Note: ClawdBot may not expose standard health endpoints
+          # Note: OpenClaw may not expose standard health endpoints
           # Monitor via pod restarts and logs instead
       volumes:
         - name: data

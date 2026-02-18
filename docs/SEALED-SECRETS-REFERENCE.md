@@ -55,4 +55,3 @@ kubectl --context homeops get secrets -n home-automation
 kubectl --context homeops exec -n home-automation <ha-pod> -- ls -la /config/secrets.yaml
 kubectl --context homeops exec -n home-automation <ha-pod> -- ls -la /config/SERVICE_ACCOUNT.json
 ```
-

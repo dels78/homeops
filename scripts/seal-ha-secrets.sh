@@ -117,5 +117,3 @@ echo "Next steps:"
 echo "1. Review the sealed secrets in workload/apps/*/manifests/"
 echo "2. Uncomment the sealed secret resources in kustomization.yaml files"
 echo "3. Commit and push to trigger ArgoCD sync"
-
-

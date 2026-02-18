@@ -8,10 +8,10 @@ metadata:
     app.kubernetes.io/name: clawdbot
     app.kubernetes.io/instance: clawdbot
 data:
-  # ClawdBot bootstrap configuration
+  # OpenClaw bootstrap configuration
   # Minimal config to allow Control UI access
   # Further configuration via UI will be persisted to PVC
-  clawdbot.json: |
+  openclaw.json: |
     {
       "gateway": {
         "mode": "local",
@@ -19,14 +19,14 @@ data:
         "bind": "lan",
         "auth": {
           "mode": "token",
-          "token": "${CLAWDBOT_GATEWAY_TOKEN}"
+          "token": "${OPENCLAW_GATEWAY_TOKEN}"
         },
         "controlUi": {
           "enabled": true
         }
       },
       "agent": {
-        "workspace": "/home/node/clawd"
+        "workspace": "/home/node/openclaw"
       },
       "channels": {
         "slack": {

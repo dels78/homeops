@@ -17,10 +17,6 @@ data:
         "mode": "local",
         "port": 18789,
         "bind": "lan",
-        "auth": {
-          "mode": "token",
-          "token": "${OPENCLAW_GATEWAY_TOKEN}"
-        },
         "controlUi": {
           "enabled": true
         }
@@ -31,8 +27,6 @@ data:
       "channels": {
         "slack": {
           "enabled": true,
-          "appToken": "${SLACK_APP_TOKEN}",
-          "botToken": "${SLACK_BOT_TOKEN}",
           "dmPolicy": "open"
         }
       }

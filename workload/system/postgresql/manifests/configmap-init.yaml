@@ -17,6 +17,11 @@ data:
         CREATE DATABASE n8n;
         CREATE USER n8n WITH ENCRYPTED PASSWORD '$N8N_DB_PASSWORD';
         GRANT ALL PRIVILEGES ON DATABASE n8n TO n8n;
+
+        -- Create orchestration database for agent dev loop state
+        -- Uses existing temporal user (connected via github-app secret)
+        CREATE DATABASE orchestration;
+        GRANT ALL PRIVILEGES ON DATABASE orchestration TO temporal;
     EOSQL
 
-    echo "Database created successfully"
+    echo "Databases created successfully"

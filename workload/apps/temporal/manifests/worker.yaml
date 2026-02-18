@@ -24,6 +24,21 @@ spec:
       serviceAccountName: agent-orchestrator
       imagePullSecrets:
         - name: ghcr-pull-secret
+      initContainers:
+        - name: migrations
+          image: ghcr.io/dels78/agent-orchestrator
+          command:
+            - sh
+            - -c
+            - cd /app && alembic upgrade head
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: github-app
+                  key: postgres-password
+            - name: ORCHESTRATION_DATABASE_URL
+              value: "postgresql://temporal:$(POSTGRES_PASSWORD)@postgresql.automation.svc.cluster.local:5432/orchestration"
       containers:
         - name: worker
           image: ghcr.io/dels78/agent-orchestrator
@@ -58,6 +73,13 @@ spec:
                 secretKeyRef:
                   name: github-app
                   key: SLACK_WEBHOOK_URL
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: github-app
+                  key: postgres-password
+            - name: ORCHESTRATION_DATABASE_URL
+              value: "postgresql://temporal:$(POSTGRES_PASSWORD)@postgresql.automation.svc.cluster.local:5432/orchestration"
           resources:
             requests:
               cpu: 100m

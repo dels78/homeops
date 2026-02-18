@@ -32,17 +32,15 @@ spec:
             - sh
             - -c
             - |
-              # Migrate config from old clawdbot path if it exists
-              if [ -f /home/node/.clawdbot/clawdbot.json ] && [ ! -f /home/node/.openclaw/openclaw.json ]; then
-                echo "Migrating config from .clawdbot/ to .openclaw/..."
-                mkdir -p /home/node/.openclaw
-                cp /home/node/.clawdbot/clawdbot.json /home/node/.openclaw/openclaw.json
-                echo "Migration complete"
-              fi
+              mkdir -p /home/node/.openclaw
+              # Replace stale config that still references old CLAWDBOT_ env vars
+              if [ -f /home/node/.openclaw/openclaw.json ] && grep -q "CLAWDBOT_" /home/node/.openclaw/openclaw.json; then
+                echo "Replacing stale config (contains old CLAWDBOT_ env vars)..."
+                cp /bootstrap/openclaw.json /home/node/.openclaw/openclaw.json
+                echo "Config replaced"
               # Bootstrap from ConfigMap if no config exists
-              if [ ! -f /home/node/.openclaw/openclaw.json ]; then
+              elif [ ! -f /home/node/.openclaw/openclaw.json ]; then
                 echo "Bootstrapping openclaw.json from ConfigMap..."
-                mkdir -p /home/node/.openclaw
                 cp /bootstrap/openclaw.json /home/node/.openclaw/openclaw.json
                 echo "Bootstrap complete"
               else

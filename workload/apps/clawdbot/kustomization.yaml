@@ -13,7 +13,6 @@ resources:
   - manifests/service-bridge.yaml
   - manifests/ingress.yaml
   - manifests/sealedsecret-credentials.yaml
-  - manifests/sealedsecret-ghcr-pull.yaml
 
 labels:
   - pairs:
@@ -21,9 +20,7 @@ labels:
       app.kubernetes.io/instance: clawdbot
 
 images:
-  - name: ghcr.io/dels78/clawdbot
-    newName: ghcr.io/dels78/clawdbot
-    # renovate: datasource=github-releases depName=clawdbot/clawdbot
-    # Build image from https://github.com/clawdbot/clawdbot
-    # No official images published yet; must build yourself
-    newTag: "v2026.1.16-2"
+  - name: ghcr.io/openclaw/openclaw
+    newName: ghcr.io/openclaw/openclaw
+    # renovate: datasource=docker depName=ghcr.io/openclaw/openclaw
+    newTag: "2026.2.17"

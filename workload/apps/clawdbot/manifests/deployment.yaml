@@ -64,8 +64,8 @@ spec:
             # Home directory (required for OpenClaw to find config)
             - name: HOME
               value: "/home/node"
-            # OpenClaw authentication (Claude AI session)
-            - name: CLAUDE_AI_SESSION_KEY
+            # OpenClaw authentication (Anthropic API key)
+            - name: ANTHROPIC_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: clawdbot-secrets

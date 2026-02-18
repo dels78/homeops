@@ -5,6 +5,7 @@ connect:
 # install the operator
 operator:
   create: true
+  authMethod: service-account
   serviceAccountToken:
     name: op-token
     key: token

@@ -32,13 +32,19 @@ spec:
             - -c
             - cd /app && alembic upgrade head
           env:
+            - name: ORCHESTRATION_DB_HOST
+              value: "postgresql.automation.svc.cluster.local"
+            - name: ORCHESTRATION_DB_PORT
+              value: "5432"
+            - name: ORCHESTRATION_DB_USER
+              value: "temporal"
+            - name: ORCHESTRATION_DB_NAME
+              value: "orchestration"
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: github-app
                   key: postgres-password
-            - name: ORCHESTRATION_DATABASE_URL
-              value: "postgresql://temporal:$(POSTGRES_PASSWORD)@postgresql.automation.svc.cluster.local:5432/orchestration"
       containers:
         - name: worker
           image: ghcr.io/dels78/agent-orchestrator
@@ -73,13 +79,19 @@ spec:
                 secretKeyRef:
                   name: github-app
                   key: SLACK_WEBHOOK_URL
+            - name: ORCHESTRATION_DB_HOST
+              value: "postgresql.automation.svc.cluster.local"
+            - name: ORCHESTRATION_DB_PORT
+              value: "5432"
+            - name: ORCHESTRATION_DB_USER
+              value: "temporal"
+            - name: ORCHESTRATION_DB_NAME
+              value: "orchestration"
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: github-app
                   key: postgres-password
-            - name: ORCHESTRATION_DATABASE_URL
-              value: "postgresql://temporal:$(POSTGRES_PASSWORD)@postgresql.automation.svc.cluster.local:5432/orchestration"
           resources:
             requests:
               cpu: 100m

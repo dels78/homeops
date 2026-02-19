@@ -11,7 +11,7 @@ resources:
   - manifests/ingress-webhook.yaml
   - manifests/rbac.yaml
   - manifests/rbac-automation.yaml
-  - manifests/onepassworditem-github-app.yaml
+  - manifests/onepassworditem-temporal-secrets.yaml
   - manifests/sealedsecret-ghcr-pull.yaml
 
 helmCharts:

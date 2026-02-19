@@ -12,6 +12,6 @@ helmCharts:
     #  repository: https://1password.github.io/connect-helm-charts/ # their helm repo is down atm
     repo: https://raw.githubusercontent.com/1Password/connect-helm-charts/gh-pages/
     # renovate: registryUrl=https://raw.githubusercontent.com/1Password/connect-helm-charts/gh-pages/
-    version: 2.3.0
+    version: 2.2.1
     namespace: default
     valuesFile: ./values.yaml

@@ -24,4 +24,12 @@ data:
         GRANT ALL PRIVILEGES ON DATABASE orchestration TO temporal;
     EOSQL
 
+    # Grant schema-level permissions (Postgres 15+ revoked public CREATE by default)
+    # and pre-create the orchestration_writer role (temporal user lacks CREATEROLE)
+    psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "orchestration" <<-EOSQL
+        GRANT ALL ON SCHEMA public TO temporal;
+        CREATE ROLE orchestration_writer NOLOGIN;
+        GRANT orchestration_writer TO temporal;
+    EOSQL
+
     echo "Databases created successfully"

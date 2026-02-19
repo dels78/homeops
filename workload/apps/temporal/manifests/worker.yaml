@@ -73,7 +73,7 @@ spec:
                   name: temporal-secrets
                   key: github-webhook-secret
             - name: CLAUDE_AGENT_IMAGE
-              value: "ghcr.io/dels78/claude-agent:5212894"
+              value: "ghcr.io/dels78/claude-agent:004a43d"
             - name: SLACK_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:

@@ -19,4 +19,4 @@ images:
   - name: zwavejs/zwavejs2mqtt
     newName: zwavejs/zwavejs2mqtt
     # renovate: datasource=docker depName=zwavejs/zwavejs2mqtt
-    newTag: "11.11.0"
+    newTag: "11.12.0"

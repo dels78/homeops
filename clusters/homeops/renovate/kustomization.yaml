@@ -12,6 +12,6 @@ helmCharts:
     releaseName: renovate
     repo: https://docs.renovatebot.com/helm-charts
     # renovate: registryUrl=https://docs.renovatebot.com/helm-charts
-    version: 46.25.3
+    version: 46.26.2
     namespace: renovate
     valuesFile: ./values.yaml

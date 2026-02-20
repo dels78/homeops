@@ -92,6 +92,11 @@ spec:
                 secretKeyRef:
                   name: temporal-secrets
                   key: postgres-password
+            - name: LINEAR_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: temporal-secrets
+                  key: LINEAR_API_KEY
           resources:
             requests:
               cpu: 100m

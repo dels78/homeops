@@ -146,6 +146,11 @@ spec:
                 secretKeyRef:
                   name: temporal-secrets
                   key: github-webhook-secret
+            - name: LINEAR_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: temporal-secrets
+                  key: LINEAR_WEBHOOK_SECRET
           resources:
             requests:
               cpu: 50m

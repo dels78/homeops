@@ -23,4 +23,4 @@ images:
   - name: ghcr.io/openclaw/openclaw
     newName: ghcr.io/openclaw/openclaw
     # renovate: datasource=docker depName=ghcr.io/openclaw/openclaw
-    newTag: "2026.2.17"
+    newTag: "2026.2.26"

@@ -27,6 +27,6 @@ commonLabels:
 
 images:
   - name: ghcr.io/dels78/focus-ai-api
-    newTag: "a5ffe0b"  # Managed by automated workflow - do not edit manually
+    newTag: "6719432"  # Managed by automated workflow - do not edit manually
   - name: ghcr.io/dels78/focus-ai-frontend
     newTag: "6719432"  # Managed by automated workflow - do not edit manually

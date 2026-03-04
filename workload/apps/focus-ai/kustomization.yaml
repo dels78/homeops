@@ -29,4 +29,4 @@ images:
   - name: ghcr.io/dels78/focus-ai-api
     newTag: "d489a02"  # Managed by automated workflow - do not edit manually
   - name: ghcr.io/dels78/focus-ai-frontend
-    newTag: "41291f5"  # Managed by automated workflow - do not edit manually
+    newTag: "d489a02"  # Managed by automated workflow - do not edit manually

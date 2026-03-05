@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: haus-mcp-zoom
+  namespace: haus-mcp-zoom
+  labels:
+    app.kubernetes.io/name: haus-mcp-zoom
+    app.kubernetes.io/component: server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: haus-mcp-zoom
+      app.kubernetes.io/component: server
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: haus-mcp-zoom
+        app.kubernetes.io/component: server
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      imagePullSecrets:
+        - name: ghcr-pull-secret
+      containers:
+        - name: server
+          image: ghcr.io/dels78/haus-mcp-zoom:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
+          env:
+            - name: MCP_ZOOM_SERVER_URL
+              value: "https://mcp-zoom.delisle.me"
+            - name: MCP_ZOOM_REDIS_URL
+              value: "redis://redis:6379/0"
+            - name: MCP_ZOOM_ZOOM_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: haus-mcp-zoom-secrets
+                  key: ZOOM_CLIENT_ID
+            - name: MCP_ZOOM_ZOOM_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: haus-mcp-zoom-secrets
+                  key: ZOOM_CLIENT_SECRET
+            - name: MCP_ZOOM_MCP_TOKEN_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: haus-mcp-zoom-secrets
+                  key: MCP_TOKEN_SECRET
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi

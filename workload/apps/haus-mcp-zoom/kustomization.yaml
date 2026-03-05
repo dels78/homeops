@@ -19,4 +19,4 @@ labels:
 
 images:
   - name: ghcr.io/dels78/haus-mcp-zoom
-    newTag: "latest"
+    newTag: "fc5bd78"

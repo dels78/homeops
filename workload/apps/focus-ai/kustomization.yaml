@@ -20,6 +20,8 @@ resources:
   - manifests/onepassworditem-postgres.yaml
   - manifests/onepassworditem-app-secrets.yaml
   - manifests/onepassworditem-ghcr-pull.yaml
+  - manifests/configmap-gcp-credential-config.yaml
+  - manifests/configmap-jwks-sync-credential-config.yaml
 
 commonLabels:
   app.kubernetes.io/name: focus-ai

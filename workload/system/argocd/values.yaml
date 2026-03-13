@@ -26,6 +26,15 @@ argo-cd:
   # global domain
   global:
     domain: argocd.delisle.me
+    # Keep all ArgoCD components off the zotac node (underpowered, unreliable)
+    affinity:
+      nodeAffinity:
+        type: hard
+        matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: NotIn
+            values:
+              - zotac-agent1
 
   ## Server
   server:

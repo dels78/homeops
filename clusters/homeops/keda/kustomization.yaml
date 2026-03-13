@@ -1,0 +1,14 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: keda-system
+
+helmCharts:
+  - name: keda
+    releaseName: keda
+    repo: https://kedacore.github.io/charts
+    # renovate: registryUrl=https://kedacore.github.io/charts
+    version: 2.19.0
+    namespace: keda-system
+    includeCRDs: true

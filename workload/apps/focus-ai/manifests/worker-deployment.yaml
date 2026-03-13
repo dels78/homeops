@@ -88,11 +88,6 @@ spec:
                 secretKeyRef:
                   name: focus-ai-secrets
                   key: GOOGLE_REDIRECT_URI
-            - name: ANTHROPIC_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: focus-ai-secrets
-                  key: ANTHROPIC_API_KEY
           resources:
             requests:
               cpu: 250m

@@ -16,7 +16,7 @@ images:
   - name: transmissionimage
     newName: haugene/transmission-openvpn
     # renovate: datasource=docker image=haugene/transmission-openvpn
-    newTag: "5.3"
+    newTag: "5.4"
 
 labels:
   - pairs:

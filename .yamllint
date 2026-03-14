@@ -9,3 +9,6 @@ ignore: |
   # folders
   */templates/
   */*/templates/
+
+  # gh-aw generated lock files
+  .github/workflows/*.lock.yml

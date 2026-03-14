@@ -33,21 +33,8 @@
       "datasourceTemplate": "docker"
     }
   ],
+  "labels": ["dependencies"],
   "packageRules": [
-    {
-      "description": "Automerge",
-      "matchPackageNames": [
-        "renovate",
-        "argo-cd",
-        "cloudflared",
-        "retool",
-        "homarr",
-        "uptime-kuma"
-      ],
-      "automerge": true,
-      "automergeType": "pr",
-      "platformAutomerge": true
-    },
     {
       "description": "Ignore Home Assistant - handled by automated workflow",
       "matchDatasources": [

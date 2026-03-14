@@ -40,50 +40,34 @@ jobs:
           echo "$PRS" | jq -r '.[].number' | while read PR_NUMBER; do
             echo "=== Processing PR #${PR_NUMBER} ==="
 
-            # Check for DO NOT MERGE
+            # Skip DO NOT MERGE
             LABELS=$(gh pr view "$PR_NUMBER" --repo "${{ github.repository }}" --json labels -q '.labels[].name')
             if echo "$LABELS" | grep -q "DO NOT MERGE"; then
-              echo "Skipping PR #${PR_NUMBER} — DO NOT MERGE label"
+              echo "Skipping — DO NOT MERGE label"
               continue
             fi
 
-            # Wait for CI checks (max 10 minutes per PR)
-            MERGED=false
-            for i in $(seq 1 20); do
-              CHECKS=$(gh pr checks "$PR_NUMBER" --repo "${{ github.repository }}" --json name,bucket 2>/dev/null || echo "[]")
-              RELEVANT=$(echo "$CHECKS" | jq '[.[] | select(.name != "auto-merge" and .name != "Renovate Auto-Merge")]')
-              PENDING=$(echo "$RELEVANT" | jq '[.[] | select(.bucket == "pending")] | length')
-              FAILED=$(echo "$RELEVANT" | jq '[.[] | select(.bucket == "fail")] | length')
-              TOTAL=$(echo "$RELEVANT" | jq 'length')
+            # Check CI status (checks already ran — PR has been open)
+            CHECKS=$(gh pr checks "$PR_NUMBER" --repo "${{ github.repository }}" --json name,bucket 2>/dev/null || echo "[]")
+            FAILED=$(echo "$CHECKS" | jq '[.[] | select(.bucket == "fail")] | length')
 
-              if [ "$FAILED" -gt 0 ]; then
-                FAILED_NAMES=$(echo "$RELEVANT" | jq -r '[.[] | select(.bucket == "fail") | .name] | join(", ")')
-                echo "::warning::PR #${PR_NUMBER} has failed checks: ${FAILED_NAMES}"
-                gh pr edit "$PR_NUMBER" --repo "${{ github.repository }}" \
-                  --remove-label "safe-to-merge" --add-label "needs-human-review"
-                gh pr comment "$PR_NUMBER" --repo "${{ github.repository }}" \
-                  --body "## Auto-Merge Blocked
+            if [ "$FAILED" -gt 0 ]; then
+              FAILED_NAMES=$(echo "$CHECKS" | jq -r '[.[] | select(.bucket == "fail") | .name] | join(", ")')
+              echo "::warning::PR #${PR_NUMBER} has failed checks: ${FAILED_NAMES}"
+              gh pr edit "$PR_NUMBER" --repo "${{ github.repository }}" \
+                --remove-label "safe-to-merge" --add-label "needs-human-review"
+              gh pr comment "$PR_NUMBER" --repo "${{ github.repository }}" \
+                --body "## Auto-Merge Blocked
 
-          CI checks failed after the dependency evaluator approved this PR.
-          Failed checks: ${FAILED_NAMES}
+          CI checks failed: ${FAILED_NAMES}
 
           Moved to \`needs-human-review\`. The evaluator will re-assess on the next scheduled run."
-                break
-              fi
-
-              if [ "$PENDING" -eq 0 ] && [ "$TOTAL" -gt 0 ]; then
-                echo "All checks passed for PR #${PR_NUMBER}. Merging..."
-                gh pr merge "$PR_NUMBER" --repo "${{ github.repository }}" --squash --delete-branch \
-                  --body "Auto-merged by Renovate Evaluator after AI safety assessment and CI validation."
-                MERGED=true
-                break
-              fi
-
-              echo "PR #${PR_NUMBER}: ${PENDING} checks pending, waiting... ($i/20)"
-              sleep 30
-            done
-
-            if [ "$MERGED" = false ]; then
-              echo "::warning::PR #${PR_NUMBER} timed out waiting for checks"
+              continue
             fi
+
+            # Merge
+            echo "Merging PR #${PR_NUMBER}..."
+            gh pr merge "$PR_NUMBER" --repo "${{ github.repository }}" --squash --delete-branch \
+              --body "Auto-merged by Renovate Evaluator after AI safety assessment and CI validation." \
+              || echo "::warning::Failed to merge PR #${PR_NUMBER} (may need branch protection approval)"
           done

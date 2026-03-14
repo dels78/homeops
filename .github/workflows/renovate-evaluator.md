@@ -139,40 +139,56 @@ For stateful services (PostgreSQL, Home Assistant, Mosquitto, Loki, etc.):
 
 ### 6. Community signal
 
-If the release is very recent (< 7 days old):
-- Note this as a risk factor — early releases may have undiscovered issues
 - Check if the release notes mention any known issues or caveats
+- Release age is informational only — do not penalize recent releases
 
 ## Decision criteria
 
-### Recommend SAFE (`safe-to-merge` label) when ALL of these are true:
+**Context: This is a home lab, not enterprise production.** Downtime means the
+owner's home services are temporarily unavailable — not a customer-facing outage.
+Recovery is a `git revert` away. The goal of this evaluator is to reduce manual
+toil, not to be a gatekeeper. **Lean toward SAFE unless there's a concrete
+reason to flag.**
 
-1. No breaking changes mentioned in release notes
-2. No migration steps required
-3. No CRD or K8s API changes
-4. No data migration risk for stateful services
-5. The release is a patch or minor bump with clear, benign changelog entries
-6. No known issues mentioned in release notes
-7. You can articulate specifically why this update is safe for this cluster
+### Recommend SAFE (`safe-to-merge` label) — this should be the DEFAULT for most updates:
 
-### Recommend NEEDS REVIEW (`needs-human-review` label) when ANY of these are true:
+1. Patch bumps: almost always safe. Approve unless the changelog explicitly
+   mentions breaking changes or data migrations.
+2. Minor bumps: safe unless the changelog mentions breaking changes, removed
+   features, or required migration steps.
+3. Helm chart updates (patch/minor): safe unless new required values were added
+   or existing value keys were renamed/removed.
+4. Docker image digest-only updates: always safe (same version, just a rebuild).
+5. GitHub Actions digest updates: always safe.
+6. Even for important services (PostgreSQL, k3s, ArgoCD, etc.): patch updates
+   with benign changelogs are SAFE. Being a critical service is not, by itself,
+   a reason to flag for review.
+7. Release age is NOT a risk factor. Do not penalize recent releases.
 
-1. Major version bump
-2. Breaking changes mentioned or implied
-3. Migration steps required
-4. CRD changes detected or likely
-5. Data migration risk for stateful services
-6. Release notes are missing or unclear
-7. The update touches a critical service (PostgreSQL, k3s, Traefik, ArgoCD,
-   Sealed Secrets, MetalLB)
-8. Multiple packages grouped where any individual package raises concern
-9. Helm chart with potentially breaking value changes
-10. You cannot confidently explain why the update is safe
-11. The release is very new (< 48 hours) AND touches infrastructure components
+### Recommend NEEDS REVIEW (`needs-human-review` label) — only for genuinely risky changes:
 
-**When in doubt, flag for review.** False positives (flagging a safe update) cost
-a human 2 minutes. False negatives (auto-merging a breaking update) cost hours
-of downtime in a home production environment.
+1. **Major version bump** — these often have breaking changes
+2. **Changelog explicitly mentions breaking changes**, removed features, or
+   changed defaults that could affect this cluster's configuration
+3. **Data migration required** for stateful services (PostgreSQL major version,
+   schema changes, one-way data format changes)
+4. **CRD changes** that could break existing custom resources
+5. **New required Helm values** or **renamed/removed value keys** that would
+   break the existing values configuration
+6. **k3s updates that bump the embedded Kubernetes minor version** (e.g.,
+   1.35.x → 1.36.x) — these can deprecate or remove APIs
+7. **Release notes are completely missing** AND the bump is minor or major
+   (patch bumps with missing notes are still usually safe)
+
+**Items that are NOT reasons to flag for review:**
+- Being a "critical service" — if the changelog is clean, approve it
+- Release age — new releases are fine
+- k3s patch bumps (even with embedded component bumps like Traefik patch/minor)
+- Grouped updates where each individual package is independently safe
+- Vague "might have issues" concerns without specific evidence
+
+**Bias toward action.** If your analysis found no concrete breaking changes,
+migration steps, or incompatibilities — approve it. The owner can always revert.
 
 ## How to respond
 
